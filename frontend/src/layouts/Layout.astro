@@ -97,8 +97,6 @@ const fullImageURL = image.startsWith('http')
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.unsplash.com" />
     
-import '../styles/global.css'
-    
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify({
       "@context": "https://schema.org",
@@ -106,50 +104,85 @@ import '../styles/global.css'
       "name": BUSINESS_INFO.name,
       "description": BUSINESS_INFO.description,
       "url": SEO_CONFIG.siteUrl,
-      "logo": new URL('/images/logo.jpg', Astro.site).href,
+      "logo": new URL('/images/logo.png', Astro.site).href, // switched to PNG for favicon/logo consistency
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": BUSINESS_INFO.phone,
+        "telephone": BUSINESS_INFO.phone, // e.g. +44 1908 123456
         "contactType": "customer service",
         "availableLanguage": "English"
       },
       "address": {
         "@type": "PostalAddress",
         "streetAddress": BUSINESS_INFO.address.street,
-        "addressLocality": BUSINESS_INFO.address.city,
-        "addressRegion": BUSINESS_INFO.address.state,
-        "postalCode": BUSINESS_INFO.address.zip,
+        "addressLocality": BUSINESS_INFO.address.city, // Milton Keynes
+        "addressRegion": BUSINESS_INFO.address.state,  // Buckinghamshire
+        "postalCode": BUSINESS_INFO.address.zip,       // e.g. MK1 2AB
         "addressCountry": BUSINESS_INFO.address.country
       },
       "sameAs": Object.values(BUSINESS_INFO.social),
       "foundingDate": BUSINESS_INFO.founded.toString(),
       "areaServed": BUSINESS_INFO.serviceAreas.map(area => ({
-        "@type": "City",
+        "@type": "AdministrativeArea",
         "name": area
       })),
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
-        "name": "Event Planning Services",
+        "name": "Event Hire & Design Packages",
         "itemListElement": [
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Wedding Planning",
-              "description": "Complete wedding planning and coordination services"
-            }
+              "name": "4FT LED Number Hire",
+              "description": "Hire giant LED numbers for birthdays, anniversaries, and events",
+            },
+            "price": "50",
+            "priceCurrency": "GBP"
           },
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Corporate Event Planning",
-              "description": "Professional corporate event planning and management"
-            }
+              "name": "Birthday Package",
+              "description": "Floral/Grass/Shimmer Wall, Balloon Hoop, Numbers, LED Neon Sign & Balloon Arch",
+            },
+            "price": "230",
+            "priceCurrency": "GBP"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Baby Shower Package",
+              "description": "Decor including B.A.B.Y balloon boxes, Giant Teddy Bear, LED Neon Sign & Balloon Arch",
+            },
+            "price": "250",
+            "priceCurrency": "GBP"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Wedding Package",
+              "description": "Floral/Grass/Shimmer Wall, Balloon Hoop, LED Neon Sign, Artificial Flowers & Balloon Arch",
+            },
+            "price": "250",
+            "priceCurrency": "GBP"
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Custom Wooden Signs",
+              "description": "Personalised laser-cut wooden signs for any event",
+            },
+            "price": "30",
+            "priceCurrency": "GBP"
           }
         ]
       }
     })} />
+    
     
     <!-- Page-specific structured data slot -->
     <slot name="structured-data" />
