@@ -1,0 +1,466 @@
+---
+/**
+ * Main layout template for all pages.
+ * Provides consistent structure, SEO, and navigation.
+ */
+
+import { ViewTransitions } from 'astro:transitions'
+import Navigation from '../components/navigation/Navigation.vue'
+import Footer from '../components/layout/Footer.astro'
+import { BUSINESS_INFO, SEO_CONFIG } from '../utils/constants'
+
+export interface Props {
+  title?: string
+  description?: string
+  image?: string
+  noIndex?: boolean
+  canonicalURL?: string
+  type?: 'website' | 'article'
+  publishedTime?: string
+  modifiedTime?: string
+}
+
+const {
+  title = SEO_CONFIG.defaultTitle,
+  description = SEO_CONFIG.defaultDescription,
+  image = SEO_CONFIG.image,
+  noIndex = false,
+  canonicalURL,
+  type = 'website',
+  publishedTime,
+  modifiedTime,
+} = Astro.props
+
+// Construct full title
+const fullTitle = title === SEO_CONFIG.defaultTitle 
+  ? title 
+  : `${title} | ${BUSINESS_INFO.name}`
+
+// Construct canonical URL
+const canonical = canonicalURL || new URL(Astro.url.pathname, Astro.site).href
+
+// Construct full image URL
+const fullImageURL = image.startsWith('http') 
+  ? image 
+  : new URL(image, Astro.site).href
+---
+
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <!-- Basic Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- SEO Meta Tags -->
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={SEO_CONFIG.author} />
+    <meta name="keywords" content={SEO_CONFIG.keywords.join(', ')} />
+    {canonicalURL && <link rel="canonical" href={canonical} />}
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={fullImageURL} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={BUSINESS_INFO.name} />
+    <meta property="og:locale" content="en_US" />
+    {publishedTime && <meta property="article:published_time" content={publishedTime} />}
+    {modifiedTime && <meta property="article:modified_time" content={modifiedTime} />}
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={SEO_CONFIG.twitterHandle} />
+    <meta name="twitter:creator" content={SEO_CONFIG.twitterHandle} />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={fullImageURL} />
+    
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#f2800b" />
+    <meta name="msapplication-TileColor" content="#f2800b" />
+    
+    <!-- Preconnect to External Domains -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": BUSINESS_INFO.name,
+      "description": BUSINESS_INFO.description,
+      "url": SEO_CONFIG.siteUrl,
+      "logo": new URL('/images/logo.png', Astro.site).href,
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": BUSINESS_INFO.phone,
+        "contactType": "customer service",
+        "availableLanguage": "English"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": BUSINESS_INFO.address.street,
+        "addressLocality": BUSINESS_INFO.address.city,
+        "addressRegion": BUSINESS_INFO.address.state,
+        "postalCode": BUSINESS_INFO.address.zip,
+        "addressCountry": BUSINESS_INFO.address.country
+      },
+      "sameAs": Object.values(BUSINESS_INFO.social),
+      "foundingDate": BUSINESS_INFO.founded.toString(),
+      "areaServed": BUSINESS_INFO.serviceAreas.map(area => ({
+        "@type": "City",
+        "name": area
+      })),
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Event Planning Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Wedding Planning",
+              "description": "Complete wedding planning and coordination services"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Corporate Event Planning",
+              "description": "Professional corporate event planning and management"
+            }
+          }
+        ]
+      }
+    })} />
+    
+    <!-- Page-specific structured data slot -->
+    <slot name="structured-data" />
+    
+    <!-- View Transitions -->
+    <ViewTransitions />
+  </head>
+  
+  <body class="bg-neutral-50 text-neutral-900 font-sans antialiased">
+    <!-- Skip to main content for accessibility -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary-600 text-white px-4 py-2 rounded-md font-medium z-50 transition-all duration-200"
+    >
+      Skip to main content
+    </a>
+    
+    <!-- Navigation -->
+    <Navigation client:load transition:persist />
+    
+    <!-- Main Content -->
+    <main id="main-content" class="min-h-screen">
+      <slot />
+    </main>
+    
+    <!-- Footer -->
+    <Footer />
+    
+    <!-- Background gradient overlay -->
+    <div class="fixed inset-0 -z-10 bg-gradient-to-br from-primary-50/20 via-transparent to-secondary-50/20 pointer-events-none"></div>
+    
+    <!-- Analytics Script Slot -->
+    <slot name="analytics" />
+    
+    <!-- Global Scripts -->
+    <script>
+      // Smooth scroll behavior for anchor links
+      document.addEventListener('DOMContentLoaded', () => {
+        // Handle smooth scrolling for anchor links
+        const links = document.querySelectorAll('a[href^="#"]')
+        links.forEach(link => {
+          link.addEventListener('click', (e) => {
+            const href = link.getAttribute('href')
+            if (href === '#') return
+            
+            e.preventDefault()
+            const target = document.querySelector(href)
+            if (target) {
+              const headerHeight = 80 // Account for fixed header
+              const targetPosition = target.offsetTop - headerHeight
+              
+              window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+              })
+            }
+          })
+        })
+        
+        // Initialize intersection observer for animations
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: '0px 0px -50px 0px'
+        }
+        
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate-fade-in-up')
+              observer.unobserve(entry.target)
+            }
+          })
+        }, observerOptions)
+        
+        // Observe elements with animation class
+        const animatedElements = document.querySelectorAll('.animate-on-scroll')
+        animatedElements.forEach(el => observer.observe(el))
+      })
+      
+      // Handle form submissions with enhanced UX
+      document.addEventListener('submit', (e) => {
+        const form = e.target as HTMLFormElement
+        if (form.classList.contains('ajax-form')) {
+          const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement
+          if (submitButton) {
+            submitButton.disabled = true
+            const originalText = submitButton.textContent
+            submitButton.textContent = 'Submitting...'
+            
+            // Re-enable after 5 seconds as fallback
+            setTimeout(() => {
+              submitButton.disabled = false
+              submitButton.textContent = originalText
+            }, 5000)
+          }
+        }
+      })
+      
+      // Enhanced keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        // ESC key handling for modals and overlays
+        if (e.key === 'Escape') {
+          const openModal = document.querySelector('.modal.open')
+          const openOverlay = document.querySelector('.overlay.open')
+          
+          if (openModal) {
+            openModal.classList.remove('open')
+          }
+          if (openOverlay) {
+            openOverlay.classList.remove('open')
+          }
+        }
+      })
+      
+      // Performance monitoring
+      if ('performance' in window) {
+        window.addEventListener('load', () => {
+          // Log performance metrics in development
+          if (import.meta.env.DEV) {
+            const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming
+            console.log('🚀 Page Performance:', {
+              'DOM Content Loaded': navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart,
+              'Load Complete': navigation.loadEventEnd - navigation.loadEventStart,
+              'First Paint': performance.getEntriesByName('first-paint')[0]?.startTime,
+              'First Contentful Paint': performance.getEntriesByName('first-contentful-paint')[0]?.startTime
+            })
+          }
+        })
+      }
+      
+      // Error boundary for client-side JavaScript
+      window.addEventListener('error', (e) => {
+        if (import.meta.env.DEV) {
+          console.error('🚨 JavaScript Error:', e.error)
+        }
+        // In production, you might want to send errors to an error tracking service
+      })
+      
+      // Unhandled promise rejections
+      window.addEventListener('unhandledrejection', (e) => {
+        if (import.meta.env.DEV) {
+          console.error('🚨 Unhandled Promise Rejection:', e.reason)
+        }
+        // Prevent the default browser behavior
+        e.preventDefault()
+      })
+    </script>
+    
+    <!-- Google Analytics (if enabled) -->
+    {import.meta.env.PUBLIC_GA_ID && (
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${import.meta.env.PUBLIC_GA_ID}`}></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', import.meta.env.PUBLIC_GA_ID, {
+          page_title: document.title,
+          page_location: window.location.href,
+        });
+      </script>
+    )}
+    
+    <!-- Hotjar (if enabled) -->
+    {import.meta.env.PUBLIC_HOTJAR_ID && (
+      <script>
+        (function(h,o,t,j,a,r){
+          h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+          h._hjSettings={hjid:import.meta.env.PUBLIC_HOTJAR_ID,hjsv:6};
+          a=o.getElementsByTagName('head')[0];
+          r=o.createElement('script');r.async=1;
+          r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+          a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+      </script>
+    )}
+  </body>
+</html>
+
+<style is:global>
+  /* Global CSS Reset and Base Styles */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  
+  * {
+    margin: 0;
+  }
+  
+  html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+  
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    overflow-wrap: break-word;
+  }
+  
+  /* Focus visible for better accessibility */
+  :focus-visible {
+    outline: 2px solid theme('colors.primary.500');
+    outline-offset: 2px;
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: theme('colors.neutral.100');
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: theme('colors.neutral.400');
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.neutral.500');
+  }
+  
+  /* Selection styling */
+  ::selection {
+    background-color: theme('colors.primary.200');
+    color: theme('colors.primary.900');
+  }
+  
+  /* Screen reader only class */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    * {
+      border-color: currentColor !important;
+    }
+  }
+  
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  /* Print styles */
+  @media print {
+    * {
+      background: transparent !important;
+      color: black !important;
+      box-shadow: none !important;
+      text-shadow: none !important;
+    }
+    
+    a,
+    a:visited {
+      text-decoration: underline;
+    }
+    
+    a[href]:after {
+      content: " (" attr(href) ")";
+    }
+    
+    .no-print {
+      display: none !important;
+    }
+  }
+</style>

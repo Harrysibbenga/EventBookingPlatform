@@ -1,0 +1,63 @@
+---
+/**
+ * Homepage - Main landing page with hero, services, testimonials, and CTA sections.
+ */
+
+ import Layout from '../layouts/Layout.astro'
+import Hero from '../components/sections/Hero.astro'
+import Services from '../components/sections/Services.astro'
+import FeaturedGallery from '../components/sections/FeaturedGallery.astro'
+import Testimonials from '../components/sections/Testimonials.astro'
+import Stats from '../components/sections/Stats.astro'
+import CTA from '../components/sections/CTA.astro'
+import { BUSINESS_INFO, SEO_CONFIG } from '../utils/constants'
+
+const pageTitle = 'Professional Event Planning & Production Services'
+const pageDescription = `${BUSINESS_INFO.name} provides exceptional event planning services in ${BUSINESS_INFO.address.city}. From weddings to corporate events, we create unforgettable experiences tailored to your vision.`
+---
+
+<Layout 
+  title={pageTitle}
+  description={pageDescription}
+  type="website"
+>
+  <!-- Structured Data for Homepage -->
+  <script type="application/ld+json" slot="structured-data" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": BUSINESS_INFO.name,
+    "description": pageDescription,
+    "url": SEO_CONFIG.siteUrl,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": `${SEO_CONFIG.siteUrl}/search?q={search_term_string}`,
+      "query-input": "required name=search_term_string"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": BUSINESS_INFO.name,
+      "logo": {
+        "@type": "ImageObject",
+        "url": `${SEO_CONFIG.siteUrl}/images/logo.png`
+      }
+    }
+  })} />
+
+  <!-- Hero Section -->
+  <Hero />
+  
+  <!-- Services Overview -->
+  <Services />
+  
+  <!-- Featured Gallery -->
+  <FeaturedGallery />
+  
+  <!-- Statistics Section -->
+  <Stats />
+  
+  <!-- Testimonials -->
+  <Testimonials />
+  
+  <!-- Call to Action -->
+  <CTA />
+</Layout>

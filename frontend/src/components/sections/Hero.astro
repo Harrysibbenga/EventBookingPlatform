@@ -1,0 +1,204 @@
+---
+/**
+ * Hero section with compelling headline, description, and call-to-action.
+ * Features background video/image with overlay and animated elements.
+ */
+
+ import { BUSINESS_INFO } from '../../utils/constants'
+import { Calendar, Star, Users, Award } from 'lucide-vue-next'
+---
+
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+  <!-- Background Video/Image -->
+  <div class="absolute inset-0 z-0">
+    <!-- Background Image with fallback -->
+    <div class="absolute inset-0 bg-gradient-to-br from-primary-900 via-primary-800 to-secondary-900"></div>
+    <img 
+      src="https://images.unsplash.com/photo-1519167758481-83f29da78e92?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+      alt="Elegant event setup"
+      class="w-full h-full object-cover opacity-30"
+      loading="eager"
+    />
+    
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/40"></div>
+    
+    <!-- Animated background elements -->
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-primary-300 rounded-full animate-float"></div>
+      <div class="absolute top-3/4 right-1/3 w-24 h-24 bg-secondary-300 rounded-full animate-float" style="animation-delay: 1s;"></div>
+      <div class="absolute top-1/2 right-1/4 w-16 h-16 bg-accent-300 rounded-full animate-float" style="animation-delay: 2s;"></div>
+    </div>
+  </div>
+
+  <!-- Content Container -->
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <!-- Main Headlines -->
+    <div class="animate-fade-in-up">
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
+        <span class="block">Creating</span>
+        <span class="block bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
+          Unforgettable
+        </span>
+        <span class="block">Moments</span>
+      </h1>
+      
+      <p class="text-xl sm:text-2xl lg:text-3xl text-neutral-200 mb-8 max-w-4xl mx-auto leading-relaxed">
+        Professional event planning and production services that transform your vision into extraordinary experiences
+      </p>
+    </div>
+
+    <!-- Call-to-Action Buttons -->
+    <div class="animate-fade-in-up flex flex-col sm:flex-row gap-4 justify-center items-center mb-16" style="animation-delay: 0.3s;">
+      <a 
+        href="/booking"
+        class="group bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:shadow-xl hover:scale-105 focus:ring-4 focus:ring-primary-300 inline-flex items-center"
+      >
+        <Calendar class="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
+        Book Your Event
+        <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+      </a>
+      
+      <a 
+        href="/gallery"
+        class="group bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/30 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:shadow-xl inline-flex items-center"
+      >
+        <Star class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
+        View Our Work
+      </a>
+    </div>
+
+    <!-- Key Statistics -->
+    <div class="animate-fade-in-up grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto" style="animation-delay: 0.6s;">
+      <div class="text-center">
+        <div class="text-3xl lg:text-4xl font-bold text-primary-400 mb-2">500+</div>
+        <div class="text-neutral-300 text-sm lg:text-base">Events Planned</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl lg:text-4xl font-bold text-secondary-400 mb-2">10+</div>
+        <div class="text-neutral-300 text-sm lg:text-base">Years Experience</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl lg:text-4xl font-bold text-accent-400 mb-2">50k+</div>
+        <div class="text-neutral-300 text-sm lg:text-base">Happy Guests</div>
+      </div>
+      <div class="text-center">
+        <div class="text-3xl lg:text-4xl font-bold text-primary-400 mb-2">98%</div>
+        <div class="text-neutral-300 text-sm lg:text-base">Client Satisfaction</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scroll Indicator -->
+  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
+    <div class="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
+      <div class="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
+    </div>
+    <p class="text-white/70 text-sm mt-2 font-medium">Scroll to explore</p>
+  </div>
+
+  <!-- Floating Elements for Visual Interest -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <!-- Floating icons -->
+    <div class="absolute top-1/4 left-8 opacity-20 animate-float">
+      <Users class="w-8 h-8 text-white" />
+    </div>
+    <div class="absolute top-1/3 right-12 opacity-20 animate-float" style="animation-delay: 1.5s;">
+      <Award class="w-6 h-6 text-white" />
+    </div>
+    <div class="absolute bottom-1/4 left-16 opacity-20 animate-float" style="animation-delay: 2.5s;">
+      <Star class="w-7 h-7 text-white" />
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Custom animations for hero elements */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Gradient text support for older browsers */
+  .bg-clip-text {
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
+  /* Enhanced scroll indicator */
+  .scroll-indicator {
+    animation: scroll-pulse 2s ease-in-out infinite;
+  }
+  
+  @keyframes scroll-pulse {
+    0%, 100% {
+      opacity: 0.7;
+    }
+    50% {
+      opacity: 1;
+      transform: translateY(5px);
+    }
+  }
+  
+  /* Responsive text sizing improvements */
+  @media (max-width: 640px) {
+    h1 {
+      font-size: clamp(2rem, 8vw, 3rem);
+    }
+  }
+  
+  /* Performance optimization for background */
+  .hero-bg {
+    will-change: transform;
+  }
+  
+  /* Hover effects for CTA buttons */
+  .cta-primary:hover {
+    box-shadow: 0 20px 40px rgba(242, 128, 11, 0.3);
+  }
+  
+  .cta-secondary:hover {
+    backdrop-filter: blur(8px);
+  }
+</style>
+
+<script>
+  // Parallax effect for background
+  document.addEventListener('DOMContentLoaded', () => {
+    const hero = document.querySelector('.hero-bg')
+    if (hero) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset
+        const parallax = scrolled * 0.5
+        hero.style.transform = `translateY(${parallax}px)`
+      })
+    }
+  })
+  
+  // Intersection Observer for animation triggers
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  }
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-fade-in-up')
+      }
+    })
+  }, observerOptions)
+  
+  // Observe hero elements
+  document.querySelectorAll('.animate-on-scroll').forEach(el => {
+    observer.observe(el)
+  })
+</script>

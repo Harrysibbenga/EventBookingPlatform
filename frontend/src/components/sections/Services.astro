@@ -1,0 +1,187 @@
+---
+/**
+ * Services section showcasing key event planning services.
+ * Features animated cards with icons, descriptions, and call-to-actions.
+ */
+
+ import { SERVICES } from '../../utils/constants'
+import ServiceCard from '../ui/ServiceCard.astro'
+---
+
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-16 animate-on-scroll">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
+        <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+        </svg>
+      </div>
+      
+      <h2 class="text-4xl font-bold text-neutral-900 mb-4">
+        Our Services
+      </h2>
+      
+      <p class="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
+        From intimate gatherings to grand celebrations, we provide comprehensive event planning 
+        services that bring your vision to life with precision and creativity.
+      </p>
+    </div>
+
+    <!-- Services Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+      {SERVICES.map((service, index) => (
+        <ServiceCard 
+          service={service} 
+          index={index}
+          class="animate-on-scroll"
+          style={`animation-delay: ${index * 100}ms`}
+        />
+      ))}
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center animate-on-scroll" style="animation-delay: 600ms;">
+      <div class="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-2xl p-8 lg:p-12">
+        <h3 class="text-2xl lg:text-3xl font-bold text-neutral-900 mb-4">
+          Ready to Plan Your Perfect Event?
+        </h3>
+        
+        <p class="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
+          Let's discuss your vision and create a customized package that fits your needs and budget.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a 
+            href="/booking"
+            class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg hover:scale-105 inline-flex items-center"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Book Consultation
+          </a>
+          
+          <a 
+            href="/pricing"
+            class="bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-300 px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-md inline-flex items-center"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
+            </svg>
+            View Pricing
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Process Steps -->
+    <div class="mt-20 animate-on-scroll" style="animation-delay: 800ms;">
+      <div class="text-center mb-12">
+        <h3 class="text-3xl font-bold text-neutral-900 mb-4">
+          Our Planning Process
+        </h3>
+        <p class="text-lg text-neutral-600 max-w-2xl mx-auto">
+          We follow a proven process to ensure every detail is perfect
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="text-center group">
+          <div class="w-16 h-16 bg-primary-100 group-hover:bg-primary-200 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors">
+            <span class="text-2xl font-bold text-primary-600">1</span>
+          </div>
+          <h4 class="text-lg font-semibold text-neutral-900 mb-2">Initial Consultation</h4>
+          <p class="text-neutral-600 text-sm">
+            We discuss your vision, requirements, and budget to understand your perfect event.
+          </p>
+        </div>
+
+        <div class="text-center group">
+          <div class="w-16 h-16 bg-secondary-100 group-hover:bg-secondary-200 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors">
+            <span class="text-2xl font-bold text-secondary-600">2</span>
+          </div>
+          <h4 class="text-lg font-semibold text-neutral-900 mb-2">Custom Planning</h4>
+          <p class="text-neutral-600 text-sm">
+            Our team creates a detailed plan with vendor selection, timeline, and design concepts.
+          </p>
+        </div>
+
+        <div class="text-center group">
+          <div class="w-16 h-16 bg-accent-100 group-hover:bg-accent-200 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors">
+            <span class="text-2xl font-bold text-accent-600">3</span>
+          </div>
+          <h4 class="text-lg font-semibold text-neutral-900 mb-2">Coordination</h4>
+          <p class="text-neutral-600 text-sm">
+            We manage all vendors, handle logistics, and ensure everything runs smoothly.
+          </p>
+        </div>
+
+        <div class="text-center group">
+          <div class="w-16 h-16 bg-primary-100 group-hover:bg-primary-200 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors">
+            <span class="text-2xl font-bold text-primary-600">4</span>
+          </div>
+          <h4 class="text-lg font-semibold text-neutral-900 mb-2">Perfect Execution</h4>
+          <p class="text-neutral-600 text-sm">
+            On the day of your event, we ensure everything goes perfectly so you can enjoy.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Process steps connector lines */
+  @media (min-width: 768px) {
+    .grid-cols-md-4 > div:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      top: 2rem;
+      right: -2rem;
+      width: 4rem;
+      height: 2px;
+      background: linear-gradient(to right, #e5e7eb, #d1d5db);
+      z-index: -1;
+    }
+  }
+  
+  /* Hover animations for process steps */
+  .group:hover .w-16 {
+    transform: scale(1.1);
+  }
+  
+  /* Service card entrance animations */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+  }
+  
+  .animate-on-scroll.animate-fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  // Intersection Observer for animations
+  document.addEventListener('DOMContentLoaded', () => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up')
+          }
+        })
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    )
+
+    const elements = document.querySelectorAll('.animate-on-scroll')
+    elements.forEach((el) => observer.observe(el))
+  })
+</script>
