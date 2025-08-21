@@ -1,0 +1,298 @@
+---
+/**
+ * Statistics section showcasing business achievements and metrics.
+ * Features animated counters and impressive visual presentation.
+ */
+
+ const stats = [
+  {
+    id: 'events',
+    number: 500,
+    suffix: '+',
+    label: 'Events Planned',
+    description: 'Successfully coordinated events of all sizes',
+    icon: '🎉',
+    color: 'primary'
+  },
+  {
+    id: 'years',
+    number: 10,
+    suffix: '+',
+    label: 'Years Experience',
+    description: 'Decade of expertise in event planning',
+    icon: '⭐',
+    color: 'secondary'
+  },
+  {
+    id: 'guests',
+    number: 50,
+    suffix: 'k+',
+    label: 'Happy Guests',
+    description: 'Memorable experiences created',
+    icon: '👥',
+    color: 'accent'
+  },
+  {
+    id: 'satisfaction',
+    number: 98,
+    suffix: '%',
+    label: 'Client Satisfaction',
+    description: 'Consistently exceeding expectations',
+    icon: '💯',
+    color: 'primary'
+  }
+]
+---
+
+<section class="py-20 bg-gradient-to-br from-primary-900 via-primary-800 to-secondary-900 relative overflow-hidden">
+  <!-- Background Pattern -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-0 left-0 w-72 h-72 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/3 translate-y-1/3"></div>
+    <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+  </div>
+
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <!-- Section Header -->
+    <div class="text-center mb-16 animate-on-scroll">
+      <h2 class="text-4xl font-bold text-white mb-4">
+        Our Track Record
+      </h2>
+      <p class="text-xl text-primary-100 max-w-3xl mx-auto leading-relaxed">
+        Numbers that speak to our commitment to excellence and the trust our clients place in us.
+      </p>
+    </div>
+
+    <!-- Stats Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      {stats.map((stat, index) => (
+        <div 
+          class="text-center group animate-on-scroll"
+          style={`animation-delay: ${index * 150}ms`}
+        >
+          <!-- Icon -->
+          <div class="w-20 h-20 mx-auto mb-6 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <span class="text-3xl">{stat.icon}</span>
+          </div>
+          
+          <!-- Number -->
+          <div class="mb-2">
+            <span 
+              class={`text-5xl lg:text-6xl font-bold text-white counter`}
+              data-target={stat.number}
+              data-suffix={stat.suffix}
+            >
+              0{stat.suffix}
+            </span>
+          </div>
+          
+          <!-- Label -->
+          <h3 class="text-xl font-semibold text-white mb-2">
+            {stat.label}
+          </h3>
+          
+          <!-- Description -->
+          <p class="text-primary-100 text-sm leading-relaxed">
+            {stat.description}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <!-- Trust Indicators -->
+    <div class="mt-20 text-center animate-on-scroll" style="animation-delay: 600ms;">
+      <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
+        <h3 class="text-2xl font-bold text-white mb-6">
+          Trusted by Leading Organizations
+        </h3>
+        
+        <!-- Client Logos Placeholder -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center opacity-70">
+          <div class="bg-white/20 rounded-lg p-4 w-24 h-16 flex items-center justify-center">
+            <span class="text-white font-bold text-sm">CLIENT</span>
+          </div>
+          <div class="bg-white/20 rounded-lg p-4 w-24 h-16 flex items-center justify-center">
+            <span class="text-white font-bold text-sm">BRAND</span>
+          </div>
+          <div class="bg-white/20 rounded-lg p-4 w-24 h-16 flex items-center justify-center">
+            <span class="text-white font-bold text-sm">CORP</span>
+          </div>
+          <div class="bg-white/20 rounded-lg p-4 w-24 h-16 flex items-center justify-center">
+            <span class="text-white font-bold text-sm">VENUE</span>
+          </div>
+        </div>
+        
+        <p class="text-primary-100 mt-6 text-sm">
+          Join hundreds of satisfied clients who chose us for their special moments
+        </p>
+      </div>
+    </div>
+
+    <!-- Awards Section -->
+    <div class="mt-16 text-center animate-on-scroll" style="animation-delay: 800ms;">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-yellow-800" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+            </svg>
+          </div>
+          <h4 class="text-lg font-semibold text-white mb-2">Best Event Planner 2023</h4>
+          <p class="text-primary-100 text-sm">Local Business Awards</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-green-400 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-green-800" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h4 class="text-lg font-semibold text-white mb-2">BBB Accredited</h4>
+          <p class="text-primary-100 text-sm">A+ Rating</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="w-16 h-16 bg-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-blue-800" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+              <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+            </svg>
+          </div>
+          <h4 class="text-lg font-semibold text-white mb-2">Licensed & Insured</h4>
+          <p class="text-primary-100 text-sm">Full Coverage</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Animation classes */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+  }
+  
+  .animate-on-scroll.animate-fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Counter animation */
+  .counter {
+    transition: all 0.3s ease;
+  }
+  
+  .counter.counting {
+    color: theme('colors.primary.200');
+  }
+  
+  /* Background pattern animation */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  
+  .floating {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  /* Backdrop blur support */
+  .backdrop-blur-fallback {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  @supports (backdrop-filter: blur(8px)) {
+    .backdrop-blur-fallback {
+      background-color: transparent;
+      backdrop-filter: blur(8px);
+    }
+  }
+  
+  /* Hover effects */
+  .stat-card:hover .stat-icon {
+    transform: scale(1.1) rotate(5deg);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .counter {
+      font-size: 3rem;
+    }
+  }
+</style>
+
+<script>
+  // Counter animation
+  document.addEventListener('DOMContentLoaded', () => {
+    const counters = document.querySelectorAll('.counter')
+    const animationDuration = 2000 // 2 seconds
+    
+    const animateCounter = (counter) => {
+      const target = parseInt(counter.dataset.target)
+      const suffix = counter.dataset.suffix || ''
+      const startTime = performance.now()
+      
+      const updateCounter = (currentTime) => {
+        const elapsed = currentTime - startTime
+        const progress = Math.min(elapsed / animationDuration, 1)
+        
+        // Easing function for smooth animation
+        const easeOutQuart = 1 - Math.pow(1 - progress, 4)
+        const current = Math.round(target * easeOutQuart)
+        
+        counter.textContent = current + suffix
+        
+        if (progress < 1) {
+          requestAnimationFrame(updateCounter)
+        }
+      }
+      
+      counter.classList.add('counting')
+      requestAnimationFrame(updateCounter)
+    }
+    
+    // Intersection observer for counter animation
+    const counterObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const counter = entry.target
+            animateCounter(counter)
+            counterObserver.unobserve(counter)
+          }
+        })
+      },
+      {
+        threshold: 0.5
+      }
+    )
+    
+    counters.forEach((counter) => {
+      counterObserver.observe(counter)
+    })
+    
+    // Intersection observer for section animations
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up')
+          }
+        })
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    )
+
+    const elements = document.querySelectorAll('.animate-on-scroll')
+    elements.forEach((el) => sectionObserver.observe(el))
+  })
+</script>

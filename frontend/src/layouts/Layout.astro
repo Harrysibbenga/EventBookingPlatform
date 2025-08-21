@@ -4,10 +4,11 @@
  * Provides consistent structure, SEO, and navigation.
  */
 
-import { ViewTransitions } from 'astro:transitions'
+ import { ViewTransitions } from 'astro:transitions'
 import Navigation from '../components/navigation/Navigation.vue'
 import Footer from '../components/layout/Footer.astro'
 import { BUSINESS_INFO, SEO_CONFIG } from '../utils/constants'
+import '../styles/global.css'
 
 export interface Props {
   title?: string
@@ -94,11 +95,7 @@ const fullImageURL = image.startsWith('http')
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://images.unsplash.com" />
     
-    <!-- Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap"
-      rel="stylesheet"
-    />
+import '../styles/global.css'
     
     <!-- JSON-LD Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify({

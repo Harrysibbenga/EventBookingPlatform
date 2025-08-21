@@ -13,8 +13,8 @@ export default defineConfig({
       devtools: true
     }),
     tailwind({
-      // Tailwind configuration
-      applyBaseStyles: false, // We'll handle base styles manually
+      // Tailwind configuration - let Astro handle the PostCSS setup
+      applyBaseStyles: true
     }),
     sitemap({
       // Generate sitemap for SEO
@@ -85,9 +85,6 @@ export default defineConfig({
     }
   },
   
-  // Experimental features
-  experimental: {
-    // Enable view transitions
-    viewTransitions: true
-  }
+  // View transitions are now stable in Astro 4.x
+  // No experimental flag needed
 });

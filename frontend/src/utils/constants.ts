@@ -10,15 +10,15 @@ import { EventType, ContactType } from '../types/api'
 // ========================================
 
 export const BUSINESS_INFO = {
-  name: 'Elite Event Productions',
-  tagline: 'Creating Unforgettable Moments',
-  description: 'Professional event planning and production services for weddings, corporate events, and special celebrations.',
+  name: 'Balloon & Light Magic',
+  tagline: 'Creating Spectacular Number Displays',
+  description: 'Professional balloon decorations and custom lighting installations featuring stunning number displays for birthdays, anniversaries, and special celebrations.',
   
   // Contact information
-  email: 'hello@eliteeventproductions.com',
+  email: 'hello@balloonlightmagic.com',
   phone: '+1 (555) 123-4567',
   address: {
-    street: '123 Event Plaza',
+    street: '123 Celebration Street',
     city: 'Los Angeles',
     state: 'CA',
     zip: '90210',
@@ -31,22 +31,22 @@ export const BUSINESS_INFO = {
     tuesday: '9:00 AM - 6:00 PM',
     wednesday: '9:00 AM - 6:00 PM',
     thursday: '9:00 AM - 6:00 PM',
-    friday: '9:00 AM - 6:00 PM',
-    saturday: '10:00 AM - 4:00 PM',
-    sunday: 'By Appointment Only'
+    friday: '9:00 AM - 7:00 PM',
+    saturday: '8:00 AM - 8:00 PM',
+    sunday: '10:00 AM - 6:00 PM'
   },
   
   // Social media
   social: {
-    instagram: 'https://instagram.com/eliteeventproductions',
-    facebook: 'https://facebook.com/eliteeventproductions',
-    twitter: 'https://twitter.com/eliteeventprod',
-    linkedin: 'https://linkedin.com/company/elite-event-productions',
-    pinterest: 'https://pinterest.com/eliteeventprod'
+    instagram: 'https://instagram.com/balloonlightmagic',
+    facebook: 'https://facebook.com/balloonlightmagic',
+    twitter: 'https://twitter.com/balloonlights',
+    linkedin: 'https://linkedin.com/company/balloon-light-magic',
+    pinterest: 'https://pinterest.com/balloonlightmagic'
   },
   
   // Founded year
-  founded: 2015,
+  founded: 2018,
   
   // Service areas
   serviceAreas: [
@@ -236,102 +236,102 @@ export const CONTACT_TYPE_CONFIG = {
 
 export const SERVICES = [
   {
-    id: 'event-planning',
-    name: 'Full Event Planning',
-    description: 'Complete event planning and coordination from concept to execution',
-    icon: '📋',
-    basePrice: 1000,
-    category: 'planning',
+    id: 'balloon-numbers',
+    name: 'Balloon Number Displays',
+    description: 'Custom balloon arrangements featuring any number or age for birthdays and milestones',
+    icon: '🎈',
+    basePrice: 85,
+    priceUnit: 'per number',
+    category: 'balloons',
     popular: true,
     features: [
-      'Initial consultation and concept development',
-      'Vendor sourcing and management',
-      'Timeline and budget planning',
-      'Day-of coordination',
-      'Post-event cleanup coordination'
+      'Any number 0-9 available',
+      'Choice of colors and styles',
+      'Premium foil or latex options',
+      'Includes balloon weights',
+      'Setup and styling included'
     ]
   },
   {
-    id: 'catering',
-    name: 'Catering Services',
-    description: 'Professional catering with customizable menus',
-    icon: '🍽️',
-    basePrice: 25,
-    priceUnit: 'per person',
-    category: 'catering',
+    id: 'light-up-numbers',
+    name: 'LED Light-Up Numbers',
+    description: 'Stunning illuminated number displays for dramatic evening celebrations',
+    icon: '💡',
+    basePrice: 150,
+    priceUnit: 'per number',
+    category: 'lighting',
     popular: true,
     features: [
-      'Custom menu planning',
-      'Professional chef and staff',
-      'Full service setup and cleanup',
-      'Dietary restriction accommodations',
-      'Bar service available'
+      'Bright LED illumination',
+      'Battery operated (8+ hours)',
+      'Weather resistant for outdoor use',
+      'Multiple color options',
+      'Remote control included'
     ]
   },
   {
-    id: 'photography',
-    name: 'Photography',
-    description: 'Professional event photography and editing',
-    icon: '📸',
-    basePrice: 500,
-    priceUnit: 'per event',
-    category: 'documentation',
-    popular: true,
-    features: [
-      'Pre-event consultation',
-      '6-8 hours of coverage',
-      'High-resolution edited photos',
-      'Online gallery delivery',
-      'Print release included'
-    ]
-  },
-  {
-    id: 'videography',
-    name: 'Videography',
-    description: 'Professional video production and editing',
-    icon: '🎥',
-    basePrice: 800,
-    priceUnit: 'per event',
-    category: 'documentation',
+    id: 'marquee-numbers',
+    name: 'Marquee Light Numbers',
+    description: 'Vintage-style marquee numbers with classic bulb lighting',
+    icon: '✨',
+    basePrice: 200,
+    priceUnit: 'per number',
+    category: 'lighting',
     popular: false,
     features: [
-      'Multi-camera setup',
-      'Professional editing',
-      'Highlight reel included',
-      'Raw footage available',
-      'Custom music and graphics'
+      'Vintage marquee styling',
+      'Warm white Edison bulbs',
+      '4 feet tall metal construction',
+      'Dimmer control available',
+      'Perfect for photos'
     ]
   },
   {
-    id: 'decoration',
-    name: 'Decoration & Design',
-    description: 'Custom decoration and venue styling',
-    icon: '🎨',
+    id: 'balloon-arches',
+    name: 'Balloon Arches & Garlands',
+    description: 'Beautiful balloon arches and garlands to frame your celebration',
+    icon: '🌈',
+    basePrice: 250,
+    category: 'balloons',
+    popular: true,
+    features: [
+      'Custom color combinations',
+      'Various sizes available',
+      'Organic or classic styling',
+      'Includes installation',
+      'Same-day setup'
+    ]
+  },
+  {
+    id: 'backdrop-lighting',
+    name: 'Event Backdrop Lighting',
+    description: 'Ambient lighting to create the perfect atmosphere for your celebration',
+    icon: '🌟',
+    basePrice: 180,
+    category: 'lighting',
+    popular: false,
+    features: [
+      'Color-changing LED strips',
+      'Wireless DMX control',
+      'Multiple lighting effects',
+      'Professional installation',
+      'Works with any backdrop'
+    ]
+  },
+  {
+    id: 'combo-packages',
+    name: 'Number + Lighting Combos',
+    description: 'Complete packages combining balloon numbers with complementary lighting',
+    icon: '🎊',
     basePrice: 300,
-    category: 'decoration',
+    category: 'packages',
     popular: true,
     features: [
-      'Custom theme development',
-      'Centerpieces and linens',
-      'Lighting design',
-      'Setup and breakdown',
-      'Floral arrangements'
-    ]
-  },
-  {
-    id: 'entertainment',
-    name: 'Entertainment',
-    description: 'DJ services and live entertainment',
-    icon: '🎵',
-    basePrice: 400,
-    category: 'entertainment',
-    popular: true,
-    features: [
-      'Professional DJ with equipment',
-      'Custom playlist creation',
-      'MC services',
-      'Dance floor lighting',
-      'Backup equipment included'
+      'Balloon numbers + accent lighting',
+      'Coordinated color schemes',
+      'Full setup and styling',
+      'Photography-ready displays',
+      'Package discounts available'
     ]
   }
 ] as const
@@ -342,76 +342,76 @@ export const SERVICES = [
 
 export const PRICING_TIERS = [
   {
-    id: 'essential',
-    name: 'Essential',
-    description: 'Perfect for intimate gatherings and smaller events',
-    price: 1200,
-    maxGuests: 50,
+    id: 'basic-balloon',
+    name: 'Basic Balloon Package',
+    description: 'Perfect for intimate birthday celebrations and small gatherings',
+    price: 150,
+    maxGuests: 25,
     duration: 4,
     popular: false,
     features: [
-      'Event planning consultation',
-      'Basic decoration package',
-      'Professional photography (4 hours)',
-      'DJ services',
-      'Event coordination',
-      'Basic catering setup assistance'
+      '2 custom balloon numbers',
+      'Basic color scheme',
+      'Standard balloon weights',
+      'Delivery and setup included',
+      'Perfect for photos',
+      'Balloon removal after event'
     ],
     notIncluded: [
-      'Catering',
-      'Videography',
-      'Premium decorations',
-      'Extended coverage'
+      'LED lighting',
+      'Premium foil balloons',
+      'Additional decorations',
+      'Extended display time'
     ]
   },
   {
-    id: 'premium',
-    name: 'Premium',
-    description: 'Comprehensive package for most celebrations',
-    price: 3500,
-    maxGuests: 150,
+    id: 'premium-combo',
+    name: 'Premium Light & Balloon Combo',
+    description: 'Complete package combining balloons with stunning lighting effects',
+    price: 450,
+    maxGuests: 75,
     duration: 6,
     popular: true,
     features: [
-      'Full event planning and design',
-      'Premium decoration package',
-      'Professional photography (6 hours)',
-      'Videography with highlight reel',
-      'DJ and entertainment',
-      'Full catering coordination',
-      'Day-of event management',
-      'Floral arrangements'
+      '3 balloon numbers + LED accent lighting',
+      'Premium foil balloon options',
+      'Color-coordinated lighting effects',
+      'Balloon arch or garland (small)',
+      'Professional photography lighting setup',
+      'Remote control for lighting',
+      'Full setup and breakdown service',
+      'Same-day installation available'
     ],
     notIncluded: [
-      'Catering food costs',
-      'Alcohol service',
-      'Extended venue time'
+      'Marquee lighting upgrade',
+      'Extended rental beyond 8 hours',
+      'Additional decoration elements'
     ]
   },
   {
-    id: 'luxury',
-    name: 'Luxury',
-    description: 'Ultimate experience for grand celebrations',
-    price: 7500,
-    maxGuests: 300,
+    id: 'luxury-display',
+    name: 'Luxury Marquee Experience',
+    description: 'Ultimate celebration package with marquee numbers and full lighting',
+    price: 850,
+    maxGuests: 150,
     duration: 8,
     popular: false,
     features: [
-      'Luxury event design and planning',
-      'Custom theme development',
-      'Professional photography (8 hours)',
-      'Cinematic videography',
-      'Live entertainment coordination',
-      'Premium catering management',
-      'Dedicated event manager',
-      'Custom floral and lighting design',
-      'Transportation coordination',
-      'Guest accommodation assistance'
+      '4-foot tall marquee light numbers',
+      'Premium balloon installations',
+      'Full venue lighting transformation',
+      'Color-changing LED backdrop',
+      'Professional photography setup',
+      'Dedicated event coordinator',
+      'Custom color schemes',
+      'Extended 10-hour rental included',
+      'Emergency backup equipment',
+      'Complimentary consultation'
     ],
     notIncluded: [
-      'Venue rental',
-      'Catering food costs',
-      'Guest accommodations'
+      'Venue rental costs',
+      'Additional marquee letters',
+      'Multi-day installations'
     ]
   }
 ] as const

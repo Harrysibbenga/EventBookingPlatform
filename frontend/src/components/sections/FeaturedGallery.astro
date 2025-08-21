@@ -1,0 +1,299 @@
+---
+/**
+ * Featured gallery section showcasing portfolio highlights.
+ * Displays curated event photos with categories and lightbox functionality.
+ */
+
+// Sample gallery data - in a real app, this would come from a CMS or API
+const featuredImages = [
+  {
+    id: 1,
+    src: 'https://images.unsplash.com/photo-1519167758481-83f29da78e92?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    alt: 'Elegant wedding ceremony setup',
+    category: 'Weddings',
+    title: 'Garden Wedding Ceremony'
+  },
+  {
+    id: 2,
+    src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    alt: 'Corporate event networking',
+    category: 'Corporate',
+    title: 'Annual Company Gala'
+  },
+  {
+    id: 3,
+    src: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    alt: 'Birthday party celebration',
+    category: 'Parties',
+    title: 'Milestone Birthday Celebration'
+  },
+  {
+    id: 4,
+    src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    alt: 'Wedding reception table setting',
+    category: 'Weddings',
+    title: 'Reception Table Design'
+  },
+  {
+    id: 5,
+    src: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    alt: 'Corporate conference setup',
+    category: 'Corporate',
+    title: 'Executive Conference'
+  },
+  {
+    id: 6,
+    src: 'https://images.unsplash.com/photo-1549451371-64aa98a6f660?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+    alt: 'Event decoration details',
+    category: 'Decorations',
+    title: 'Custom Floral Arrangements'
+  }
+]
+---
+
+<section class="py-20 bg-neutral-50">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-16 animate-on-scroll">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
+        <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+      </div>
+      
+      <h2 class="text-4xl font-bold text-neutral-900 mb-4">
+        Our Portfolio
+      </h2>
+      
+      <p class="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
+        Explore our recent events and see how we transform visions into unforgettable experiences. 
+        Each celebration tells a unique story.
+      </p>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      {featuredImages.map((image, index) => (
+        <div 
+          class="group relative overflow-hidden rounded-xl shadow-soft hover:shadow-medium transition-all duration-300 animate-on-scroll"
+          style={`animation-delay: ${index * 100}ms`}
+        >
+          <!-- Image -->
+          <div class="aspect-[4/3] overflow-hidden">
+            <img 
+              src={image.src}
+              alt={image.alt}
+              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+          
+          <!-- Overlay -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            <!-- Content -->
+            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+              <div class="inline-block bg-primary-600 text-xs font-medium px-3 py-1 rounded-full mb-2">
+                {image.category}
+              </div>
+              <h3 class="text-lg font-semibold mb-2">
+                {image.title}
+              </h3>
+              <button class="inline-flex items-center text-sm font-medium hover:underline">
+                View Details
+                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          
+          <!-- Click overlay for lightbox -->
+          <button 
+            class="absolute inset-0 w-full h-full z-10 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
+            aria-label={`View ${image.title} in full size`}
+            data-lightbox="gallery"
+            data-src={image.src}
+            data-title={image.title}
+          >
+            <span class="sr-only">View image</span>
+          </button>
+        </div>
+      ))}
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center animate-on-scroll" style="animation-delay: 600ms;">
+      <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-soft border border-neutral-200">
+        <h3 class="text-2xl lg:text-3xl font-bold text-neutral-900 mb-4">
+          Ready to Create Your Perfect Event?
+        </h3>
+        
+        <p class="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
+          Browse our complete portfolio and get inspired for your special occasion.
+        </p>
+        
+        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <a 
+            href="/gallery"
+            class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg hover:scale-105 inline-flex items-center"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            View Full Gallery
+          </a>
+          
+          <a 
+            href="/booking"
+            class="bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-300 px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-md inline-flex items-center"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Book Consultation
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Simple Lightbox Modal -->
+<div id="lightbox" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center p-4">
+  <div class="relative max-w-4xl w-full">
+    <!-- Close Button -->
+    <button 
+      id="lightbox-close"
+      class="absolute top-4 right-4 text-white hover:text-neutral-300 z-10"
+      aria-label="Close lightbox"
+    >
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    
+    <!-- Image -->
+    <img 
+      id="lightbox-image"
+      src=""
+      alt=""
+      class="w-full h-auto max-h-[90vh] object-contain rounded-lg"
+    />
+    
+    <!-- Title -->
+    <div id="lightbox-title" class="text-white text-center mt-4 text-lg font-medium"></div>
+  </div>
+</div>
+
+<style>
+  /* Gallery animations */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+  }
+  
+  .animate-on-scroll.animate-fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Image hover effects */
+  .gallery-item img {
+    transition: transform 0.5s ease;
+  }
+  
+  .gallery-item:hover img {
+    transform: scale(1.1);
+  }
+  
+  /* Lightbox styles */
+  #lightbox {
+    backdrop-filter: blur(4px);
+  }
+  
+  #lightbox.show {
+    display: flex;
+  }
+  
+  /* Category badge styles */
+  .category-badge {
+    backdrop-filter: blur(4px);
+  }
+  
+  /* Focus states for accessibility */
+  button[data-lightbox]:focus {
+    outline: 2px solid theme('colors.primary.500');
+    outline-offset: 2px;
+  }
+</style>
+
+<script>
+  // Lightbox functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const lightbox = document.getElementById('lightbox')
+    const lightboxImage = document.getElementById('lightbox-image')
+    const lightboxTitle = document.getElementById('lightbox-title')
+    const lightboxClose = document.getElementById('lightbox-close')
+    const galleryButtons = document.querySelectorAll('[data-lightbox]')
+    
+    if (!lightbox || !lightboxImage || !lightboxTitle || !lightboxClose) return
+    
+    // Open lightbox
+    galleryButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault()
+        const src = button.dataset.src
+        const title = button.dataset.title
+        
+        if (src) {
+          lightboxImage.src = src
+          lightboxImage.alt = title || ''
+          lightboxTitle.textContent = title || ''
+          lightbox.classList.add('show')
+          document.body.style.overflow = 'hidden'
+        }
+      })
+    })
+    
+    // Close lightbox
+    const closeLightbox = () => {
+      lightbox.classList.remove('show')
+      document.body.style.overflow = ''
+    }
+    
+    lightboxClose.addEventListener('click', closeLightbox)
+    
+    // Close on background click
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) {
+        closeLightbox()
+      }
+    })
+    
+    // Close on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && lightbox.classList.contains('show')) {
+        closeLightbox()
+      }
+    })
+    
+    // Intersection observer for animations
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up')
+          }
+        })
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    )
+
+    const elements = document.querySelectorAll('.animate-on-scroll')
+    elements.forEach((el) => observer.observe(el))
+  })
+</script>

@@ -126,13 +126,13 @@
           <div class="pt-4 space-y-2">
             <div class="flex items-center text-neutral-600">
               <Phone class="w-4 h-4 mr-2" />
-              <a href={`tel:${BUSINESS_INFO.phone}`} class="hover:text-primary-600 transition-colors">
+              <a :href="`tel:${BUSINESS_INFO.phone}`" class="hover:text-primary-600 transition-colors">
                 {{ BUSINESS_INFO.phone }}
               </a>
             </div>
             <div class="flex items-center text-neutral-600">
               <Mail class="w-4 h-4 mr-2" />
-              <a href={`mailto:${BUSINESS_INFO.email}`} class="hover:text-primary-600 transition-colors">
+              <a :href="`mailto:${BUSINESS_INFO.email}`" class="hover:text-primary-600 transition-colors">
                 {{ BUSINESS_INFO.email }}
               </a>
             </div>

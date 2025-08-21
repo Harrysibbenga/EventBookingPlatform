@@ -1,0 +1,411 @@
+---
+/**
+ * Testimonials section with customer reviews and ratings.
+ * Features carousel functionality and star ratings.
+ */
+
+ const testimonials = [
+  {
+    id: 1,
+    name: 'Sarah & Michael Johnson',
+    role: 'Wedding Clients',
+    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+    content: 'Elite Event Productions made our wedding day absolutely magical. Every detail was perfect, from the ceremony setup to the reception. They understood our vision and brought it to life beyond our wildest dreams.',
+    rating: 5,
+    event: 'Garden Wedding',
+    date: '2023-09-15'
+  },
+  {
+    id: 2,
+    name: 'David Chen',
+    role: 'Corporate Event Manager',
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+    content: 'Working with this team for our annual company gala was outstanding. They managed everything seamlessly, allowing us to focus on our guests. The event was a huge success and received rave reviews.',
+    rating: 5,
+    event: 'Annual Corporate Gala',
+    date: '2023-11-20'
+  },
+  {
+    id: 3,
+    name: 'Maria Rodriguez',
+    role: 'Birthday Party Host',
+    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+    content: 'They turned my daughter\'s sweet 16 into a fairytale celebration. The attention to detail and creative decorations were incredible. All our guests are still talking about how amazing the party was!',
+    rating: 5,
+    event: 'Sweet 16 Birthday Party',
+    date: '2023-08-12'
+  },
+  {
+    id: 4,
+    name: 'Robert & Linda Thompson',
+    role: 'Anniversary Celebration',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+    content: 'For our 25th anniversary, we wanted something special. The team created an elegant evening that perfectly captured our love story. It was intimate, beautiful, and exactly what we envisioned.',
+    rating: 5,
+    event: '25th Anniversary Party',
+    date: '2023-10-05'
+  },
+  {
+    id: 5,
+    name: 'Jennifer Williams',
+    role: 'Graduation Party Host',
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+    content: 'The graduation party they organized for my son was absolutely perfect. They handled everything from decorations to catering, making it a stress-free celebration. The personal touches made it truly memorable.',
+    rating: 5,
+    event: 'Graduation Celebration',
+    date: '2023-06-18'
+  }
+]
+---
+
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Section Header -->
+    <div class="text-center mb-16 animate-on-scroll">
+      <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
+        <svg class="w-8 h-8 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+        </svg>
+      </div>
+      
+      <h2 class="text-4xl font-bold text-neutral-900 mb-4">
+        What Our Clients Say
+      </h2>
+      
+      <p class="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
+        Don't just take our word for it. Here's what our clients have to say about their experience working with us.
+      </p>
+    </div>
+
+    <!-- Testimonials Carousel -->
+    <div class="relative max-w-6xl mx-auto">
+      <!-- Carousel Container -->
+      <div class="overflow-hidden rounded-2xl">
+        <div 
+          id="testimonials-track" 
+          class="flex transition-transform duration-500 ease-in-out"
+          style="transform: translateX(0%)"
+        >
+          {testimonials.map((testimonial, index) => (
+            <div class="w-full flex-shrink-0 px-4">
+              <div class="bg-gradient-to-br from-neutral-50 to-white rounded-xl p-8 lg:p-12 shadow-soft border border-neutral-100">
+                <div class="flex flex-col lg:flex-row items-start lg:items-center gap-8">
+                  <!-- Avatar & Info -->
+                  <div class="flex-shrink-0 text-center lg:text-left">
+                    <img 
+                      src={testimonial.avatar}
+                      alt={testimonial.name}
+                      class="w-20 h-20 rounded-full mx-auto lg:mx-0 mb-4 object-cover shadow-md"
+                    />
+                    <h4 class="text-lg font-semibold text-neutral-900 mb-1">
+                      {testimonial.name}
+                    </h4>
+                    <p class="text-neutral-600 text-sm mb-2">
+                      {testimonial.role}
+                    </p>
+                    <div class="text-xs text-neutral-500">
+                      {testimonial.event}
+                    </div>
+                  </div>
+
+                  <!-- Content -->
+                  <div class="flex-1">
+                    <!-- Star Rating -->
+                    <div class="flex items-center justify-center lg:justify-start mb-6">
+                      {Array.from({ length: 5 }, (_, i) => (
+                        <svg 
+                          class={`w-5 h-5 ${i < testimonial.rating ? 'text-yellow-400' : 'text-neutral-300'}`}
+                          fill="currentColor" 
+                          viewBox="0 0 24 24"
+                        >
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                        </svg>
+                      ))}
+                      <span class="ml-2 text-sm font-medium text-neutral-600">
+                        {testimonial.rating}.0
+                      </span>
+                    </div>
+
+                    <!-- Quote -->
+                    <blockquote class="text-lg lg:text-xl text-neutral-700 leading-relaxed italic text-center lg:text-left">
+                      "{testimonial.content}"
+                    </blockquote>
+
+                    <!-- Date -->
+                    <div class="mt-6 text-center lg:text-left">
+                      <span class="text-sm text-neutral-500">
+                        {new Date(testimonial.date).toLocaleDateString('en-US', { 
+                          year: 'numeric', 
+                          month: 'long', 
+                          day: 'numeric' 
+                        })}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <button 
+        id="prev-btn"
+        class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white shadow-lg rounded-full flex items-center justify-center text-neutral-600 hover:text-primary-600 hover:shadow-xl transition-all duration-200 z-10"
+        aria-label="Previous testimonial"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+        </svg>
+      </button>
+
+      <button 
+        id="next-btn"
+        class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white shadow-lg rounded-full flex items-center justify-center text-neutral-600 hover:text-primary-600 hover:shadow-xl transition-all duration-200 z-10"
+        aria-label="Next testimonial"
+      >
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+        </svg>
+      </button>
+
+      <!-- Dots Indicator -->
+      <div class="flex justify-center mt-8 space-x-2">
+        {testimonials.map((_, index) => (
+          <button 
+            class="dot w-3 h-3 rounded-full transition-all duration-200"
+            class:list={[
+              index === 0 ? 'bg-primary-600' : 'bg-neutral-300 hover:bg-neutral-400'
+            ]}
+            data-index={index}
+            aria-label={`Go to testimonial ${index + 1}`}
+          />
+        ))}
+      </div>
+    </div>
+
+    <!-- Summary Stats -->
+    <div class="mt-20 animate-on-scroll" style="animation-delay: 400ms;">
+      <div class="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-2xl p-8 lg:p-12">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div>
+            <div class="text-3xl font-bold text-primary-600 mb-2">4.9/5</div>
+            <div class="text-neutral-700 font-medium">Average Rating</div>
+            <div class="text-sm text-neutral-600">Based on 150+ reviews</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-secondary-600 mb-2">98%</div>
+            <div class="text-neutral-700 font-medium">Would Recommend</div>
+            <div class="text-sm text-neutral-600">Client satisfaction rate</div>
+          </div>
+          <div>
+            <div class="text-3xl font-bold text-accent-600 mb-2">500+</div>
+            <div class="text-neutral-700 font-medium">Happy Clients</div>
+            <div class="text-sm text-neutral-600">Events successfully planned</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="text-center mt-16 animate-on-scroll" style="animation-delay: 600ms;">
+      <h3 class="text-2xl font-bold text-neutral-900 mb-4">
+        Ready to Join Our Happy Clients?
+      </h3>
+      <p class="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
+        Let us create an unforgettable experience for your special occasion.
+      </p>
+      <a 
+        href="/booking"
+        class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg hover:scale-105 inline-flex items-center"
+      >
+        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+        </svg>
+        Start Planning Your Event
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Animation classes */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease-out;
+  }
+  
+  .animate-on-scroll.animate-fade-in-up {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Carousel styles */
+  .dot.active {
+    background-color: theme('colors.primary.600');
+    transform: scale(1.2);
+  }
+  
+  /* Navigation button hover effects */
+  .nav-btn:hover {
+    transform: scale(1.1);
+  }
+  
+  /* Star rating animation */
+  .star-rating svg {
+    transition: color 0.2s ease;
+  }
+  
+  /* Quote styling */
+  blockquote::before {
+    content: '"';
+    font-size: 4rem;
+    color: theme('colors.primary.200');
+    position: absolute;
+    top: -1rem;
+    left: -1rem;
+    font-family: serif;
+  }
+  
+  blockquote {
+    position: relative;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 1024px) {
+    .nav-btn {
+      display: none;
+    }
+  }
+  
+  /* Smooth transitions */
+  .testimonial-card {
+    transition: all 0.3s ease;
+  }
+  
+  .testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  }
+</style>
+
+<script>
+  // Testimonials carousel functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const track = document.getElementById('testimonials-track')
+    const prevBtn = document.getElementById('prev-btn')
+    const nextBtn = document.getElementById('next-btn')
+    const dots = document.querySelectorAll('.dot')
+    
+    if (!track || !prevBtn || !nextBtn) return
+    
+    let currentIndex = 0
+    const totalTestimonials = dots.length
+    
+    // Update carousel position
+    const updateCarousel = () => {
+      const translateX = -currentIndex * 100
+      track.style.transform = `translateX(${translateX}%)`
+      
+      // Update dots
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentIndex)
+      })
+    }
+    
+    // Next testimonial
+    const nextTestimonial = () => {
+      currentIndex = (currentIndex + 1) % totalTestimonials
+      updateCarousel()
+    }
+    
+    // Previous testimonial
+    const prevTestimonial = () => {
+      currentIndex = (currentIndex - 1 + totalTestimonials) % totalTestimonials
+      updateCarousel()
+    }
+    
+    // Go to specific testimonial
+    const goToTestimonial = (index) => {
+      currentIndex = index
+      updateCarousel()
+    }
+    
+    // Event listeners
+    nextBtn.addEventListener('click', nextTestimonial)
+    prevBtn.addEventListener('click', prevTestimonial)
+    
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => goToTestimonial(index))
+    })
+    
+    // Auto-advance carousel
+    const autoAdvance = () => {
+      nextTestimonial()
+    }
+    
+    let autoAdvanceInterval = setInterval(autoAdvance, 5000)
+    
+    // Pause auto-advance on hover
+    track.addEventListener('mouseenter', () => {
+      clearInterval(autoAdvanceInterval)
+    })
+    
+    track.addEventListener('mouseleave', () => {
+      autoAdvanceInterval = setInterval(autoAdvance, 5000)
+    })
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft') {
+        prevTestimonial()
+      } else if (e.key === 'ArrowRight') {
+        nextTestimonial()
+      }
+    })
+    
+    // Touch/swipe support for mobile
+    let startX = 0
+    let endX = 0
+    
+    track.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX
+    })
+    
+    track.addEventListener('touchend', (e) => {
+      endX = e.changedTouches[0].clientX
+      const deltaX = startX - endX
+      
+      if (Math.abs(deltaX) > 50) { // Minimum swipe distance
+        if (deltaX > 0) {
+          nextTestimonial()
+        } else {
+          prevTestimonial()
+        }
+      }
+    })
+    
+    // Initialize
+    updateCarousel()
+    
+    // Intersection observer for animations
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('animate-fade-in-up')
+          }
+        })
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    )
+
+    const elements = document.querySelectorAll('.animate-on-scroll')
+    elements.forEach((el) => observer.observe(el))
+  })
+</script>

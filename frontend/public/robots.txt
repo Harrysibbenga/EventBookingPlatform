@@ -1,4 +1,37 @@
+# Robots.txt for Elite Event Productions
+
+# Allow all web crawlers to access all content
 User-agent: *
 Allow: /
 
-Sitemap: https://localhost:4321/sitemap-index.xml
+# Disallow crawling of admin or private areas (when they exist)
+Disallow: /admin/
+Disallow: /api/
+Disallow: /.well-known/
+Disallow: /private/
+
+# Allow specific important pages
+Allow: /
+Allow: /booking
+Allow: /gallery
+Allow: /pricing
+Allow: /contact
+Allow: /about
+Allow: /services
+
+# Sitemap location
+Sitemap: https://your-event-booking-site.com/sitemap-index.xml
+
+# Crawl delay (optional, helps prevent overloading)
+Crawl-delay: 1
+
+# Additional rules for specific bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Block any bot that might be harmful
+User-agent: BadBot
+Disallow: /

@@ -23,11 +23,11 @@
     "@vueuse/core": "^10.11.0",
     "astro": "^4.11.5",
     "lucide-vue-next": "^0.400.0",
-    "tailwindcss": "^3.4.4",
     "vue": "^3.4.31",
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
     "@types/node": "^20.14.10",
     "@typescript-eslint/eslint-plugin": "^7.16.0",
     "@typescript-eslint/parser": "^7.16.0",
@@ -37,6 +37,7 @@
     "eslint-plugin-vue": "^9.27.0",
     "prettier": "^3.3.2",
     "prettier-plugin-astro": "^0.14.0",
+    "tailwindcss": "^3.4.17",
     "typescript": "^5.5.3",
     "vue-tsc": "^2.0.24"
   },
