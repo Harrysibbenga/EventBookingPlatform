@@ -342,76 +342,76 @@ export const SERVICES = [
 
 export const PRICING_TIERS = [
   {
-    id: 'basic-balloon',
-    name: 'Basic Balloon Package',
-    description: 'Perfect for intimate birthday celebrations and small gatherings',
-    price: 150,
-    maxGuests: 25,
+    id: 'essential',
+    name: 'Essential',
+    description: 'Perfect for intimate gatherings and smaller events',
+    price: 1200,
+    maxGuests: 50,
     duration: 4,
     popular: false,
     features: [
-      '2 custom balloon numbers',
-      'Basic color scheme',
-      'Standard balloon weights',
-      'Delivery and setup included',
-      'Perfect for photos',
-      'Balloon removal after event'
+      'Event planning consultation',
+      'Basic decoration package',
+      'Professional photography (4 hours)',
+      'DJ services',
+      'Event coordination',
+      'Basic catering setup assistance'
     ],
     notIncluded: [
-      'LED lighting',
-      'Premium foil balloons',
-      'Additional decorations',
-      'Extended display time'
+      'Catering',
+      'Videography',
+      'Premium decorations',
+      'Extended coverage'
     ]
   },
   {
-    id: 'premium-combo',
-    name: 'Premium Light & Balloon Combo',
-    description: 'Complete package combining balloons with stunning lighting effects',
-    price: 450,
-    maxGuests: 75,
+    id: 'premium',
+    name: 'Premium',
+    description: 'Comprehensive package for most celebrations',
+    price: 3500,
+    maxGuests: 150,
     duration: 6,
     popular: true,
     features: [
-      '3 balloon numbers + LED accent lighting',
-      'Premium foil balloon options',
-      'Color-coordinated lighting effects',
-      'Balloon arch or garland (small)',
-      'Professional photography lighting setup',
-      'Remote control for lighting',
-      'Full setup and breakdown service',
-      'Same-day installation available'
+      'Full event planning and design',
+      'Premium decoration package',
+      'Professional photography (6 hours)',
+      'Videography with highlight reel',
+      'DJ and entertainment',
+      'Full catering coordination',
+      'Day-of event management',
+      'Floral arrangements'
     ],
     notIncluded: [
-      'Marquee lighting upgrade',
-      'Extended rental beyond 8 hours',
-      'Additional decoration elements'
+      'Catering food costs',
+      'Alcohol service',
+      'Extended venue time'
     ]
   },
   {
-    id: 'luxury-display',
-    name: 'Luxury Marquee Experience',
-    description: 'Ultimate celebration package with marquee numbers and full lighting',
-    price: 850,
-    maxGuests: 150,
+    id: 'luxury',
+    name: 'Luxury',
+    description: 'Ultimate experience for grand celebrations',
+    price: 7500,
+    maxGuests: 300,
     duration: 8,
     popular: false,
     features: [
-      '4-foot tall marquee light numbers',
-      'Premium balloon installations',
-      'Full venue lighting transformation',
-      'Color-changing LED backdrop',
-      'Professional photography setup',
-      'Dedicated event coordinator',
-      'Custom color schemes',
-      'Extended 10-hour rental included',
-      'Emergency backup equipment',
-      'Complimentary consultation'
+      'Luxury event design and planning',
+      'Custom theme development',
+      'Professional photography (8 hours)',
+      'Cinematic videography',
+      'Live entertainment coordination',
+      'Premium catering management',
+      'Dedicated event manager',
+      'Custom floral and lighting design',
+      'Transportation coordination',
+      'Guest accommodation assistance'
     ],
     notIncluded: [
-      'Venue rental costs',
-      'Additional marquee letters',
-      'Multi-day installations'
+      'Venue rental',
+      'Catering food costs',
+      'Guest accommodations'
     ]
   }
 ] as const
@@ -525,11 +525,11 @@ export const SEO_CONFIG = {
   defaultTitle: `${BUSINESS_INFO.name} - ${BUSINESS_INFO.tagline}`,
   titleTemplate: `%s | ${BUSINESS_INFO.name}`,
   defaultDescription: BUSINESS_INFO.description,
-  siteUrl: 'https://your-event-booking-site.com', // Update with actual domain
+  siteUrl: 'https://your-event-booking-site.com', // TODO: set real domain
   author: BUSINESS_INFO.name,
-  image: '/images/og-image.jpg',
+  image: '/images/logo.jpg', // ✅ points to public/images/logo.jpg
   twitterHandle: '@eliteeventprod',
-  facebookAppId: '123456789', // Update with actual ID
+  facebookAppId: '123456789',
   keywords: [
     'event planning',
     'wedding planning',
@@ -540,6 +540,7 @@ export const SEO_CONFIG = {
     'professional event services'
   ]
 } as const
+
 
 // ========================================
 // API CONFIGURATION

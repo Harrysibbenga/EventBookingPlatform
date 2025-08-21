@@ -7,53 +7,53 @@
  const testimonials = [
   {
     id: 1,
-    name: 'Sarah & Michael Johnson',
-    role: 'Wedding Clients',
+    name: 'Sarah Johnson',
+    role: '21st Birthday Party',
     avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
-    content: 'Elite Event Productions made our wedding day absolutely magical. Every detail was perfect, from the ceremony setup to the reception. They understood our vision and brought it to life beyond our wildest dreams.',
+    content: 'The LED number 21 looked absolutely stunning! Roman Events made my daughter\'s birthday so special. The delivery was on time and the setup was perfect. Everyone was taking photos with the glowing numbers all night.',
     rating: 5,
-    event: 'Garden Wedding',
-    date: '2023-09-15'
+    event: '21st Birthday Celebration',
+    date: '2024-06-15'
   },
   {
     id: 2,
-    name: 'David Chen',
-    role: 'Corporate Event Manager',
+    name: 'Mark & Linda Thompson',
+    role: '25th Anniversary',
     avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
-    content: 'Working with this team for our annual company gala was outstanding. They managed everything seamlessly, allowing us to focus on our guests. The event was a huge success and received rave reviews.',
+    content: 'We hired the number 25 with balloon decorations for our anniversary party. The whole setup was beautiful and really made our celebration feel special. Great service from start to finish!',
     rating: 5,
-    event: 'Annual Corporate Gala',
-    date: '2023-11-20'
+    event: 'Silver Wedding Anniversary',
+    date: '2024-08-20'
   },
   {
     id: 3,
-    name: 'Maria Rodriguez',
-    role: 'Birthday Party Host',
+    name: 'Emma Williams',
+    role: '1st Birthday Party',
     avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
-    content: 'They turned my daughter\'s sweet 16 into a fairytale celebration. The attention to detail and creative decorations were incredible. All our guests are still talking about how amazing the party was!',
+    content: 'Perfect for my little one\'s first birthday! The number 1 was the perfect size and the balloon arch made such a lovely backdrop. Roman Events were so professional and friendly.',
     rating: 5,
-    event: 'Sweet 16 Birthday Party',
-    date: '2023-08-12'
+    event: 'First Birthday Party',
+    date: '2024-05-12'
   },
   {
     id: 4,
-    name: 'Robert & Linda Thompson',
-    role: 'Anniversary Celebration',
+    name: 'James Mitchell',
+    role: '50th Birthday Party',
     avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
-    content: 'For our 25th anniversary, we wanted something special. The team created an elegant evening that perfectly captured our love story. It was intimate, beautiful, and exactly what we envisioned.',
+    content: 'Hired the LED numbers 50 for my milestone birthday. They looked fantastic and really impressed all my guests. The remote control to change colors was a great touch. Highly recommend!',
     rating: 5,
-    event: '25th Anniversary Party',
-    date: '2023-10-05'
+    event: '50th Birthday Milestone',
+    date: '2024-07-05'
   },
   {
     id: 5,
-    name: 'Jennifer Williams',
-    role: 'Graduation Party Host',
+    name: 'Rachel Davis',
+    role: 'Sweet 16 Party',
     avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
-    content: 'The graduation party they organized for my son was absolutely perfect. They handled everything from decorations to catering, making it a stress-free celebration. The personal touches made it truly memorable.',
+    content: 'The complete birthday package was amazing! The number 16, balloon arch, and backdrop made my daughter\'s party look like something from a magazine. Worth every penny!',
     rating: 5,
-    event: 'Graduation Celebration',
-    date: '2023-06-18'
+    event: 'Sweet Sixteen Celebration',
+    date: '2024-04-18'
   }
 ]
 ---
@@ -134,7 +134,7 @@
                     <!-- Date -->
                     <div class="mt-6 text-center lg:text-left">
                       <span class="text-sm text-neutral-500">
-                        {new Date(testimonial.date).toLocaleDateString('en-US', { 
+                        {new Date(testimonial.date).toLocaleDateString('en-GB', { 
                           year: 'numeric', 
                           month: 'long', 
                           day: 'numeric' 
@@ -190,19 +190,19 @@
       <div class="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-2xl p-8 lg:p-12">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
           <div>
-            <div class="text-3xl font-bold text-primary-600 mb-2">4.9/5</div>
+            <div class="text-3xl font-bold text-primary-600 mb-2">5.0/5</div>
             <div class="text-neutral-700 font-medium">Average Rating</div>
-            <div class="text-sm text-neutral-600">Based on 150+ reviews</div>
+            <div class="text-sm text-neutral-600">Based on 50+ Google reviews</div>
           </div>
           <div>
-            <div class="text-3xl font-bold text-secondary-600 mb-2">98%</div>
+            <div class="text-3xl font-bold text-secondary-600 mb-2">100%</div>
             <div class="text-neutral-700 font-medium">Would Recommend</div>
-            <div class="text-sm text-neutral-600">Client satisfaction rate</div>
+            <div class="text-sm text-neutral-600">Customer satisfaction rate</div>
           </div>
           <div>
-            <div class="text-3xl font-bold text-accent-600 mb-2">500+</div>
-            <div class="text-neutral-700 font-medium">Happy Clients</div>
-            <div class="text-sm text-neutral-600">Events successfully planned</div>
+            <div class="text-3xl font-bold text-accent-600 mb-2">200+</div>
+            <div class="text-neutral-700 font-medium">Happy Families</div>
+            <div class="text-sm text-neutral-600">Events successfully decorated</div>
           </div>
         </div>
       </div>
@@ -211,10 +211,10 @@
     <!-- Call to Action -->
     <div class="text-center mt-16 animate-on-scroll" style="animation-delay: 600ms;">
       <h3 class="text-2xl font-bold text-neutral-900 mb-4">
-        Ready to Join Our Happy Clients?
+        Ready to Create Your Perfect Display?
       </h3>
       <p class="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
-        Let us create an unforgettable experience for your special occasion.
+        Let us create stunning LED number displays and balloon decorations for your special celebration.
       </p>
       <a 
         href="/booking"
@@ -223,7 +223,7 @@
         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
         </svg>
-        Start Planning Your Event
+        Start Your Event Hire
       </a>
     </div>
   </div>

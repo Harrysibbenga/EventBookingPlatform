@@ -4,7 +4,7 @@
  * Responsive design with newsletter signup and contact information.
  */
 
- import { BUSINESS_INFO } from '../../utils/constants'
+ import { BUSINESS_INFO, SEO_CONFIG } from '../../utils/constants'
 
 const currentYear = new Date().getFullYear()
 
@@ -25,6 +25,7 @@ const legalLinks = [
 ]
 
 const serviceAreas = BUSINESS_INFO.serviceAreas.slice(0, 3) // Show first 3 areas
+const image = SEO_CONFIG.image
 ---
 
 <footer class="bg-neutral-900 text-white">
@@ -35,8 +36,8 @@ const serviceAreas = BUSINESS_INFO.serviceAreas.slice(0, 3) // Show first 3 area
       <div class="space-y-6">
         <div>
           <div class="flex items-center space-x-3 mb-4">
-            <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center">
-              <span class="text-white font-bold text-lg">E</span>
+            <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
+              <img src={image} alt={`${BUSINESS_INFO.name} logo`} class="w-8 h-8" loading="lazy" />
             </div>
             <div>
               <h3 class="text-xl font-bold">{BUSINESS_INFO.name}</h3>

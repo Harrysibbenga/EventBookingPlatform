@@ -4,11 +4,10 @@
  * Provides consistent structure, SEO, and navigation.
  */
 
- import { ViewTransitions } from 'astro:transitions'
+import { ViewTransitions } from 'astro:transitions'
 import Navigation from '../components/navigation/Navigation.vue'
 import Footer from '../components/layout/Footer.astro'
 import { BUSINESS_INFO, SEO_CONFIG } from '../utils/constants'
-import '../styles/global.css'
 
 export interface Props {
   title?: string
@@ -82,10 +81,13 @@ const fullImageURL = image.startsWith('http')
     <meta name="twitter:image" content={fullImageURL} />
     
     <!-- Favicon and App Icons -->
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/images/logo-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/images/logo-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#f2800b" />
     <meta name="msapplication-TileColor" content="#f2800b" />
@@ -104,7 +106,7 @@ import '../styles/global.css'
       "name": BUSINESS_INFO.name,
       "description": BUSINESS_INFO.description,
       "url": SEO_CONFIG.siteUrl,
-      "logo": new URL('/images/logo.png', Astro.site).href,
+      "logo": new URL('/images/logo.jpg', Astro.site).href,
       "contactPoint": {
         "@type": "ContactPoint",
         "telephone": BUSINESS_INFO.phone,

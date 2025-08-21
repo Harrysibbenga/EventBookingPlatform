@@ -13,7 +13,7 @@
             @click="closeMobileMenu"
           >
             <div class="w-10 h-10 bg-gradient-to-br from-primary-500 to-primary-600 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
-              <span class="text-white font-bold text-lg">E</span>
+              <img :src="image" alt="Logo" class="w-8 h-8" />
             </div>
             <div class="hidden sm:block">
               <h1 class="text-xl font-bold text-neutral-900 group-hover:text-primary-600 transition-colors">
@@ -45,7 +45,7 @@
             href="/booking"
             class="bg-primary-600 hover:bg-primary-700 text-white px-6 py-2.5 rounded-lg font-medium transition-all duration-200 hover:shadow-lg hover:scale-105 focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
           >
-            Book Event
+            Get Quote
           </a>
         </div>
 
@@ -118,7 +118,7 @@
               class="flex items-center justify-center w-full bg-primary-600 hover:bg-primary-700 text-white px-4 py-3 rounded-lg font-medium transition-colors"
             >
               <Calendar class="w-5 h-5 mr-2" />
-              Book Your Event
+              Get Your Quote
             </a>
           </div>
           
@@ -172,7 +172,9 @@ import {
   Info,
   Sparkles
 } from 'lucide-vue-next'
-import { BUSINESS_INFO } from '../../utils/constants'
+import { BUSINESS_INFO, SEO_CONFIG } from '../../utils/constants'
+
+const image = SEO_CONFIG.image
 
 // Navigation links configuration
 const navigationLinks = [
