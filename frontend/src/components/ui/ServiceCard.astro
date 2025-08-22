@@ -1,7 +1,7 @@
 ---
 /**
- * Service card component for displaying individual services.
- * Features hover animations, pricing display, and call-to-action.
+ * Service card component with theme variants.
+ * Variants: light (default), dark
  */
 
  export interface Props {
@@ -19,26 +19,62 @@
   index?: number
   class?: string
   style?: string
+  variant?: 'light' | 'dark'
 }
 
-const { service, index = 0, class: className = '', style = '' } = Astro.props
+const {
+  service,
+  index = 0,
+  class: className = '',
+  style = '',
+  variant = 'light'
+} = Astro.props
+
 const { name, description, icon, basePrice, priceUnit, popular, features } = service
 
 // Format price display (UK £ instead of $)
-const priceDisplay = basePrice 
-  ? priceUnit 
+const priceDisplay = basePrice
+  ? priceUnit
     ? `£${basePrice} ${priceUnit}`
     : `From £${basePrice}`
   : 'Custom Quote'
+
+// Variant-based class maps
+const variants = {
+  light: {
+    card: 'bg-white border border-neutral-200 text-neutral-900',
+    icon: 'bg-white border border-brand-gold/30',
+    title: 'text-neutral-900 group-hover:text-brand-gold',
+    desc: 'text-neutral-600',
+    price: 'text-brand-gold',
+    badge: 'bg-brand-gold text-brand-black',
+    listIcon: 'text-brand-gold',
+    ctaPrimary: 'text-brand-black bg-gold-gradient shadow-gold-strong hover:shadow-gold-glow',
+    ctaSecondary: 'text-neutral-800 bg-white border border-brand-gold/30 hover:bg-cream-50',
+  },
+  dark: {
+    card: 'bg-neutral-900 border border-neutral-800 text-white',
+    icon: 'bg-neutral-800 border border-brand-gold/40',
+    title: 'text-white group-hover:text-brand-gold',
+    desc: 'text-neutral-300',
+    price: 'text-brand-gold',
+    badge: 'bg-brand-gold text-brand-black',
+    listIcon: 'text-brand-gold',
+    ctaPrimary: 'text-brand-black bg-gold-gradient shadow-gold-strong hover:shadow-gold-glow',
+    ctaSecondary: 'text-white bg-neutral-800 border border-brand-gold/40 hover:bg-neutral-700',
+  }
+}
+
+const v = variants[variant]
 ---
 
-<div 
-  class={`group relative bg-white rounded-xl shadow-soft hover:shadow-medium transition-all duration-300 hover:-translate-y-2 border border-neutral-100 overflow-hidden ${className}`}
-  style={style}
+<div
+  class={`group relative rounded-2xl shadow-sm hover:shadow-gold-glow hover:-translate-y-0.5 transition-all duration-300 overflow-hidden ${v.card} ${className}`}
+  style={`--index:${index}; ${style}`}
 >
   <!-- Popular Badge -->
   {popular && (
-    <div class="absolute top-4 right-4 bg-primary-600 text-white px-3 py-1 rounded-full text-xs font-medium z-10 popular-badge">
+    <div class={`absolute top-4 right-4 z-10 popular-badge px-3 py-1 rounded-full text-xs font-semibold shadow-sm ${v.badge}`}>
       Popular
     </div>
   )}
@@ -46,26 +82,26 @@ const priceDisplay = basePrice
   <!-- Card Header -->
   <div class="p-6 pb-4">
     <!-- Icon -->
-    <div class="w-12 h-12 bg-gradient-to-br from-primary-100 to-primary-200 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+    <div class={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 ${v.icon}`}>
       <span class="text-2xl" set:html={icon}></span>
     </div>
 
     <!-- Title & Description -->
-    <h3 class="text-xl font-semibold text-neutral-900 mb-2 group-hover:text-primary-600 transition-colors">
+    <h3 class={`text-xl font-semibold mb-2 transition-colors ${v.title}`}>
       {name}
     </h3>
-    
-    <p class="text-neutral-600 text-sm leading-relaxed mb-4">
+
+    <p class={`text-sm leading-relaxed mb-4 ${v.desc}`}>
       {description}
     </p>
 
     <!-- Price -->
     <div class="flex items-center justify-between mb-4">
-      <span class="text-lg font-bold text-primary-600">
+      <span class={`text-lg font-bold ${v.price}`}>
         {priceDisplay}
       </span>
       {popular && (
-        <div class="flex items-center text-primary-600 text-sm">
+        <div class="flex items-center text-sm font-medium text-brand-gold">
           <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
@@ -77,21 +113,21 @@ const priceDisplay = basePrice
 
   <!-- Features List -->
   <div class="px-6 pb-6">
-    <div class="border-t border-neutral-100 pt-4">
-      <h4 class="text-sm font-medium text-neutral-700 mb-3">What's Included:</h4>
+    <div class="border-t border-neutral-200 dark:border-neutral-700 pt-4">
+      <h4 class="text-sm font-medium mb-3">What's Included:</h4>
       <ul class="space-y-2">
         {Array.isArray(features) && features.length > 0 ? (
           <>
             {features.slice(0, 4).map((feature) => (
-              <li class="flex items-start text-sm text-neutral-600">
-                <svg class="w-4 h-4 text-primary-500 mr-2 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <li class={`flex items-start text-sm ${v.desc}`}>
+                <svg class={`w-4 h-4 mr-2 mt-0.5 flex-shrink-0 ${v.listIcon}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
                 {feature}
               </li>
             ))}
             {features.length > 4 && (
-              <li class="text-sm text-primary-600 font-medium">
+              <li class="text-sm text-brand-gold font-semibold">
                 + {features.length - 4} more features
               </li>
             )}
@@ -103,66 +139,32 @@ const priceDisplay = basePrice
     </div>
   </div>
 
-
   <!-- Card Footer -->
   <div class="px-6 pb-6">
     <div class="flex flex-col sm:flex-row gap-3">
-      <a 
-        href="/booking"
-        class="flex-1 bg-primary-600 hover:bg-primary-700 text-white text-center px-4 py-2.5 rounded-lg font-medium transition-all duration-200 hover:shadow-lg text-sm"
-      >
+      <a href="/booking"
+         class={`flex-1 text-center px-4 py-2.5 rounded-lg font-semibold transition-all duration-200 hover:-translate-y-0.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold/30 ${v.ctaPrimary}`}>
         Book Now
       </a>
-      <a 
-        href="/contact"
-        class="flex-1 bg-neutral-100 hover:bg-neutral-200 text-neutral-700 text-center px-4 py-2.5 rounded-lg font-medium transition-colors text-sm"
-      >
+      <a href="/contact"
+         class={`flex-1 text-center px-4 py-2.5 rounded-lg font-medium transition-all duration-200 hover:-translate-y-0.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-gold/20 ${v.ctaSecondary}`}>
         Learn More
       </a>
     </div>
   </div>
 
-  <!-- Hover Effect Overlay -->
-  <div class="absolute inset-0 bg-gradient-to-t from-primary-50/0 to-primary-50/0 group-hover:from-primary-50/5 group-hover:to-transparent transition-all duration-300 pointer-events-none rounded-xl"></div>
+  <!-- Hover Overlay -->
+  <div class="absolute inset-0 rounded-2xl pointer-events-none transition-all duration-300
+              bg-gradient-to-t from-brand-gold/0 to-brand-gold/0 group-hover:from-brand-gold/5 group-hover:to-transparent"></div>
 </div>
 
 <style>
-  /* Card hover animations */
-  .group:hover .service-icon {
-    transform: scale(1.1) rotate(5deg);
-  }
-  
-  /* Stagger animation delay */
-  .service-card {
-    animation-delay: calc(var(--index, 0) * 100ms);
-  }
-  
-  /* Popular badge pulse animation */
+  /* Badge pulse */
   .popular-badge {
     animation: pulse-soft 2s infinite;
   }
-  
   @keyframes pulse-soft {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.8;
-    }
-  }
-  
-  /* Focus states for accessibility */
-  .group:focus-within {
-    outline: 2px solid theme('colors.primary.500');
-    outline-offset: 2px;
-  }
-  
-  /* Button hover effects */
-  .btn-primary:hover {
-    transform: translateY(-1px);
-  }
-  
-  .btn-secondary:hover {
-    transform: translateY(-1px);
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
   }
 </style>

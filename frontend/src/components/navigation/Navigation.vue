@@ -200,14 +200,14 @@ const navigationLinks = [
     icon: Sparkles
   },
   {
-    name: 'Gallery',
-    path: '#gallery',
-    icon: Image
-  },
-  {
     name: 'Why Us',
     path: '#why',
     icon: Info
+  },
+  {
+    name: 'Gallery',
+    path: '#gallery',
+    icon: Image
   },
   {
     name: 'Contact',

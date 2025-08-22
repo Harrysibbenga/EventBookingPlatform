@@ -3,6 +3,7 @@
  * Statistics section showcasing business achievements and metrics.
  * Features animated counters and impressive visual presentation.
  */
+  import Balloon from '../decor/Balloon.astro'
 
  const stats = [
   {
@@ -44,127 +45,131 @@
 ]
 ---
 
-<section id="why" class="py-20 bg-gradient-to-br from-primary-900 via-primary-800 to-secondary-900 relative overflow-hidden">
-  <!-- Background Pattern -->
-  <div class="absolute inset-0 opacity-10">
-    <div class="absolute top-0 left-0 w-72 h-72 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
-    <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full translate-x-1/3 translate-y-1/3"></div>
-    <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-white rounded-full -translate-x-1/2 -translate-y-1/2"></div>
+<section id="why" class="relative py-24 bg-cream-50 overflow-hidden">
+  <!-- soft gold wash -->
+  <div aria-hidden="true" class="pointer-events-none absolute -top-24 left-1/3 h-80 w-80 rounded-full bg-brand-gold/10 blur-3xl z-0"></div>
+
+  <!-- Vibrant balloon background (subtle, behind content but above bg) -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+    <Balloon preset="pink"   top="10%" left="6%"   width={96}  opacity={0.45} blur />
+    <Balloon preset="blue"   top="24%" right="10%" width={112} opacity={0.4}  delay={0.6} blur />
+    <Balloon preset="teal"   top="56%" right="2%"  width={80}  opacity={0.35} delay={0.9} />
+    <Balloon preset="purple" bottom="10%" left="22%" width={128} opacity={0.35} delay={0.3} blur />
+    <Balloon preset="gold" bottom="10%" right="22%" width={128} opacity={0.35} delay={0.3} blur />
+    <Balloon preset="red"    bottom="24%" left="2%" width={72}  opacity={0.35} delay={1.1} />
   </div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
     <div class="text-center mb-16 animate-on-scroll">
-      <h2 class="text-4xl font-bold text-white mb-4">
-        Why Choose Roman Events
+      <h2 class="text-4xl font-bold text-neutral-900 mb-3">
+        Why Choose <span class="text-brand-gold">Roman Events</span>
       </h2>
-      <p class="text-xl text-primary-100 max-w-3xl mx-auto leading-relaxed">
+      <p class="text-lg sm:text-xl text-neutral-600 max-w-3xl mx-auto">
         Trusted across Milton Keynes for quality LED number hire and balloon decorations that make celebrations truly special.
       </p>
     </div>
 
-    <!-- Stats Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <!-- Stats Grid (light cards) -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
       {stats.map((stat, index) => (
-        <div 
-          class="text-center group animate-on-scroll"
+        <div
+          class="text-center group animate-on-scroll bg-white border border-brand-gold/20 rounded-2xl p-6 shadow-sm hover:shadow-gold-glow hover:-translate-y-0.5 transition-all duration-300"
           style={`animation-delay: ${index * 150}ms`}
         >
           <!-- Icon -->
-          <div class="w-20 h-20 mx-auto mb-6 bg-white/10 backdrop-blur-sm rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-            <span class="text-3xl">{stat.icon}</span>
+          <div class="w-16 h-16 mx-auto mb-5 bg-white border border-brand-gold/30 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+            <span class="text-2xl">{stat.icon}</span>
           </div>
-          
+
           <!-- Number -->
-          <div class="mb-2">
-            <span 
-              class={`text-5xl lg:text-6xl font-bold text-white counter`}
+          <div class="mb-1">
+            <span
+              class="text-5xl lg:text-6xl font-extrabold text-neutral-900 counter"
               data-target={stat.number}
               data-suffix={stat.suffix}
             >
               0{stat.suffix}
             </span>
           </div>
-          
+
           <!-- Label -->
-          <h3 class="text-xl font-semibold text-white mb-2">
+          <h3 class="text-lg font-semibold text-neutral-900 mb-1">
             {stat.label}
           </h3>
-          
+
           <!-- Description -->
-          <p class="text-primary-100 text-sm leading-relaxed">
-            {stat.description}
-          </p>
+          <p class="text-neutral-600 text-sm">{stat.description}</p>
         </div>
       ))}
     </div>
 
     <!-- Trust Indicators -->
     <div class="mt-20 text-center animate-on-scroll" style="animation-delay: 600ms;">
-      <div class="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
-        <h3 class="text-2xl font-bold text-white mb-6">
+      <div class="rounded-2xl border border-brand-gold/20 bg-white p-8 lg:p-10 shadow-sm">
+        <h3 class="text-2xl font-bold text-neutral-900 mb-6">
           Trusted by Milton Keynes Families
         </h3>
-        
-        <!-- Client Logos Placeholder -->
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center justify-items-center opacity-70">
-          <div class="bg-white/20 rounded-lg p-4 w-24 h-16 flex items-center justify-center">
-            <span class="text-white font-bold text-xs">MK VENUE</span>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 items-center justify-items-center opacity-80">
+          <div class="bg-white border border-neutral-200 rounded-lg p-4 w-28 h-16 flex items-center justify-center">
+            <span class="text-neutral-700 font-semibold text-xs">MK VENUE</span>
           </div>
-          <div class="bg-white/20 rounded-lg p-4 w-24 h-16 flex items-center justify-center">
-            <span class="text-white font-bold text-xs">FAMILY</span>
+          <div class="bg-white border border-neutral-200 rounded-lg p-4 w-28 h-16 flex items-center justify-center">
+            <span class="text-neutral-700 font-semibold text-xs">FAMILY</span>
           </div>
-          <div class="bg-white/20 rounded-lg p-4 w-24 h-16 flex items-center justify-center">
-            <span class="text-white font-bold text-xs">PARTY</span>
+          <div class="bg-white border border-neutral-200 rounded-lg p-4 w-28 h-16 flex items-center justify-center">
+            <span class="text-neutral-700 font-semibold text-xs">PARTY</span>
           </div>
-          <div class="bg-white/20 rounded-lg p-4 w-24 h-16 flex items-center justify-center">
-            <span class="text-white font-bold text-xs">EVENTS</span>
+          <div class="bg-white border border-neutral-200 rounded-lg p-4 w-28 h-16 flex items-center justify-center">
+            <span class="text-neutral-700 font-semibold text-xs">EVENTS</span>
           </div>
         </div>
-        
-        <p class="text-primary-100 mt-6 text-sm">
+
+        <p class="text-neutral-600 mt-6 text-sm">
           Join hundreds of satisfied families who chose us for their milestone celebrations
         </p>
       </div>
     </div>
 
-    <!-- Awards Section -->
+    <!-- Awards (light badges with gold accent) -->
     <div class="mt-16 text-center animate-on-scroll" style="animation-delay: 800ms;">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
         <div class="text-center">
-          <div class="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-yellow-800" fill="currentColor" viewBox="0 0 24 24">
+          <div class="w-16 h-16 bg-white border border-brand-gold/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-brand-gold" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
             </svg>
           </div>
-          <h4 class="text-lg font-semibold text-white mb-2">Local Business Award</h4>
-          <p class="text-primary-100 text-sm">Milton Keynes Event Hire</p>
+          <h4 class="text-lg font-semibold text-neutral-900 mb-1">Local Business Award</h4>
+          <p class="text-neutral-600 text-sm">Milton Keynes Event Hire</p>
         </div>
-        
+
         <div class="text-center">
-          <div class="w-16 h-16 bg-green-400 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-green-800" fill="currentColor" viewBox="0 0 24 24">
+          <div class="w-16 h-16 bg-white border border-brand-gold/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-brand-gold" fill="currentColor" viewBox="0 0 24 24">
               <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
             </svg>
           </div>
-          <h4 class="text-lg font-semibold text-white mb-2">Quality Assured</h4>
-          <p class="text-primary-100 text-sm">Professional Service</p>
+          <h4 class="text-lg font-semibold text-neutral-900 mb-1">Quality Assured</h4>
+          <p class="text-neutral-600 text-sm">Professional Service</p>
         </div>
-        
+
         <div class="text-center">
-          <div class="w-16 h-16 bg-blue-400 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg class="w-8 h-8 text-blue-800" fill="currentColor" viewBox="0 0 24 24">
+          <div class="w-16 h-16 bg-white border border-brand-gold/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-brand-gold" fill="currentColor" viewBox="0 0 24 24">
               <path d="M12 14l9-5-9-5-9 5 9 5z"/>
               <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
             </svg>
           </div>
-          <h4 class="text-lg font-semibold text-white mb-2">Fully Insured</h4>
-          <p class="text-primary-100 text-sm">PAT Tested Equipment</p>
+          <h4 class="text-lg font-semibold text-neutral-900 mb-1">Fully Insured</h4>
+          <p class="text-neutral-600 text-sm">PAT Tested Equipment</p>
         </div>
       </div>
     </div>
   </div>
 </section>
+
 
 <style>
   /* Animation classes */
