@@ -1,118 +1,240 @@
 ---
 /**
- * Hero section with compelling headline, description, and call-to-action.
- * Features background video/image with overlay and animated elements.
+ * Hero section with cream-based design matching the Roman Events logo.
+ * Uses the warm cream background as primary with orange and balloon accents.
  */
 
- import { BUSINESS_INFO } from '../../utils/constants'
+import { BUSINESS_INFO } from '../../utils/constants'
 import { Calendar, Star, Users, Award } from 'lucide-vue-next'
 ---
 
-<section class="relative min-h-screen flex items-center justify-center overflow-hidden">
-  <!-- Background Video/Image -->
-  <div class="absolute inset-0 z-0">
-    <!-- Background Image with fallback -->
-    <div class="absolute inset-0 bg-gradient-to-br from-primary-900 via-primary-800 to-secondary-900"></div>
-    <img 
-      src="https://images.unsplash.com/photo-1519167758481-83f29da78e92?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
-      alt="Elegant event setup"
-      class="w-full h-full object-cover opacity-30"
+<section id="home" class="relative min-h-screen flex items-center justify-center overflow-hidden isolate">
+  <!-- Background -->
+  <div class="absolute inset-0 -z-10">
+    <div class="absolute inset-0 bg-black-gradient" />
+    <!-- optional texture image (subtle) -->
+    <img
+      src="https://images.unsplash.com/photo-1519167758481-83f29da78e92?auto=format&fit=crop&w=2000&q=70"
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay"
       loading="eager"
+      decoding="async"
     />
-    
-    <!-- Overlay -->
-    <div class="absolute inset-0 bg-black/40"></div>
-    
-    <!-- Animated background elements -->
-    <div class="absolute inset-0 opacity-10">
-      <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-primary-300 rounded-full animate-float"></div>
-      <div class="absolute top-3/4 right-1/3 w-24 h-24 bg-secondary-300 rounded-full animate-float" style="animation-delay: 1s;"></div>
-      <div class="absolute top-1/2 right-1/4 w-16 h-16 bg-accent-300 rounded-full animate-float" style="animation-delay: 2s;"></div>
-    </div>
+    <!-- vignette -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60" />
+    <!-- soft gold wash -->
+    <div class="absolute -top-24 left-1/3 h-80 w-80 rounded-full bg-brand-gold/10 blur-3xl" />
   </div>
 
-  <!-- Content Container -->
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <!-- Main Headlines -->
-    <div class="animate-fade-in-up">
-      <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight">
+  <!-- Gold Balloons Field (background) -->
+<div aria-hidden="true" class="pointer-events-none absolute inset-0 -z-10 overflow-hidden">
+  <!-- balloon 1 -->
+  <svg viewBox="0 0 120 180"
+       class="absolute top-[12%] left-[8%] w-20 sm:w-24 opacity-60 motion-safe:animate-balloon-float"
+       style="animation-duration: 9s; animation-delay: .2s; filter: drop-shadow(0 8px 24px rgba(212,175,55,.35)); will-change: transform;">
+    <defs>
+      <linearGradient id="goldGrad1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#B8860B"/>
+        <stop offset="45%" stop-color="#D4AF37"/>
+        <stop offset="75%" stop-color="#F5D879"/>
+        <stop offset="100%" stop-color="#B8860B"/>
+      </linearGradient>
+    </defs>
+    <!-- balloon body -->
+    <ellipse cx="60" cy="60" rx="50" ry="60" fill="url(#goldGrad1)"/>
+    <!-- knot -->
+    <polygon points="55,115 65,115 60,125" fill="#B8860B"/>
+    <!-- string -->
+    <path d="M60 125 C 60 145, 48 155, 60 170"
+          stroke="rgba(212,175,55,.8)" stroke-width="2" fill="none"/>
+  </svg>
+
+  <!-- balloon 2 -->
+  <svg viewBox="0 0 120 180"
+       class="absolute top-[22%] right-[12%] w-16 sm:w-20 opacity-55 motion-safe:animate-balloon-float"
+       style="animation-duration: 10.5s; animation-delay: 1s; filter: drop-shadow(0 6px 20px rgba(212,175,55,.3)); will-change: transform;">
+    <defs>
+      <linearGradient id="goldGrad2" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#B8860B"/>
+        <stop offset="50%" stop-color="#D4AF37"/>
+        <stop offset="90%" stop-color="#F5D879"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="60" cy="60" rx="46" ry="56" fill="url(#goldGrad2)"/>
+    <polygon points="55,115 65,115 60,125" fill="#B8860B"/>
+    <path d="M60 125 C 68 145, 50 155, 64 172"
+          stroke="rgba(212,175,55,.75)" stroke-width="2" fill="none"/>
+  </svg>
+
+  <!-- balloon 3 -->
+  <svg viewBox="0 0 120 180"
+       class="absolute top-[58%] left-[24%] w-14 sm:w-16 opacity-50 motion-safe:animate-balloon-float"
+       style="animation-duration: 8.8s; animation-delay: 1.6s; filter: drop-shadow(0 6px 18px rgba(212,175,55,.28)); will-change: transform;">
+    <defs>
+      <linearGradient id="goldGrad3" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#B8860B"/>
+        <stop offset="40%" stop-color="#D4AF37"/>
+        <stop offset="80%" stop-color="#F5D879"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="60" cy="60" rx="42" ry="52" fill="url(#goldGrad3)"/>
+    <polygon points="55,110 65,110 60,120" fill="#B8860B"/>
+    <path d="M60 120 C 55 142, 70 152, 58 170"
+          stroke="rgba(212,175,55,.7)" stroke-width="2" fill="none"/>
+  </svg>
+
+  <!-- balloon 4 (blurred for depth) -->
+  <svg viewBox="0 0 120 180"
+       class="absolute top-[72%] right-[26%] w-24 sm:w-28 opacity-35 motion-safe:animate-balloon-float"
+       style="animation-duration: 12s; animation-delay: .6s; filter: blur(1px) drop-shadow(0 8px 26px rgba(212,175,55,.25)); will-change: transform;">
+    <defs>
+      <linearGradient id="goldGrad4" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#B8860B"/>
+        <stop offset="45%" stop-color="#D4AF37"/>
+        <stop offset="85%" stop-color="#F5D879"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="60" cy="60" rx="50" ry="60" fill="url(#goldGrad4)"/>
+    <polygon points="55,115 65,115 60,125" fill="#B8860B"/>
+    <path d="M60 125 C 52 145, 72 155, 60 172"
+          stroke="rgba(212,175,55,.6)" stroke-width="2" fill="none"/>
+  </svg>
+</div>
+
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full text-center pt-28 sm:pt-0">
+    <div class="space-y-6 animate-on-scroll opacity-0 translate-y-6">
+      <p class="inline-flex items-center justify-center gap-2 rounded-full border border-brand-gold/30 bg-white/5 px-3 py-1 text-xs font-medium tracking-wide text-brand-gold shadow-gold-glow">
+        Premium Event Styling in Milton Keynes
+      </p>
+
+      <h1 class="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold leading-tight text-brand-gold">
         <span class="block">LED Numbers &</span>
-        <span class="block bg-gradient-to-r from-primary-400 to-secondary-400 bg-clip-text text-transparent">
+        <span class="block bg-gold-gradient bg-clip-text text-transparent shimmer">
           Balloon Magic
         </span>
-        <span class="block">for Milton Keynes</span>
+        <span class="block text-brand-gold/90">for Milton Keynes</span>
       </h1>
-      
-      <p class="text-xl sm:text-2xl lg:text-3xl text-neutral-200 mb-8 max-w-4xl mx-auto leading-relaxed">
-        Spectacular 4FT LED number displays and balloon decorations for birthdays, anniversaries, and milestone celebrations
+
+      <p class="mx-auto max-w-3xl text-neutral-200/80 text-lg sm:text-xl leading-relaxed">
+        Show‑stopping 4FT LED number displays and bespoke balloon décor for birthdays,
+        anniversaries, and milestone celebrations.
       </p>
+
+      <!-- CTAs -->
+      <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a
+          href="/booking"
+          class="group inline-flex items-center justify-center gap-2 rounded-xl px-7 py-4 font-semibold text-brand-black
+                 bg-gold-gradient shadow-gold-strong transition-all duration-300 hover:shadow-gold-glow hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-brand-gold/30"
+        >
+          <Calendar class="w-5 h-5 transition-transform group-hover:rotate-12" />
+          Book Your Event
+          <span class="ml-1 transition-transform group-hover:translate-x-1">→</span>
+        </a>
+
+        <a
+          href="/gallery"
+          class="group inline-flex items-center justify-center gap-2 rounded-xl px-7 py-4 font-semibold
+                 border border-brand-gold/30 bg-white/5 text-brand-gold/90 backdrop-blur-xs
+                 transition-all duration-300 hover:bg-white/10 hover:shadow-gold-glow hover:-translate-y-0.5 focus:outline-none focus:ring-4 focus:ring-brand-gold/30"
+        >
+          <Star class="w-5 h-5 transition-transform group-hover:rotate-12" />
+          View Our Work
+        </a>
+      </div>
     </div>
 
-    <!-- Call-to-Action Buttons -->
-    <div class="animate-fade-in-up flex flex-col sm:flex-row gap-4 justify-center items-center mb-16" style="animation-delay: 0.3s;">
-      <a 
-        href="/booking"
-        class="group bg-primary-600 hover:bg-primary-700 text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:shadow-xl hover:scale-105 focus:ring-4 focus:ring-primary-300 inline-flex items-center"
-      >
-        <Calendar class="w-5 h-5 mr-2 group-hover:rotate-12 transition-transform" />
-        Book Your Event
-        <span class="ml-2 group-hover:translate-x-1 transition-transform">→</span>
-      </a>
-      
-      <a 
-        href="/gallery"
-        class="group bg-white/10 backdrop-blur-sm hover:bg-white/20 text-white border border-white/30 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 hover:shadow-xl inline-flex items-center"
-      >
-        <Star class="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" />
-        View Our Work
-      </a>
-    </div>
-
-    <!-- Key Statistics -->
-    <div class="animate-fade-in-up grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-4xl mx-auto" style="animation-delay: 0.6s;">
-      <div class="text-center">
-        <div class="text-3xl lg:text-4xl font-bold text-primary-400 mb-2">200+</div>
-        <div class="text-neutral-300 text-sm lg:text-base">Events Decorated</div>
+    <!-- Metrics -->
+    <div class="mt-16 grid grid-cols-2 lg:grid-cols-4 gap-5 max-w-4xl mx-auto animate-on-scroll opacity-0 translate-y-6 delay-150">
+      <div class="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xs p-5">
+        <div class="text-3xl lg:text-4xl font-bold text-brand-gold">200+</div>
+        <div class="mt-1 text-neutral-200/70">Events Decorated</div>
       </div>
-      <div class="text-center">
-        <div class="text-3xl lg:text-4xl font-bold text-secondary-400 mb-2">5+</div>
-        <div class="text-neutral-300 text-sm lg:text-base">Years Experience</div>
+      <div class="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xs p-5">
+        <div class="text-3xl lg:text-4xl font-bold text-brand-gold">5+</div>
+        <div class="mt-1 text-neutral-200/70">Years Experience</div>
       </div>
-      <div class="text-center">
-        <div class="text-3xl lg:text-4xl font-bold text-accent-400 mb-2">50+</div>
-        <div class="text-neutral-300 text-sm lg:text-base">LED Numbers</div>
+      <div class="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xs p-5">
+        <div class="text-3xl lg:text-4xl font-bold text-brand-gold">50+</div>
+        <div class="mt-1 text-neutral-200/70">LED Numbers</div>
       </div>
-      <div class="text-center">
-        <div class="text-3xl lg:text-4xl font-bold text-primary-400 mb-2">24hr</div>
-        <div class="text-neutral-300 text-sm lg:text-base">Hire Period</div>
+      <div class="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xs p-5">
+        <div class="text-3xl lg:text-4xl font-bold text-brand-gold">24hr</div>
+        <div class="mt-1 text-neutral-200/70">Hire Period</div>
       </div>
     </div>
   </div>
 
-  <!-- Scroll Indicator -->
-  <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-10 animate-bounce">
-    <div class="w-6 h-10 border-2 border-white/50 rounded-full flex justify-center">
-      <div class="w-1 h-3 bg-white/70 rounded-full mt-2 animate-pulse"></div>
+  <!-- Scroll cue -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-center text-neutral-300/70">
+    <div class="mx-auto w-6 h-10 rounded-full border-2 border-neutral-300/40 flex justify-center animate-bounce">
+      <div class="mt-2 h-3 w-1 rounded-full bg-neutral-300/70 animate-pulse" />
     </div>
-    <p class="text-white/70 text-sm mt-2 font-medium">Scroll to explore</p>
+    <p class="mt-2 text-xs">Scroll to explore</p>
   </div>
 
-  <!-- Floating Elements for Visual Interest -->
-  <div class="absolute inset-0 overflow-hidden pointer-events-none">
-    <!-- Floating icons -->
-    <div class="absolute top-1/4 left-8 opacity-20 animate-float">
-      <Users class="w-8 h-8 text-white" />
-    </div>
-    <div class="absolute top-1/3 right-12 opacity-20 animate-float" style="animation-delay: 1.5s;">
-      <Award class="w-6 h-6 text-white" />
-    </div>
-    <div class="absolute bottom-1/4 left-16 opacity-20 animate-float" style="animation-delay: 2.5s;">
-      <Star class="w-7 h-7 text-white" />
-    </div>
+  <!-- Decorative balloons (subtle) -->
+  <div class="pointer-events-none absolute inset-0 -z-10">
+    <div class="absolute top-[12%] left-[10%] w-24 h-24 rounded-full bg-balloons-gold/15 blur-2xl animate-float" />
+    <div class="absolute top-[65%] right-[15%] w-16 h-16 rounded-full bg-balloons-purple/15 blur-xl animate-float" style="animation-delay:1.2s" />
+    <div class="absolute top-[35%] right-[28%] w-20 h-20 rounded-full bg-balloons-blue/10 blur-xl animate-float" style="animation-delay:.6s" />
   </div>
 </section>
 
+
 <style>
+  /* Balloon-specific animations */
+  .balloon-hover:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 30px rgba(244, 195, 84, 0.2);
+  }
+  
+  /* Enhanced floating animation for balloons */
+  @keyframes balloonFloat {
+    0%, 100% { 
+      transform: translateY(0px) rotate(0deg); 
+    }
+    25% { 
+      transform: translateY(-8px) rotate(1deg); 
+    }
+    50% { 
+      transform: translateY(-15px) rotate(0deg); 
+    }
+    75% { 
+      transform: translateY(-8px) rotate(-1deg); 
+    }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  .shimmer {
+    background-size: 200% 100%;
+    animation: shimmer 3.8s linear infinite;
+  }
+
+/* Scroll/appear reveal (paired with animate-on-scroll class) */
+.revealed { opacity: 1 !important; transform: translateY(0) !important; }
+  
+  /* Balloon string wiggle */
+  @keyframes wiggle {
+    0%, 100% { 
+      transform: rotate(-2deg); 
+    }
+    50% { 
+      transform: rotate(2deg); 
+    }
+  }
+  
+  /* Gradient text support */
+  .bg-clip-text {
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  
   /* Custom animations for hero elements */
   @keyframes float {
     0%, 100% {
@@ -155,32 +277,41 @@ import { Calendar, Star, Users, Award } from 'lucide-vue-next'
     }
   }
   
-  /* Performance optimization for background */
-  .hero-bg {
-    will-change: transform;
+  /* Button hover effects with new colors */
+  .group:hover {
+    transform: translateY(-2px);
   }
   
-  /* Hover effects for CTA buttons */
-  .cta-primary:hover {
-    box-shadow: 0 20px 40px rgba(242, 128, 11, 0.3);
+  /* Custom cream pattern background */
+  .bg-cream-pattern {
+    background-image: 
+      radial-gradient(circle at 30% 30%, rgba(244, 195, 84, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 70% 60%, rgba(249, 115, 22, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 20% 80%, rgba(239, 68, 68, 0.03) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.03) 0%, transparent 50%);
   }
   
-  .cta-secondary:hover {
-    backdrop-filter: blur(8px);
+  /* Enhanced fade in animation */
+  .animate-fade-in-up {
+    animation: fadeInUp 0.8s ease-out;
+  }
+  
+  @keyframes fadeInUp {
+    0% { 
+      opacity: 0; 
+      transform: translateY(30px); 
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0); 
+    }
   }
 </style>
 
 <script>
   // Parallax effect for background
   document.addEventListener('DOMContentLoaded', () => {
-    const hero = document.querySelector('.hero-bg')
-    if (hero) {
-      window.addEventListener('scroll', () => {
-        const scrolled = window.pageYOffset
-        const parallax = scrolled * 0.5
-        hero.style.transform = `translateY(${parallax}px)`
-      })
-    }
+    
   })
   
   // Intersection Observer for animation triggers
@@ -200,5 +331,33 @@ import { Calendar, Star, Users, Award } from 'lucide-vue-next'
   // Observe hero elements
   document.querySelectorAll('.animate-on-scroll').forEach(el => {
     observer.observe(el)
+  })
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('revealed') })
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.animate-on-scroll').forEach(el => io.observe(el));
+  
+  // Parallax effect for floating balloons
+  document.addEventListener('DOMContentLoaded', () => {
+    const balloons = document.querySelectorAll('[class*="bg-balloons-"]')
+    const hero = document.querySelector('.hero-bg')
+    
+    if (hero) {
+      window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset
+        const parallax = scrolled * 0.5
+        hero.style.transform = `translateY(${parallax}px)`
+      })
+    }
+    
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset
+      balloons.forEach((balloon, index) => {
+        const speed = 0.2 + (index * 0.1)
+        const yPos = -(scrolled * speed)
+        balloon.style.transform = `translateY(${yPos}px)`
+      })
+    })
   })
 </script>

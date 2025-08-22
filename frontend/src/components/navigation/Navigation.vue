@@ -180,35 +180,31 @@ const image = SEO_CONFIG.image
 const navigationLinks = [
   {
     name: 'Home',
-    path: '/',
+    path: '#home',
     icon: Home
   },
   {
-    name: 'Gallery',
-    path: '/gallery',
-    icon: Image
-  },
-  {
     name: 'Services',
-    path: '/services',
+    path: '#services',
     icon: Sparkles
   },
   {
-    name: 'Pricing',
-    path: '/pricing',
-    icon: DollarSign
+    name: 'Gallery',
+    path: '#gallery',
+    icon: Image
   },
   {
-    name: 'About',
-    path: '/about',
+    name: 'Why Us',
+    path: '#why',
     icon: Info
   },
   {
     name: 'Contact',
-    path: '/contact',
+    path: '#contact',
     icon: Mail
   }
 ] as const
+
 
 // Reactive state
 const isMobileMenuOpen = ref(false)

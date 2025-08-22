@@ -557,7 +557,7 @@ export const SEO_CONFIG = {
   defaultDescription: BUSINESS_INFO.description,
   siteUrl: 'https://your-event-booking-site.com', // TODO: replace with real domain
   author: BUSINESS_INFO.name,
-  image: '/images/logo.jpg', // ✅ make sure this matches your public/images/logo.jpg
+  image: '/images/logo.png', // ✅ make sure this matches your public/images/logo.jpg
   twitterHandle: '@romaneventsmk', // update if you set up social media
   facebookAppId: '123456789', // replace with real if available
   keywords: [
