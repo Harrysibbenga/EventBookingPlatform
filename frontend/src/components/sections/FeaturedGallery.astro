@@ -1,155 +1,121 @@
 ---
-/**
- * Featured gallery section showcasing portfolio highlights.
- * Displays curated event photos with categories and lightbox functionality.
- */
-
-// Sample gallery data - in a real app, this would come from a CMS or API
 const featuredImages = [
-  {
-    id: 1,
-    src: 'https://images.unsplash.com/photo-1519167758481-83f29da78e92?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    alt: 'Elegant wedding ceremony setup',
-    category: 'Weddings',
-    title: 'Garden Wedding Ceremony'
-  },
-  {
-    id: 2,
-    src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    alt: 'Corporate event networking',
-    category: 'Corporate',
-    title: 'Annual Company Gala'
-  },
-  {
-    id: 3,
-    src: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    alt: 'Birthday party celebration',
-    category: 'Parties',
-    title: 'Milestone Birthday Celebration'
-  },
-  {
-    id: 4,
-    src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    alt: 'Wedding reception table setting',
-    category: 'Weddings',
-    title: 'Reception Table Design'
-  },
-  {
-    id: 5,
-    src: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    alt: 'Corporate conference setup',
-    category: 'Corporate',
-    title: 'Executive Conference'
-  },
-  {
-    id: 6,
-    src: 'https://images.unsplash.com/photo-1549451371-64aa98a6f660?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    alt: 'Event decoration details',
-    category: 'Decorations',
-    title: 'Custom Floral Arrangements'
-  }
+  { id: 1, src: 'https://images.unsplash.com/photo-1519167758481-83f29da78e92?auto=format&fit=crop&w=1600&q=80', alt: 'Elegant wedding ceremony setup', category: 'Weddings',    title: 'Garden Wedding Ceremony' },
+  { id: 2, src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1600&q=80', alt: 'Corporate event networking',      category: 'Corporate',   title: 'Annual Company Gala' },
+  { id: 3, src: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1600&q=80', alt: 'Birthday party celebration',      category: 'Parties',     title: 'Milestone Birthday Celebration' },
+  { id: 4, src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1600&q=80', alt: 'Wedding reception table setting', category: 'Weddings',    title: 'Reception Table Design' },
+  { id: 5, src: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1600&q=80', alt: 'Corporate conference setup',      category: 'Corporate',   title: 'Executive Conference' },
+  { id: 6, src: 'https://images.unsplash.com/photo-1549451371-64aa98a6f660?auto=format&fit=crop&w=1600&q=80', alt: 'Event decoration details',          category: 'Decorations', title: 'Custom Floral Arrangements' },
 ]
----
+const categories = ['All', ...Array.from(new Set(featuredImages.map(i => i.category)))]
 
-<section id="gallery" class="py-20 bg-neutral-50">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Section Header -->
-    <div class="text-center mb-16 animate-on-scroll">
-      <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
-        <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      </div>
-      
-      <h2 class="text-4xl font-bold text-neutral-900 mb-4">
-        Our Portfolio
+import Balloon from '../decor/Balloon.astro'
+---
+<section id="gallery" class="relative isolate overflow-hidden py-20 bg-neutral-800 text-white">
+  <!-- Balloons: inside the section, clipped by overflow-hidden -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+    <Balloon class="z-0" preset="pink"   top="10%"  left="6%"   width={96}  opacity={0.45} blur />
+    <Balloon class="z-0" preset="blue"   top="24%"  right="10%" width={112} opacity={0.40} delay={0.6} blur />
+    <Balloon class="z-0" preset="teal"   top="56%"  right="2%"  width={80}  opacity={0.35} delay={0.9} />
+    <Balloon class="z-0" preset="purple" bottom="10%" left="22%" width={128} opacity={0.35} delay={0.3} blur />
+    <Balloon class="z-0" preset="gold"   bottom="10%" right="22%" width={128} opacity={0.35} delay={0.3} blur />
+    <Balloon class="z-0" preset="red"    bottom="24%" left="2%"  width={72}  opacity={0.35} delay={1.1} />
+    <Balloon class="z-0" preset="gold"   top="10%" left="6%"   width={96}  opacity={0.45} blur />
+    <Balloon class="z-0" preset="gold"   top="24%" right="10%" width={112} opacity={0.4}  delay={0.6} blur />
+    <Balloon class="z-0" preset="gold"   top="56%" right="2%"  width={80}  opacity={0.35} delay={0.9} />
+    <Balloon class="z-0" preset="gold" bottom="10%" left="22%" width={128} opacity={0.35} delay={0.3} blur />
+    <Balloon class="z-0" preset="gold" bottom="10%" right="22%" width={128} opacity={0.35} delay={0.3} blur />
+    <Balloon class="z-0" preset="gold"    bottom="24%" left="2%" width={72}  opacity={0.35} delay={1.1} />
+  </div>
+  
+  <!-- Optional subtle vignette to ensure text contrast over balloons -->
+  <div aria-hidden="true" class="absolute inset-0 z-0 bg-gradient-to-b from-black/10 via-transparent to-black/20"></div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-10 animate-on-scroll">
+      <h2 class="text-4xl font-extrabold text-white mb-3">
+        Our <span class="text-brand-gold">Portfolio</span>
       </h2>
-      
-      <p class="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
-        Explore our recent events and see how we transform visions into unforgettable experiences. 
-        Each celebration tells a unique story.
-      </p>
+      <p class="text-lg sm:text-xl text-neutral-300 max-w-3xl mx-auto">
+        See how we turn ideas into unforgettable moments.
+      </p>      
     </div>
 
-    <!-- Gallery Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-      {featuredImages.map((image, index) => (
-        <div 
-          class="group relative overflow-hidden rounded-xl shadow-soft hover:shadow-medium transition-all duration-300 animate-on-scroll"
-          style={`animation-delay: ${index * 100}ms`}
+    <!-- Filters -->
+    <div class="mb-10 flex flex-wrap items-center justify-center gap-2 animate-on-scroll" style="animation-delay:120ms">
+      {categories.map((cat, i) => (
+        <button
+          type="button"
+          class={`filter-chip ${i === 0 ? 'is-active' : ''}`}
+          data-filter={cat}
+          aria-pressed={i === 0 ? 'true' : 'false'}
         >
-          <!-- Image -->
-          <div class="aspect-[4/3] overflow-hidden">
-            <img 
-              src={image.src}
-              alt={image.alt}
-              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              loading="lazy"
-            />
-          </div>
-          
-          <!-- Overlay -->
-          <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-            <!-- Content -->
-            <div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-              <div class="inline-block bg-primary-600 text-xs font-medium px-3 py-1 rounded-full mb-2">
-                {image.category}
-              </div>
-              <h3 class="text-lg font-semibold mb-2">
-                {image.title}
-              </h3>
-              <button class="inline-flex items-center text-sm font-medium hover:underline">
-                View Details
-                <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-          </div>
-          
-          <!-- Click overlay for lightbox -->
-          <button 
-            class="absolute inset-0 w-full h-full z-10 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2"
-            aria-label={`View ${image.title} in full size`}
-            data-lightbox="gallery"
-            data-src={image.src}
-            data-title={image.title}
-          >
-            <span class="sr-only">View image</span>
-          </button>
-        </div>
+          {cat}
+        </button>
       ))}
     </div>
 
-    <!-- Call to Action -->
-    <div class="text-center animate-on-scroll" style="animation-delay: 600ms;">
-      <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-soft border border-neutral-200">
-        <h3 class="text-2xl lg:text-3xl font-bold text-neutral-900 mb-4">
-          Ready to Create Your Perfect Event?
-        </h3>
-        
-        <p class="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
-          Browse our complete portfolio and get inspired for your special occasion.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a 
-            href="/gallery"
-            class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg hover:scale-105 inline-flex items-center"
-          >
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
+    <!-- Grid -->
+    <div id="gallery-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
+      {featuredImages.map((image, index) => (
+        <figure
+          class="gallery-item group relative overflow-hidden rounded-2xl bg-white border border-brand-gold/20 shadow-sm hover:shadow-gold-glow transition-all duration-300 animate-on-scroll"
+          style={`animation-delay:${index * 90}ms`}
+          data-category={image.category}
+        >
+          <div class="aspect-[4/3] overflow-hidden">
+            <img
+              src={image.src}
+              alt={image.alt}
+              loading="lazy"
+              decoding="async"
+              sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+
+          <!-- gradient overlay -->
+          <figcaption class="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+
+          <!-- info -->
+          <div class="absolute inset-x-0 bottom-0 p-5 text-white translate-y-3 group-hover:translate-y-0 transition-transform duration-300">
+            <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-brand-gold/90 text-brand-black shadow-sm">
+              {image.category}
+            </span>
+            <h3 class="mt-2 text-lg font-semibold drop-shadow">{image.title}</h3>
+            <button
+              class="mt-1 inline-flex items-center text-sm font-medium hover:underline focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
+              data-lightbox
+              data-index={index}
+              aria-label={`View ${image.title} in full size`}
+            >
+              View Details
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
+          <!-- full-card button target -->
+          <button
+            class="absolute inset-0 z-[1] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold/50"
+            data-lightbox
+            data-index={index}
+            aria-label={`Open ${image.title} in lightbox`}
+          />
+        </figure>
+      ))}
+    </div>
+
+    <!-- CTA -->
+    <div class="text-center animate-on-scroll" style="animation-delay:480ms">
+      <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-sm border border-brand-gold/20">
+        <h3 class="text-2xl lg:text-3xl font-bold text-neutral-900 mb-3">Ready to create your perfect event?</h3>
+        <p class="text-lg text-neutral-600 mb-7 max-w-2xl mx-auto">Browse the full gallery and get inspired for your special occasion.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/gallery" class="inline-flex items-center justify-center gap-2 rounded-xl px-7 py-4 font-semibold text-brand-black bg-gold-gradient shadow-gold-strong transition-all duration-300 hover:shadow-gold-glow hover:-translate-y-0.5">
             View Full Gallery
           </a>
-          
-          <a 
-            href="/booking"
-            class="bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-300 px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-md inline-flex items-center"
-          >
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
+          <a href="/booking" class="inline-flex items-center justify-center gap-2 rounded-xl px-7 py-4 font-semibold border border-brand-gold/30 bg-white text-neutral-800 transition-all duration-300 hover:bg-cream-50 hover:-translate-y-0.5">
             Book Consultation
           </a>
         </div>
@@ -158,142 +124,185 @@ const featuredImages = [
   </div>
 </section>
 
-<!-- Simple Lightbox Modal -->
-<div id="lightbox" class="fixed inset-0 bg-black/90 z-50 hidden items-center justify-center p-4">
-  <div class="relative max-w-4xl w-full">
-    <!-- Close Button -->
-    <button 
-      id="lightbox-close"
-      class="absolute top-4 right-4 text-white hover:text-neutral-300 z-10"
-      aria-label="Close lightbox"
-    >
-      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
+<!-- Lightbox -->
+<div id="lightbox" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/85">
+  <div class="relative w-full max-w-5xl">
+    <button id="lb-close" class="absolute top-4 right-4 text-white/90 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white/70" aria-label="Close lightbox">
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>
-    
-    <!-- Image -->
-    <img 
-      id="lightbox-image"
-      src=""
-      alt=""
-      class="w-full h-auto max-h-[90vh] object-contain rounded-lg"
-    />
-    
-    <!-- Title -->
-    <div id="lightbox-title" class="text-white text-center mt-4 text-lg font-medium"></div>
+
+    <button id="lb-prev" class="abs-center-y left-2 md:left-4 nav-btn z-20" aria-label="Previous image">‹</button>
+    <button id="lb-next" class="abs-center-y right-2 md:right-4 nav-btn z-20" aria-label="Next image">›</button>
+
+    <img id="lb-img" src="" alt="" class="w-full h-auto max-h-[85vh] object-contain rounded-lg shadow-lg" />
+    <div id="lb-title" class="text-white text-center mt-3 text-lg font-medium"></div>
   </div>
 </div>
 
 <style>
-  /* Gallery animations */
-  .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease-out;
-  }
+/* Filter chips */
+.filter-chip {
+  @apply px-4 py-2 rounded-full border border-brand-gold/40 text-neutral-200 hover:bg-brand-gold/10 transition;
+}
+.filter-chip.is-active {
+  @apply bg-brand-gold text-brand-black font-semibold border-brand-gold;
+}
+
+/* Utility for lightbox nav buttons */
+.abs-center-y { position:absolute; top:50%; transform:translateY(-50%); }
+
+.nav-btn {
+  @apply text-white text-3xl leading-none transition hover:bg-brand-gold hover:text-brand-black;
   
-  .animate-on-scroll.animate-fade-in-up {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.75rem;   /* 44px for good tap targets */
+  height: 2.75rem;
+  border-radius: 9999px; /* full round */
   
-  /* Image hover effects */
-  .gallery-item img {
-    transition: transform 0.5s ease;
-  }
+  background: rgba(0, 0, 0, 0.4); /* base bg (dark glassy look) */
+  backdrop-filter: blur(4px);     /* frosted effect */
   
-  .gallery-item:hover img {
-    transform: scale(1.1);
-  }
-  
-  /* Lightbox styles */
-  #lightbox {
-    backdrop-filter: blur(4px);
-  }
-  
-  #lightbox.show {
-    display: flex;
-  }
-  
-  /* Category badge styles */
-  .category-badge {
-    backdrop-filter: blur(4px);
-  }
-  
-  /* Focus states for accessibility */
-  button[data-lightbox]:focus {
-    outline: 2px solid theme('colors.primary.500');
-    outline-offset: 2px;
-  }
+  cursor: pointer;
+  user-select: none;
+}
+
+
+.nav-btn:hover { background: rgba(255, 255, 255, 0.25); }
+
+/* Grid / items */
+.gallery-item img { transition: transform .5s ease; }
+.gallery-item:hover img { transform: scale(1.05); }
+
+/* Animate on scroll */
+.animate-on-scroll { opacity:0; transform:translateY(20px); transition: all .6s ease-out; }
+.animate-on-scroll.animate-fade-in-up { opacity:1; transform:translateY(0); }
+
+/* Lightbox visibility */
+#lightbox.show { display:flex; }
 </style>
 
 <script>
-  // Lightbox functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    const lightbox = document.getElementById('lightbox')
-    const lightboxImage = document.getElementById('lightbox-image')
-    const lightboxTitle = document.getElementById('lightbox-title')
-    const lightboxClose = document.getElementById('lightbox-close')
-    const galleryButtons = document.querySelectorAll('[data-lightbox]')
-    
-    if (!lightbox || !lightboxImage || !lightboxTitle || !lightboxClose) return
-    
-    // Open lightbox
-    galleryButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        e.preventDefault()
-        const src = button.dataset.src
-        const title = button.dataset.title
-        
-        if (src) {
-          lightboxImage.src = src
-          lightboxImage.alt = title || ''
-          lightboxTitle.textContent = title || ''
-          lightbox.classList.add('show')
-          document.body.style.overflow = 'hidden'
-        }
-      })
-    })
-    
-    // Close lightbox
-    const closeLightbox = () => {
-      lightbox.classList.remove('show')
-      document.body.style.overflow = ''
-    }
-    
-    lightboxClose.addEventListener('click', closeLightbox)
-    
-    // Close on background click
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) {
-        closeLightbox()
-      }
-    })
-    
-    // Close on escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && lightbox.classList.contains('show')) {
-        closeLightbox()
-      }
-    })
-    
-    // Intersection observer for animations
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in-up')
-          }
-        })
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      }
-    )
+document.addEventListener('DOMContentLoaded', () => {
+  // Animate on scroll
+  const io = new IntersectionObserver((entries)=>entries.forEach(e=>e.isIntersecting && e.target.classList.add('animate-fade-in-up')), {threshold:0.1, rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.animate-on-scroll').forEach(el=>io.observe(el));
 
-    const elements = document.querySelectorAll('.animate-on-scroll')
-    elements.forEach((el) => observer.observe(el))
-  })
+  // Filtering
+  const chips = document.querySelectorAll('.filter-chip');
+  const grid  = document.getElementById('gallery-grid');
+  const items = grid ? grid.querySelectorAll('[data-category]') : [];
+
+  function applyFilter(cat){
+    items.forEach(card=>{
+      const match = (cat === 'All') || (card.dataset.category === cat);
+      card.style.display = match ? '' : 'none';
+    });
+  }
+
+  chips.forEach(chip=>{
+    chip.addEventListener('click', ()=>{
+      chips.forEach(c=>{ c.classList.remove('is-active'); c.setAttribute('aria-pressed','false'); });
+      chip.classList.add('is-active'); chip.setAttribute('aria-pressed','true');
+      applyFilter(chip.dataset.filter);
+    });
+  });
+
+  // Lightbox with prev/next + focus trap
+const lb = document.getElementById('lightbox');
+const img = document.getElementById('lb-img');
+const title = document.getElementById('lb-title');
+const btnClose = document.getElementById('lb-close');
+const btnPrev = document.getElementById('lb-prev');
+const btnNext = document.getElementById('lb-next');
+
+// All trigger buttons (there are 2 per card)
+const triggers = document.querySelectorAll('[data-lightbox][data-index]');
+
+// Build a unique ordered list of indices
+const orderedIndexes = [...new Set([...triggers].map(t => Number(t.dataset.index)))];
+
+// Map each index to its card/img/title
+const data = orderedIndexes.map(i => {
+  const anyTrigger = document.querySelector(`[data-lightbox][data-index="${i}"]`);
+  const card = anyTrigger?.closest('.gallery-item');
+  const imgEl = card?.querySelector('img');
+  const titleEl = card?.querySelector('h3');
+  return { index: i, src: imgEl?.src || '', title: titleEl?.textContent || '' };
+});
+
+let current = orderedIndexes[0] ?? 0;
+let lastFocus = null;
+
+function open(index) {
+  current = index;
+  const pos = orderedIndexes.indexOf(current);
+  const item = data[pos];
+  if (!item) return;
+
+  img.src = item.src;
+  img.alt = item.title || '';
+  title.textContent = item.title || '';
+
+  lb.classList.add('show');
+  lastFocus = document.activeElement;
+  btnClose.focus();
+  document.body.style.overflow = 'hidden';
+  updateArrows();
+}
+
+function close() {
+  lb.classList.remove('show');
+  document.body.style.overflow = '';
+  if (lastFocus) lastFocus.focus();
+}
+
+function updateArrows() {
+  const show = orderedIndexes.length > 1;
+  btnPrev.style.display = show ? '' : 'none';
+  btnNext.style.display = show ? '' : 'none';
+}
+
+function step(dir) {
+  const pos = orderedIndexes.indexOf(current);
+  if (pos === -1) return;
+  const nextPos = (pos + dir + orderedIndexes.length) % orderedIndexes.length;
+  open(orderedIndexes[nextPos]);
+}
+
+// Bind open on all triggers (stop bubbling so background click doesn't close)
+triggers.forEach(t => {
+  t.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    open(Number(t.dataset.index) || 0);
+  });
+});
+
+// Controls
+btnPrev?.addEventListener('click', (e) => { e.stopPropagation(); step(-1); });
+btnNext?.addEventListener('click', (e) => { e.stopPropagation(); step(1); });
+btnClose?.addEventListener('click', (e) => { e.stopPropagation(); close(); });
+
+// Close on backdrop click
+lb?.addEventListener('click', (e) => { if (e.target === lb) close(); });
+
+// Keyboard
+document.addEventListener('keydown', (e) => {
+  if (!lb.classList.contains('show')) return;
+  if (e.key === 'Escape') return close();
+  if (e.key === 'ArrowLeft') return step(-1);
+  if (e.key === 'ArrowRight') return step(1);
+  if (e.key === 'Tab') {
+    // simple focus trap
+    const focusables = [btnClose, btnPrev, btnNext].filter(Boolean);
+    const i = focusables.indexOf(document.activeElement);
+    const next = e.shiftKey ? (i <= 0 ? focusables.length - 1 : i - 1)
+                            : (i === focusables.length - 1 ? 0 : i + 1);
+    (focusables[next] || btnClose).focus();
+    e.preventDefault();
+  }
+});
+});
 </script>

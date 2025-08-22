@@ -3,13 +3,25 @@
  * Services section showcasing key event hire services.
  * Light theme to contrast the dark hero. Uses brand gold accents.
  */
- import { SERVICES } from '../../utils/constants'
+import { SERVICES } from '../../utils/constants'
 import ServiceCard from '../ui/ServiceCard.astro'
+import Balloon from '../decor/Balloon.astro'
 ---
 
 <section id="services" class="relative py-24 bg-cream-50">
   <!-- soft gold wash -->
   <div aria-hidden="true" class="pointer-events-none absolute -top-24 right-1/4 h-72 w-72 rounded-full bg-brand-gold/10 blur-3xl"></div>
+
+  <!-- Vibrant balloon background (subtle, behind content but above bg) -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+    <Balloon preset="gold"   top="10%" left="6%"   width={96}  opacity={0.45} blur />
+    <Balloon preset="gold"   top="24%" right="10%" width={112} opacity={0.4}  delay={0.6} blur />
+    <Balloon preset="gold"   top="56%" right="2%"  width={80}  opacity={0.35} delay={0.9} />
+    <Balloon preset="gold" bottom="10%" left="22%" width={128} opacity={0.35} delay={0.3} blur />
+    <Balloon preset="gold" bottom="10%" right="22%" width={128} opacity={0.35} delay={0.3} blur />
+    <Balloon preset="gold"    bottom="24%" left="2%" width={72}  opacity={0.35} delay={1.1} />
+  </div>
+
 
   <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
