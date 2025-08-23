@@ -4,6 +4,7 @@
  */
 
 import { EventType, ContactType } from '../types/api'
+import { PACKAGES } from './packages';
 
 // ========================================
 // BUSINESS INFORMATION (UK • Milton Keynes)
@@ -201,8 +202,10 @@ export const SERVICES = [
   {
     id: 'led-numbers',
     name: '4FT LED Number Hire',
-    description: 'Illuminated LED numbers for birthdays, anniversaries, and celebrations.',
-    icon: '🔢',
+    description:
+      'Illuminated LED numbers for birthdays, anniversaries, and celebrations.',
+    image: PACKAGES.numberPackage.src,
+    alt: PACKAGES.numberPackage.alt,
     basePrice: 50,
     priceUnit: 'per number (24 hrs)',
     category: 'numbers',
@@ -218,7 +221,8 @@ export const SERVICES = [
     name: 'Birthday Package',
     description:
       'Complete birthday setup with LED numbers, balloon arch, shimmer wall, neon sign and more.',
-    icon: '🎂',
+    image: PACKAGES.birthdayPackage.src,
+    alt: PACKAGES.birthdayPackage.alt,
     basePrice: 230,
     category: 'packages',
     popular: true,
@@ -234,7 +238,8 @@ export const SERVICES = [
     name: 'Baby Shower Package',
     description:
       'Celebrate new arrivals with a magical themed display including BABY balloon boxes and teddy.',
-    icon: '👶',
+    image: PACKAGES.babyShowerPackage.src,
+    alt: PACKAGES.babyShowerPackage.alt,
     basePrice: 250,
     category: 'packages',
     features: [
@@ -250,7 +255,8 @@ export const SERVICES = [
     name: 'Gender Reveal Package',
     description:
       'Stylish setup for gender reveal parties with backdrop, neon sign and balloons.',
-    icon: '🎉',
+    image: PACKAGES.genderRevealPackage.src,
+    alt: PACKAGES.genderRevealPackage.alt,
     basePrice: 230,
     category: 'packages',
     features: [
@@ -260,11 +266,28 @@ export const SERVICES = [
     ]
   },
   {
+    id: 'christening-package',
+    name: 'Christening Package',
+    description:
+      'Elegant setup for christening celebrations with a soft, welcoming theme including balloons, florals and a personalised display.',
+    image: PACKAGES.christeningPackage.src,
+    alt: PACKAGES.christeningPackage.alt,
+    basePrice: 180,
+    category: 'packages',
+    features: [
+      'Custom Christening Backdrop with Stand',
+      'Balloon Garland in Pastel & Neutral Tones',
+      'Artificial Florals & Greenery Decoration',
+      'Personalised Wooden / Acrylic Christening Sign'
+    ]
+  },
+  {
     id: 'wedding-package',
     name: 'Wedding Package',
     description:
       'Elegant wedding package with floral displays, shimmer walls, neon sign and balloon arch.',
-    icon: '💍',
+    image: PACKAGES.weddingPackage.src,
+    alt: PACKAGES.weddingPackage.alt,
     basePrice: 250,
     category: 'packages',
     features: [
@@ -279,7 +302,8 @@ export const SERVICES = [
     name: 'Engagement Package',
     description:
       'Celebrate engagements with a romantic backdrop, neon lighting, flowers and balloons.',
-    icon: '💕',
+    image: PACKAGES.engagementPackage.src,
+    alt: PACKAGES.engagementPackage.alt,
     basePrice: 250,
     category: 'packages',
     features: [
@@ -294,7 +318,8 @@ export const SERVICES = [
     name: 'Retirement Package',
     description:
       'Send off in style with a full event backdrop, neon lighting, flowers and balloons.',
-    icon: '🎊',
+    image: PACKAGES.retirementPackage.src,
+    alt: PACKAGES.retirementPackage.alt,
     basePrice: 250,
     category: 'packages',
     features: [
@@ -309,7 +334,8 @@ export const SERVICES = [
     name: 'Anniversary Package',
     description:
       'Celebrate anniversaries with LED numbers, balloons, flowers and a neon backdrop.',
-    icon: '❤️',
+    image: PACKAGES.anniversaryPackage.src,
+    alt: PACKAGES.anniversaryPackage.alt,
     basePrice: 250,
     category: 'packages',
     features: [
@@ -325,7 +351,8 @@ export const SERVICES = [
     name: 'Customised Wooden Signs',
     description:
       'Personalised wooden signs created with precision laser cutting technology.',
-    icon: '🪧',
+    image: PACKAGES.customWoodSign.src,
+    alt: PACKAGES.customWoodSign.alt,
     basePrice: 30,
     category: 'custom',
     features: [
@@ -334,7 +361,8 @@ export const SERVICES = [
       'Available in various finishes'
     ]
   }
-] as const
+] as const;
+
 
 // ========================================
 // PRICING TIERS (Roman Events Packages)

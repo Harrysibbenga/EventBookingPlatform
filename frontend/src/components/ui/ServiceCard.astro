@@ -4,18 +4,21 @@
  * Variants: light (default), dark
  */
 
- export interface Props {
-  service: {
-    id: string
-    name: string
-    description: string
-    icon: string
-    basePrice?: number
-    priceUnit?: string
-    category: string
-    popular?: boolean
-    features: string[]
-  }
+ export interface Service {
+  id: string
+  name: string
+  description: string
+  image?: string            // new
+  alt?: string              // new
+  basePrice?: number
+  priceUnit?: string
+  category: string
+  popular?: boolean
+  features: string[]
+}
+
+export interface Props {
+  service: Service
   index?: number
   class?: string
   style?: string
@@ -30,20 +33,26 @@ const {
   variant = 'light'
 } = Astro.props
 
-const { name, description, icon, basePrice, priceUnit, popular, features } = service
+const {
+  name,
+  description,
+  image,
+  alt,
+  basePrice,
+  priceUnit,
+  popular,
+  features
+} = service
 
 // Format price display (UK £ instead of $)
 const priceDisplay = basePrice
-  ? priceUnit
-    ? `£${basePrice} ${priceUnit}`
-    : `From £${basePrice}`
+  ? (priceUnit ? `£${basePrice} ${priceUnit}` : `From £${basePrice}`)
   : 'Custom Quote'
 
 // Variant-based class maps
 const variants = {
   light: {
     card: 'bg-white border border-neutral-200 text-neutral-900',
-    icon: 'bg-white border border-brand-gold/30',
     title: 'text-neutral-900 group-hover:text-brand-gold',
     desc: 'text-neutral-600',
     price: 'text-brand-gold',
@@ -51,10 +60,10 @@ const variants = {
     listIcon: 'text-brand-gold',
     ctaPrimary: 'text-brand-black bg-gold-gradient shadow-gold-strong hover:shadow-gold-glow',
     ctaSecondary: 'text-neutral-800 bg-white border border-brand-gold/30 hover:bg-cream-50',
+    imageRing: 'ring-1 ring-brand-gold/20'
   },
   dark: {
     card: 'bg-neutral-900 border border-neutral-800 text-white',
-    icon: 'bg-neutral-800 border border-brand-gold/40',
     title: 'text-white group-hover:text-brand-gold',
     desc: 'text-neutral-300',
     price: 'text-brand-gold',
@@ -62,6 +71,7 @@ const variants = {
     listIcon: 'text-brand-gold',
     ctaPrimary: 'text-brand-black bg-gold-gradient shadow-gold-strong hover:shadow-gold-glow',
     ctaSecondary: 'text-white bg-neutral-800 border border-brand-gold/40 hover:bg-neutral-700',
+    imageRing: 'ring-1 ring-brand-gold/30'
   }
 }
 
@@ -79,13 +89,26 @@ const v = variants[variant]
     </div>
   )}
 
-  <!-- Card Header -->
-  <div class="p-6 pb-4">
-    <!-- Icon -->
-    <div class={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300 ${v.icon}`}>
-      <span class="text-2xl" set:html={icon}></span>
-    </div>
+  <!-- Media/Header -->
+  <div class={`w-full aspect-[16/9] overflow-hidden ${v.imageRing}`}>
+    {image ? (
+      <img
+        src={image}
+        alt={alt ?? `${name} example setup`}
+        loading="lazy"
+        decoding="async"
+        class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+      />
+    ) : (
+      <div class="w-full h-full grid place-items-center bg-neutral-100 dark:bg-neutral-800 text-neutral-500 text-sm">
+        Image coming soon
+      </div>
+    )}
+  </div>
 
+  <!-- Card Body -->
+  <div class="p-6 pb-4">
     <!-- Title & Description -->
     <h3 class={`text-xl font-semibold mb-2 transition-colors ${v.title}`}>
       {name}
@@ -102,7 +125,7 @@ const v = variants[variant]
       </span>
       {popular && (
         <div class="flex items-center text-sm font-medium text-brand-gold">
-          <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
           </svg>
           Most Popular
@@ -120,7 +143,7 @@ const v = variants[variant]
           <>
             {features.slice(0, 4).map((feature) => (
               <li class={`flex items-start text-sm ${v.desc}`}>
-                <svg class={`w-4 h-4 mr-2 mt-0.5 flex-shrink-0 ${v.listIcon}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class={`w-4 h-4 mr-2 mt-0.5 flex-shrink-0 ${v.listIcon}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                 </svg>
                 {feature}

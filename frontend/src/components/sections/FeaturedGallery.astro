@@ -1,12 +1,13 @@
 ---
-const featuredImages = [
-  { id: 1, src: 'https://images.unsplash.com/photo-1519167758481-83f29da78e92?auto=format&fit=crop&w=1600&q=80', alt: 'Elegant wedding ceremony setup', category: 'Weddings',    title: 'Garden Wedding Ceremony' },
-  { id: 2, src: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1600&q=80', alt: 'Corporate event networking',      category: 'Corporate',   title: 'Annual Company Gala' },
-  { id: 3, src: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1600&q=80', alt: 'Birthday party celebration',      category: 'Parties',     title: 'Milestone Birthday Celebration' },
-  { id: 4, src: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1600&q=80', alt: 'Wedding reception table setting', category: 'Weddings',    title: 'Reception Table Design' },
-  { id: 5, src: 'https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&w=1600&q=80', alt: 'Corporate conference setup',      category: 'Corporate',   title: 'Executive Conference' },
-  { id: 6, src: 'https://images.unsplash.com/photo-1549451371-64aa98a6f660?auto=format&fit=crop&w=1600&q=80', alt: 'Event decoration details',          category: 'Decorations', title: 'Custom Floral Arrangements' },
-]
+import { IMAGES } from '../../utils/images.ts'
+
+// Pick a curated set of featured images from IMAGES
+const featuredImages = Object.entries(IMAGES).map(([id, data]) => ({
+  id,
+  ...data
+}))
+
+// build categories dynamically from all images
 const categories = ['All', ...Array.from(new Set(featuredImages.map(i => i.category)))]
 
 import Balloon from '../decor/Balloon.astro'
