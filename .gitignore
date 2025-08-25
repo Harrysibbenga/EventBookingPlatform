@@ -1,2 +1,36 @@
+# Ignore Python virtual environments and environment files
 venv
+*pycache__
+**.pyc
+
+# Ignore database files
+*.db
+*.sqlite3
+*.sqlite
+
+# Ignore log files
+*.log
+npm-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Ignore node modules and build files
+node_modules
+dist
+build
+.next
+out
+.astro
+
+# Ignore build output
+dist/
+
+# Ignore environment variables
 .env
+.env.production
+
+# Ignore macOS-specific files
+.DS_Store
+
+# Ignore jetbrains setting folder
+.idea/

@@ -1,0 +1,133 @@
+---
+/**
+ * Booking page for event inquiries.
+ * Features a comprehensive multi-step booking form with balloon decorations.
+ */
+ import Layout from '../layouts/Layout.astro'
+import BookingFormContainer from '../components/forms/BookingForm.vue'
+import Balloon from '../components/decor/Balloon.astro'
+import { BUSINESS_INFO } from '../utils/constants'
+
+const pageTitle = 'Book Your Event'
+const pageDescription = `Book your event with ${BUSINESS_INFO.name}. Professional event hire services in Milton Keynes including LED numbers, balloon displays, and complete party packages.`
+---
+
+<Layout 
+  title={pageTitle}
+  description={pageDescription}
+  canonical="/booking"
+>
+  <main class="booking-page relative min-h-screen bg-gradient-to-br from-cream-50 to-neutral-100">
+    <!-- Balloon Background Decorations -->
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+      <Balloon preset="gold" top="8%" left="4%" width={72} opacity={0.3} delay={0.2} blur />
+      <Balloon preset="gold" top="20%" right="6%" width={96} opacity={0.25} delay={0.8} blur />
+      <Balloon preset="gold" top="45%" left="12%" width={64} opacity={0.3} delay={1.2} />
+      <Balloon preset="gold" bottom="25%" right="15%" width={88} opacity={0.25} delay={0.5} blur />
+      <Balloon preset="gold" bottom="10%" left="8%" width={56} opacity={0.3} delay={1.5} />
+      <Balloon preset="red" top="35%" right="2%" width={48} opacity={0.2} delay={0.9} />
+      <Balloon preset="blue" bottom="40%" left="3%" width={52} opacity={0.2} delay={1.8} />
+    </div>
+
+    <!-- Background Elements -->
+    <div class="absolute inset-0 opacity-5 pointer-events-none">
+      <!-- Geometric shapes -->
+      <div class="absolute top-20 left-16 w-24 h-24 border border-brand-gold rounded-full animate-pulse"></div>
+      <div class="absolute bottom-32 right-24 w-16 h-16 border border-brand-gold rounded-lg rotate-45 animate-bounce"></div>
+      <div class="absolute top-1/2 left-1/4 w-12 h-12 bg-brand-gold/20 rounded-full animate-float"></div>
+    </div>
+
+    <!-- Page Header -->
+    <section class="relative z-10 pt-24 pb-12">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <div class="animate-on-scroll">
+          <h1 class="text-4xl lg:text-5xl font-bold text-neutral-900 mb-6">
+            Book Your Perfect
+            <span class="block bg-gradient-to-r from-brand-gold to-primary-500 bg-clip-text text-transparent">
+              Celebration
+            </span>
+          </h1>
+          <p class="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
+            Tell us about your special event and we'll create an unforgettable experience with our professional event hire services.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Booking Form Container -->
+    <section class="relative z-10 pb-20">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <BookingFormContainer client:load />
+      </div>
+    </section>
+
+    <!-- Trust Indicators -->
+    <section class="relative z-10 py-16 bg-white/50 backdrop-blur-sm">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div class="animate-on-scroll">
+            <div class="w-16 h-16 mx-auto mb-4 bg-brand-gold/10 rounded-full flex items-center justify-center">
+              <svg class="w-8 h-8 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-neutral-900 mb-2">Quick Response</h3>
+            <p class="text-neutral-600">We'll get back to you within 24 hours with a detailed quote</p>
+          </div>
+          
+          <div class="animate-on-scroll" style="animation-delay: 0.2s">
+            <div class="w-16 h-16 mx-auto mb-4 bg-brand-gold/10 rounded-full flex items-center justify-center">
+              <svg class="w-8 h-8 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-neutral-900 mb-2">Secure & Private</h3>
+            <p class="text-neutral-600">Your information is protected and never shared with third parties</p>
+          </div>
+          
+          <div class="animate-on-scroll" style="animation-delay: 0.4s">
+            <div class="w-16 h-16 mx-auto mb-4 bg-brand-gold/10 rounded-full flex items-center justify-center">
+              <svg class="w-8 h-8 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-lg font-semibold text-neutral-900 mb-2">Professional Service</h3>
+            <p class="text-neutral-600">Trusted by hundreds of clients across Milton Keynes and beyond</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  .booking-page {
+    background-attachment: fixed;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+  
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s ease-out forwards;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

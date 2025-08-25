@@ -16,7 +16,7 @@ class ContactBase(BaseModel):
     # Contact information
     name: str = Field(..., min_length=2, max_length=100, description="Contact person's full name")
     email: EmailStr = Field(..., description="Contact email address")
-    phone: Optional[str] = Field(None, regex=r"^[\+]?[1-9][\d\s\-\(\)]{7,15}$", description="Contact phone number")
+    phone: Optional[str] = Field(None, pattern=r"^[\+]?[1-9][\d\s\-\(\)]{7,15}$", description="Contact phone number")
     company: Optional[str] = Field(None, max_length=200, description="Company name")
     website: Optional[HttpUrl] = Field(None, description="Website URL")
     
