@@ -4,27 +4,29 @@
  */
 
 import { EventType, ContactType } from '../types/api'
+import { PACKAGES } from './packages';
 
 // ========================================
-// BUSINESS INFORMATION
+// BUSINESS INFORMATION (UK • Milton Keynes)
 // ========================================
 
 export const BUSINESS_INFO = {
-  name: 'Balloon & Light Magic',
-  tagline: 'Creating Spectacular Number Displays',
-  description: 'Professional balloon decorations and custom lighting installations featuring stunning number displays for birthdays, anniversaries, and special celebrations.',
-  
+  name: 'Roman Events',
+  tagline: 'Milton Keynes Based Event Hire & Design Services',
+  description:
+    'Roman Events provides professional event hire and design services in Milton Keynes and surrounding areas. We specialise in 4FT LED number hire, custom balloon displays, shimmer walls, floral backdrops, neon signs, and complete themed packages for birthdays, weddings, baby showers, engagements, anniversaries, and more.',
+
   // Contact information
-  email: 'hello@balloonlightmagic.com',
-  phone: '+1 (555) 123-4567',
+  email: 'romaneventsmk@gmail.com',
+  phone: '+44 1908 123456',
   address: {
     street: '123 Celebration Street',
-    city: 'Los Angeles',
-    state: 'CA',
-    zip: '90210',
-    country: 'United States'
+    city: 'Milton Keynes',
+    county: 'Buckinghamshire',
+    postcode: 'MK1 2AB',
+    country: 'United Kingdom'
   },
-  
+
   // Business hours
   hours: {
     monday: '9:00 AM - 6:00 PM',
@@ -35,31 +37,33 @@ export const BUSINESS_INFO = {
     saturday: '8:00 AM - 8:00 PM',
     sunday: '10:00 AM - 6:00 PM'
   },
-  
+
   // Social media
   social: {
-    instagram: 'https://instagram.com/balloonlightmagic',
-    facebook: 'https://facebook.com/balloonlightmagic',
-    twitter: 'https://twitter.com/balloonlights',
-    linkedin: 'https://linkedin.com/company/balloon-light-magic',
-    pinterest: 'https://pinterest.com/balloonlightmagic'
+    instagram: 'https://instagram.com/romaneventsmk',
+    facebook: 'https://facebook.com/romaneventsmk',
+    twitter: 'https://twitter.com/romaneventsmk',
+    linkedin: 'https://linkedin.com/company/romaneventsmk',
+    pinterest: 'https://pinterest.com/romaneventsmk'
   },
-  
+
   // Founded year
   founded: 2018,
-  
+
   // Service areas
   serviceAreas: [
-    'Los Angeles County',
-    'Orange County',
-    'Ventura County',
-    'Riverside County',
-    'San Bernardino County'
+    'Milton Keynes',
+    'Buckinghamshire',
+    'Bedfordshire',
+    'Northamptonshire',
+    'Oxfordshire',
+    'Hertfordshire'
   ]
 } as const
 
 // ========================================
 // EVENT TYPES CONFIGURATION
+// (unchanged labels; UK-agnostic)
 // ========================================
 
 export const EVENT_TYPE_CONFIG = {
@@ -176,391 +180,441 @@ export const EVENT_TYPE_CONFIG = {
 } as const
 
 // ========================================
-// CONTACT TYPES CONFIGURATION
+// CONTACT TYPES (unchanged)
 // ========================================
 
 export const CONTACT_TYPE_CONFIG = {
-  [ContactType.GENERAL]: {
-    label: 'General Inquiry',
-    description: 'General questions and information',
-    icon: '💬',
-    priority: 'normal'
-  },
-  [ContactType.PRICING]: {
-    label: 'Pricing Information',
-    description: 'Questions about pricing and packages',
-    icon: '💰',
-    priority: 'normal'
-  },
-  [ContactType.AVAILABILITY]: {
-    label: 'Availability Check',
-    description: 'Check availability for specific dates',
-    icon: '📅',
-    priority: 'high'
-  },
-  [ContactType.SERVICES]: {
-    label: 'Services Information',
-    description: 'Questions about our services',
-    icon: '🎯',
-    priority: 'normal'
-  },
-  [ContactType.PARTNERSHIP]: {
-    label: 'Partnership Opportunity',
-    description: 'Business partnership inquiries',
-    icon: '🤝',
-    priority: 'high'
-  },
-  [ContactType.FEEDBACK]: {
-    label: 'Feedback',
-    description: 'Customer feedback and testimonials',
-    icon: '⭐',
-    priority: 'low'
-  },
-  [ContactType.COMPLAINT]: {
-    label: 'Complaint',
-    description: 'Service complaints or issues',
-    icon: '⚠️',
-    priority: 'urgent'
-  },
-  [ContactType.OTHER]: {
-    label: 'Other',
-    description: 'Other inquiries not listed above',
-    icon: '📝',
-    priority: 'normal'
-  }
+  [ContactType.GENERAL]: { label: 'General Inquiry', description: 'General questions and information', icon: '💬', priority: 'normal' },
+  [ContactType.PRICING]: { label: 'Pricing Information', description: 'Questions about pricing and packages', icon: '💰', priority: 'normal' },
+  [ContactType.AVAILABILITY]: { label: 'Availability Check', description: 'Check availability for specific dates', icon: '📅', priority: 'high' },
+  [ContactType.SERVICES]: { label: 'Services Information', description: 'Questions about our services', icon: '🎯', priority: 'normal' },
+  [ContactType.PARTNERSHIP]: { label: 'Partnership Opportunity', description: 'Business partnership inquiries', icon: '🤝', priority: 'high' },
+  [ContactType.FEEDBACK]: { label: 'Feedback', description: 'Customer feedback and testimonials', icon: '⭐', priority: 'low' },
+  [ContactType.COMPLAINT]: { label: 'Complaint', description: 'Service complaints or issues', icon: '⚠️', priority: 'urgent' },
+  [ContactType.OTHER]: { label: 'Other', description: 'Other inquiries not listed above', icon: '📝', priority: 'normal' }
 } as const
 
 // ========================================
-// SERVICES CONFIGURATION
+// ROMAN EVENTS - SERVICES & PACKAGES (UK)
 // ========================================
 
 export const SERVICES = [
   {
-    id: 'balloon-numbers',
-    name: 'Balloon Number Displays',
-    description: 'Custom balloon arrangements featuring any number or age for birthdays and milestones',
-    icon: '🎈',
-    basePrice: 85,
-    priceUnit: 'per number',
-    category: 'balloons',
+    id: 'led-numbers',
+    name: '4FT LED Number Hire',
+    description:
+      'Illuminated LED numbers for birthdays, anniversaries, and celebrations.',
+    image: PACKAGES.numberPackage.src,
+    alt: PACKAGES.numberPackage.alt,
+    basePrice: 50,
+    priceUnit: 'per number (24 hrs)',
+    category: 'numbers',
     popular: true,
-    features: [
-      'Any number 0-9 available',
-      'Choice of colors and styles',
-      'Premium foil or latex options',
-      'Includes balloon weights',
-      'Setup and styling included'
+    options: [
+      '1 Number (24 hours) - £50',
+      '2 Numbers (24 hours) - £80',
+      'With Balloon Display (any colour theme) - from £120'
     ]
   },
   {
-    id: 'light-up-numbers',
-    name: 'LED Light-Up Numbers',
-    description: 'Stunning illuminated number displays for dramatic evening celebrations',
-    icon: '💡',
-    basePrice: 150,
-    priceUnit: 'per number',
-    category: 'lighting',
-    popular: true,
-    features: [
-      'Bright LED illumination',
-      'Battery operated (8+ hours)',
-      'Weather resistant for outdoor use',
-      'Multiple color options',
-      'Remote control included'
-    ]
-  },
-  {
-    id: 'marquee-numbers',
-    name: 'Marquee Light Numbers',
-    description: 'Vintage-style marquee numbers with classic bulb lighting',
-    icon: '✨',
-    basePrice: 200,
-    priceUnit: 'per number',
-    category: 'lighting',
-    popular: false,
-    features: [
-      'Vintage marquee styling',
-      'Warm white Edison bulbs',
-      '4 feet tall metal construction',
-      'Dimmer control available',
-      'Perfect for photos'
-    ]
-  },
-  {
-    id: 'balloon-arches',
-    name: 'Balloon Arches & Garlands',
-    description: 'Beautiful balloon arches and garlands to frame your celebration',
-    icon: '🌈',
-    basePrice: 250,
-    category: 'balloons',
-    popular: true,
-    features: [
-      'Custom color combinations',
-      'Various sizes available',
-      'Organic or classic styling',
-      'Includes installation',
-      'Same-day setup'
-    ]
-  },
-  {
-    id: 'backdrop-lighting',
-    name: 'Event Backdrop Lighting',
-    description: 'Ambient lighting to create the perfect atmosphere for your celebration',
-    icon: '🌟',
-    basePrice: 180,
-    category: 'lighting',
-    popular: false,
-    features: [
-      'Color-changing LED strips',
-      'Wireless DMX control',
-      'Multiple lighting effects',
-      'Professional installation',
-      'Works with any backdrop'
-    ]
-  },
-  {
-    id: 'combo-packages',
-    name: 'Number + Lighting Combos',
-    description: 'Complete packages combining balloon numbers with complementary lighting',
-    icon: '🎊',
-    basePrice: 300,
+    id: 'birthday-package',
+    name: 'Birthday Package',
+    description:
+      'Complete birthday setup with LED numbers, balloon arch, shimmer wall, neon sign and more.',
+    image: PACKAGES.birthdayPackage.src,
+    alt: PACKAGES.birthdayPackage.alt,
+    basePrice: 230,
     category: 'packages',
     popular: true,
     features: [
-      'Balloon numbers + accent lighting',
-      'Coordinated color schemes',
-      'Full setup and styling',
-      'Photography-ready displays',
-      'Package discounts available'
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Numbers',
+      'LED Neon Sign',
+      'Balloon Arch'
+    ]
+  },
+  {
+    id: 'baby-shower-package',
+    name: 'Baby Shower Package',
+    description:
+      'Celebrate new arrivals with a magical themed display including BABY balloon boxes and teddy.',
+    image: PACKAGES.babyShowerPackage.src,
+    alt: PACKAGES.babyShowerPackage.alt,
+    basePrice: 250,
+    category: 'packages',
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'BABY Boxes (Balloon Filled)',
+      'LED Neon Sign',
+      'Giant Teddy Bear',
+      'Balloon Arch'
+    ]
+  },
+  {
+    id: 'gender-reveal-package',
+    name: 'Gender Reveal Package',
+    description:
+      'Stylish setup for gender reveal parties with backdrop, neon sign and balloons.',
+    image: PACKAGES.genderRevealPackage.src,
+    alt: PACKAGES.genderRevealPackage.alt,
+    basePrice: 230,
+    category: 'packages',
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Neon Sign',
+      'Balloon Arch'
+    ]
+  },
+  {
+    id: 'christening-package',
+    name: 'Christening Package',
+    description:
+      'Elegant setup for christening celebrations with a soft, welcoming theme including balloons, florals and a personalised display.',
+    image: PACKAGES.christeningPackage.src,
+    alt: PACKAGES.christeningPackage.alt,
+    basePrice: 180,
+    category: 'packages',
+    features: [
+      'Custom Christening Backdrop with Stand',
+      'Balloon Garland in Pastel & Neutral Tones',
+      'Artificial Florals & Greenery Decoration',
+      'Personalised Wooden / Acrylic Christening Sign'
+    ]
+  },
+  {
+    id: 'wedding-package',
+    name: 'Wedding Package',
+    description:
+      'Elegant wedding package with floral displays, shimmer walls, neon sign and balloon arch.',
+    image: PACKAGES.weddingPackage.src,
+    alt: PACKAGES.weddingPackage.alt,
+    basePrice: 250,
+    category: 'packages',
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Neon Sign',
+      'Artificial Flowers',
+      'Balloon Arch'
+    ]
+  },
+  {
+    id: 'engagement-package',
+    name: 'Engagement Package',
+    description:
+      'Celebrate engagements with a romantic backdrop, neon lighting, flowers and balloons.',
+    image: PACKAGES.engagementPackage.src,
+    alt: PACKAGES.engagementPackage.alt,
+    basePrice: 250,
+    category: 'packages',
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Neon Sign',
+      'Artificial Flowers',
+      'Balloon Arch'
+    ]
+  },
+  {
+    id: 'retirement-package',
+    name: 'Retirement Package',
+    description:
+      'Send off in style with a full event backdrop, neon lighting, flowers and balloons.',
+    image: PACKAGES.retirementPackage.src,
+    alt: PACKAGES.retirementPackage.alt,
+    basePrice: 250,
+    category: 'packages',
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Neon Sign',
+      'Artificial Flowers',
+      'Balloon Arch'
+    ]
+  },
+  {
+    id: 'anniversary-package',
+    name: 'Anniversary Package',
+    description:
+      'Celebrate anniversaries with LED numbers, balloons, flowers and a neon backdrop.',
+    image: PACKAGES.anniversaryPackage.src,
+    alt: PACKAGES.anniversaryPackage.alt,
+    basePrice: 250,
+    category: 'packages',
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Neon Sign',
+      'Numbers',
+      'Artificial Flowers',
+      'Balloon Arch'
+    ]
+  },
+  {
+    id: 'custom-signs',
+    name: 'Customised Wooden Signs',
+    description:
+      'Personalised wooden signs created with precision laser cutting technology.',
+    image: PACKAGES.customWoodSign.src,
+    alt: PACKAGES.customWoodSign.alt,
+    basePrice: 30,
+    category: 'custom',
+    features: [
+      'Custom text and design',
+      'Laser cut for precision',
+      'Available in various finishes'
     ]
   }
-] as const
+] as const;
+
 
 // ========================================
-// PRICING TIERS
+// PRICING TIERS (Roman Events Packages)
 // ========================================
 
 export const PRICING_TIERS = [
   {
-    id: 'essential',
-    name: 'Essential',
-    description: 'Perfect for intimate gatherings and smaller events',
-    price: 1200,
+    id: 'led-numbers',
+    name: 'LED Number Hire',
+    description: '4FT LED illuminated numbers for birthdays, anniversaries, and celebrations.',
+    price: 50,
     maxGuests: 50,
-    duration: 4,
-    popular: false,
+    duration: 1, // 24 hours
+    popular: true,
     features: [
-      'Event planning consultation',
-      'Basic decoration package',
-      'Professional photography (4 hours)',
-      'DJ services',
-      'Event coordination',
-      'Basic catering setup assistance'
+      '1 Number Hire (24 hrs) - £50',
+      '2 Numbers Hire (24 hrs) - £80',
+      'With Balloon Display (any colour theme) - from £120'
+    ],
+    notIncluded: [
+      'Backdrop walls',
+      'Neon signs',
+      'Additional decorations'
+    ]
+  },
+  {
+    id: 'birthday-package',
+    name: 'Birthday Package',
+    description: 'Complete birthday setup including balloons, shimmer wall, LED numbers and neon sign.',
+    price: 230,
+    maxGuests: 100,
+    duration: 1,
+    popular: true,
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Numbers',
+      'LED Neon Sign',
+      'Balloon Arch'
     ],
     notIncluded: [
       'Catering',
-      'Videography',
-      'Premium decorations',
-      'Extended coverage'
+      'Photography',
+      'Venue rental'
     ]
   },
   {
-    id: 'premium',
-    name: 'Premium',
-    description: 'Comprehensive package for most celebrations',
-    price: 3500,
-    maxGuests: 150,
-    duration: 6,
+    id: 'baby-shower-package',
+    name: 'Baby Shower Package',
+    description: 'Celebrate new arrivals with themed displays including BABY boxes and a teddy bear.',
+    price: 250,
+    maxGuests: 100,
+    duration: 1,
     popular: true,
     features: [
-      'Full event planning and design',
-      'Premium decoration package',
-      'Professional photography (6 hours)',
-      'Videography with highlight reel',
-      'DJ and entertainment',
-      'Full catering coordination',
-      'Day-of event management',
-      'Floral arrangements'
-    ],
-    notIncluded: [
-      'Catering food costs',
-      'Alcohol service',
-      'Extended venue time'
-    ]
-  },
-  {
-    id: 'luxury',
-    name: 'Luxury',
-    description: 'Ultimate experience for grand celebrations',
-    price: 7500,
-    maxGuests: 300,
-    duration: 8,
-    popular: false,
-    features: [
-      'Luxury event design and planning',
-      'Custom theme development',
-      'Professional photography (8 hours)',
-      'Cinematic videography',
-      'Live entertainment coordination',
-      'Premium catering management',
-      'Dedicated event manager',
-      'Custom floral and lighting design',
-      'Transportation coordination',
-      'Guest accommodation assistance'
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'BABY Boxes (Balloon Filled)',
+      'LED Neon Sign',
+      'Giant Teddy Bear',
+      'Balloon Arch'
     ],
     notIncluded: [
       'Venue rental',
-      'Catering food costs',
-      'Guest accommodations'
+      'Photography',
+      'Food & drinks'
+    ]
+  },
+  {
+    id: 'wedding-package',
+    name: 'Wedding Package',
+    description: 'Elegant wedding setup with flowers, shimmer wall, neon sign and balloon arch.',
+    price: 250,
+    maxGuests: 200,
+    duration: 1,
+    popular: false,
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Neon Sign',
+      'Artificial Flowers',
+      'Balloon Arch'
+    ],
+    notIncluded: [
+      'Venue rental',
+      'Catering',
+      'Entertainment'
+    ]
+  },
+  {
+    id: 'engagement-package',
+    name: 'Engagement Package',
+    description: 'Celebrate engagements with romantic backdrops, neon lights, and balloons.',
+    price: 250,
+    maxGuests: 150,
+    duration: 1,
+    popular: false,
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Neon Sign',
+      'Artificial Flowers',
+      'Balloon Arch'
+    ],
+    notIncluded: [
+      'Venue rental',
+      'Photography',
+      'Food & drinks'
+    ]
+  },
+  {
+    id: 'retirement-package',
+    name: 'Retirement Package',
+    description: 'Celebrate retirements in style with LED neon, flowers, and balloon displays.',
+    price: 250,
+    maxGuests: 150,
+    duration: 1,
+    popular: false,
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Neon Sign',
+      'Artificial Flowers',
+      'Balloon Arch'
+    ],
+    notIncluded: [
+      'Catering',
+      'Photography',
+      'Entertainment'
+    ]
+  },
+  {
+    id: 'anniversary-package',
+    name: 'Anniversary Package',
+    description: 'Mark special anniversaries with LED numbers, floral decor, balloons, and neon lights.',
+    price: 250,
+    maxGuests: 150,
+    duration: 1,
+    popular: false,
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Neon Sign',
+      'Numbers',
+      'Artificial Flowers',
+      'Balloon Arch'
+    ],
+    notIncluded: [
+      'Venue rental',
+      'Catering',
+      'Photography'
+    ]
+  },
+  {
+    id: 'custom-signs',
+    name: 'Customised Wooden Signs',
+    description: 'Laser-cut wooden signs for personalised messages and event branding.',
+    price: 30,
+    maxGuests: 0,
+    duration: 0,
+    popular: false,
+    features: [
+      'Custom text and design',
+      'Laser cutting technology',
+      'Available in multiple finishes'
+    ],
+    notIncluded: [
+      'Delivery outside Milton Keynes',
+      'Large-scale signage installation'
     ]
   }
 ] as const
 
+
 // ========================================
-// GALLERY CATEGORIES
+// GALLERY CATEGORIES (unchanged)
 // ========================================
 
 export const GALLERY_CATEGORIES = [
-  {
-    id: 'all',
-    name: 'All Events',
-    count: 0
-  },
-  {
-    id: 'weddings',
-    name: 'Weddings',
-    count: 0
-  },
-  {
-    id: 'corporate',
-    name: 'Corporate',
-    count: 0
-  },
-  {
-    id: 'parties',
-    name: 'Parties',
-    count: 0
-  },
-  {
-    id: 'decorations',
-    name: 'Decorations',
-    count: 0
-  }
+  { id: 'all', name: 'All Events', count: 0 },
+  { id: 'weddings', name: 'Weddings', count: 0 },
+  { id: 'corporate', name: 'Corporate', count: 0 },
+  { id: 'parties', name: 'Parties', count: 0 },
+  { id: 'decorations', name: 'Decorations', count: 0 }
 ] as const
 
 // ========================================
-// FORM VALIDATION RULES
+// FORM VALIDATION RULES (unchanged)
 // ========================================
 
 export const VALIDATION_RULES = {
-  name: {
-    minLength: 2,
-    maxLength: 100,
-    pattern: /^[a-zA-Z\s\-'\.]+$/
-  },
-  email: {
-    pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-    maxLength: 255
-  },
-  phone: {
-    pattern: /^[\+]?[1-9][\d\s\-\(\)]{7,15}$/,
-    maxLength: 20
-  },
-  message: {
-    minLength: 10,
-    maxLength: 2000
-  },
-  subject: {
-    minLength: 5,
-    maxLength: 200
-  },
-  guestCount: {
-    min: 1,
-    max: 1000
-  },
-  budget: {
-    min: 0,
-    max: 100000
-  }
+  name: { minLength: 2, maxLength: 100, pattern: /^[a-zA-Z\s\-'\.]+$/ },
+  email: { pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, maxLength: 255 },
+  phone: { pattern: /^[\+]?[1-9][\d\s\-\(\)]{7,15}$/, maxLength: 20 },
+  message: { minLength: 10, maxLength: 2000 },
+  subject: { minLength: 5, maxLength: 200 },
+  guestCount: { min: 1, max: 1000 },
+  budget: { min: 0, max: 100000 }
 } as const
 
 // ========================================
-// ANIMATION SETTINGS
+// ANIMATION / BREAKPOINTS (unchanged)
 // ========================================
 
 export const ANIMATIONS = {
-  durations: {
-    fast: 200,
-    normal: 300,
-    slow: 500
-  },
+  durations: { fast: 200, normal: 300, slow: 500 },
   easings: {
     easeOut: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)',
     easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
     bounce: 'cubic-bezier(0.68, -0.55, 0.265, 1.55)'
   },
-  delays: {
-    stagger: 100,
-    pageTransition: 150
-  }
+  delays: { stagger: 100, pageTransition: 150 }
 } as const
-
-// ========================================
-// RESPONSIVE BREAKPOINTS
-// ========================================
 
 export const BREAKPOINTS = {
-  sm: '640px',
-  md: '768px',
-  lg: '1024px',
-  xl: '1280px',
-  '2xl': '1536px'
+  sm: '640px', md: '768px', lg: '1024px', xl: '1280px', '2xl': '1536px'
 } as const
 
 // ========================================
-// SEO CONFIGURATION
+// SEO CONFIGURATION (MK‑targeted keywords)
 // ========================================
 
 export const SEO_CONFIG = {
   defaultTitle: `${BUSINESS_INFO.name} - ${BUSINESS_INFO.tagline}`,
   titleTemplate: `%s | ${BUSINESS_INFO.name}`,
   defaultDescription: BUSINESS_INFO.description,
-  siteUrl: 'https://your-event-booking-site.com', // TODO: set real domain
+  siteUrl: 'https://your-event-booking-site.com', // TODO: replace with real domain
   author: BUSINESS_INFO.name,
-  image: '/images/logo.jpg', // ✅ points to public/images/logo.jpg
-  twitterHandle: '@eliteeventprod',
-  facebookAppId: '123456789',
+  image: '/images/logo.png', // ✅ make sure this matches your public/images/logo.jpg
+  twitterHandle: '@romaneventsmk', // update if you set up social media
+  facebookAppId: '123456789', // replace with real if available
   keywords: [
-    'event planning',
-    'wedding planning',
-    'corporate events',
-    'party planning',
-    'event coordination',
-    'Los Angeles events',
-    'professional event services'
+    'LED number hire Milton Keynes',
+    'balloon displays Milton Keynes',
+    'shimmer wall hire Milton Keynes',
+    'event hire Milton Keynes',
+    'baby shower decorations Milton Keynes',
+    'birthday balloon displays UK',
+    'wedding decoration hire Milton Keynes',
+    'engagement party hire Milton Keynes',
+    'anniversary event hire Milton Keynes',
+    'retirement party decorations Milton Keynes',
+    'gender reveal balloon arch Milton Keynes',
+    'custom wooden signs Milton Keynes',
+    'event design Buckinghamshire',
+    'event hire Bedfordshire',
+    'event services Northamptonshire'
   ]
 } as const
 
-
 // ========================================
-// API CONFIGURATION
+// API CONFIG / FEATURES (unchanged)
 // ========================================
 
 export const API_CONFIG = {
-  timeout: 30000, // 30 seconds
-  retryAttempts: 3,
-  retryDelay: 1000,
-  cacheTimeout: 5 * 60 * 1000, // 5 minutes
-  endpoints: {
-    health: '/api/v1/health',
-    bookings: '/api/v1/bookings',
-    contact: '/api/v1/contact'
-  }
+  timeout: 30000, retryAttempts: 3, retryDelay: 1000, cacheTimeout: 5 * 60 * 1000,
+  endpoints: { health: '/api/v1/health', bookings: '/api/v1/bookings', contact: '/api/v1/contact' }
 } as const
-
-// ========================================
-// FEATURE FLAGS
-// ========================================
 
 export const FEATURES = {
   enableGalleryLightbox: true,

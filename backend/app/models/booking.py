@@ -19,6 +19,7 @@ class EventType(PyEnum):
     ANNIVERSARY = "anniversary"
     GRADUATION = "graduation"
     BABY_SHOWER = "baby_shower"
+    GENDER_REVEAL = "gender_reveal"
     ENGAGEMENT = "engagement"
     RETIREMENT = "retirement"
     HOLIDAY = "holiday"
@@ -96,6 +97,7 @@ class Booking(Base):
     
     # Services and requirements
     services_needed = Column(Text)  # JSON string of requested services
+    service_package_id = Column(Integer)  # Foreign key to service package if applicable
     special_requirements = Column(Text)
     dietary_restrictions = Column(Text)
     accessibility_needs = Column(Text)

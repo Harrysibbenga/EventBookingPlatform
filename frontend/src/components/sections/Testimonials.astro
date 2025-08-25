@@ -1,7 +1,9 @@
 ---
 /**
- * Testimonials section with customer reviews and ratings.
- * Features carousel functionality and star ratings.
+ * Testimonials section — Roman Events (gold/cream styling)
+ * - Smooth carousel with dots + prev/next
+ * - Accessible (ARIA, focus trap, keyboard)
+ * - Motion-safe (respects prefers-reduced-motion)
  */
 
  const testimonials = [
@@ -9,7 +11,7 @@
     id: 1,
     name: 'Sarah Johnson',
     role: '21st Birthday Party',
-    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+    avatar: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?auto=format&fit=crop&w=150&q=80',
     content: 'The LED number 21 looked absolutely stunning! Roman Events made my daughter\'s birthday so special. The delivery was on time and the setup was perfect. Everyone was taking photos with the glowing numbers all night.',
     rating: 5,
     event: '21st Birthday Celebration',
@@ -19,7 +21,7 @@
     id: 2,
     name: 'Mark & Linda Thompson',
     role: '25th Anniversary',
-    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=150&q=80',
     content: 'We hired the number 25 with balloon decorations for our anniversary party. The whole setup was beautiful and really made our celebration feel special. Great service from start to finish!',
     rating: 5,
     event: 'Silver Wedding Anniversary',
@@ -29,7 +31,7 @@
     id: 3,
     name: 'Emma Williams',
     role: '1st Birthday Party',
-    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+    avatar: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&w=150&q=80',
     content: 'Perfect for my little one\'s first birthday! The number 1 was the perfect size and the balloon arch made such a lovely backdrop. Roman Events were so professional and friendly.',
     rating: 5,
     event: 'First Birthday Party',
@@ -39,7 +41,7 @@
     id: 4,
     name: 'James Mitchell',
     role: '50th Birthday Party',
-    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+    avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80',
     content: 'Hired the LED numbers 50 for my milestone birthday. They looked fantastic and really impressed all my guests. The remote control to change colors was a great touch. Highly recommend!',
     rating: 5,
     event: '50th Birthday Milestone',
@@ -49,180 +51,159 @@
     id: 5,
     name: 'Rachel Davis',
     role: 'Sweet 16 Party',
-    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80',
+    avatar: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=150&q=80',
     content: 'The complete birthday package was amazing! The number 16, balloon arch, and backdrop made my daughter\'s party look like something from a magazine. Worth every penny!',
     rating: 5,
     event: 'Sweet Sixteen Celebration',
     date: '2024-04-18'
   }
 ]
+
+import Balloon from '../decor/Balloon.astro'
 ---
 
-<section class="py-20 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <!-- Section Header -->
-    <div class="text-center mb-16 animate-on-scroll">
-      <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
-        <svg class="w-8 h-8 text-primary-600" fill="currentColor" viewBox="0 0 24 24">
-          <path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
-        </svg>
-      </div>
-      
-      <h2 class="text-4xl font-bold text-neutral-900 mb-4">
-        What Our Clients Say
+<section id="testimonials" class="relative py-24 bg-cream-50 overflow-hidden">
+  <!-- soft gold wash -->
+  <div aria-hidden="true" class="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-80 w-80 rounded-full bg-brand-gold/10 blur-3xl"></div>
+
+  <!-- Vibrant balloon background (subtle, behind content but above bg) -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+    <Balloon preset="pink"   top="10%" left="6%"   width={96}  opacity={0.45} blur />
+    <Balloon preset="blue"   top="24%" right="10%" width={112} opacity={0.4}  delay={0.6} blur />
+    <Balloon preset="teal"   top="56%" right="2%"  width={80}  opacity={0.35} delay={0.9} />
+    <Balloon preset="purple" bottom="10%" left="22%" width={128} opacity={0.35} delay={0.3} blur />
+    <Balloon preset="gold" bottom="10%" right="22%" width={128} opacity={0.35} delay={0.3} blur />
+    <Balloon preset="red"    bottom="24%" left="2%" width={72}  opacity={0.35} delay={1.1} />
+  </div>
+
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Header -->
+    <div class="text-center mb-14 animate-on-scroll">
+      <h2 class="text-4xl font-extrabold text-neutral-900 mb-3">
+        Loved by <span class="text-brand-gold">Families</span> in Milton Keynes
       </h2>
-      
-      <p class="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
-        Don't just take our word for it. Here's what our clients have to say about their experience working with us.
+      <p class="text-lg sm:text-xl text-neutral-700 max-w-3xl mx-auto">
+        Real feedback from real celebrations — 4FT LED numbers, balloon styling, and party magic.
       </p>
     </div>
 
-    <!-- Testimonials Carousel -->
+    <!-- Carousel -->
     <div class="relative max-w-6xl mx-auto">
-      <!-- Carousel Container -->
-      <div class="overflow-hidden rounded-2xl">
-        <div 
-          id="testimonials-track" 
-          class="flex transition-transform duration-500 ease-in-out"
-          style="transform: translateX(0%)"
+      <div
+        id="testimonials-viewport"
+        class="overflow-hidden rounded-2xl border border-brand-gold/20 bg-white shadow-soft"
+        role="region"
+        aria-roledescription="carousel"
+        aria-label="Customer testimonials"
+      >
+        <div
+          id="testimonials-track"
+          class="flex transition-transform duration-500 ease-out will-change-transform"
+          style="transform: translateX(0%);"
         >
-          {testimonials.map((testimonial, index) => (
-            <div class="w-full flex-shrink-0 px-4">
-              <div class="bg-gradient-to-br from-neutral-50 to-white rounded-xl p-8 lg:p-12 shadow-soft border border-neutral-100">
-                <div class="flex flex-col lg:flex-row items-start lg:items-center gap-8">
-                  <!-- Avatar & Info -->
+          {testimonials.map((t) => (
+            <article class="w-full flex-shrink-0 px-4 py-6 sm:px-8 lg:px-12">
+              <div class="testimonial-card relative rounded-xl bg-gradient-to-br from-white to-cream-50 p-6 lg:p-10 border border-neutral-100 shadow-soft">
+                <div class="flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-10">
+                  <!-- Person -->
                   <div class="flex-shrink-0 text-center lg:text-left">
-                    <img 
-                      src={testimonial.avatar}
-                      alt={testimonial.name}
-                      class="w-20 h-20 rounded-full mx-auto lg:mx-0 mb-4 object-cover shadow-md"
+                    <img
+                      src={t.avatar}
+                      alt={t.name}
+                      class="w-20 h-20 rounded-full mx-auto lg:mx-0 mb-3 object-cover shadow-md ring-2 ring-brand-gold/30"
+                      loading="lazy"
+                      decoding="async"
                     />
-                    <h4 class="text-lg font-semibold text-neutral-900 mb-1">
-                      {testimonial.name}
-                    </h4>
-                    <p class="text-neutral-600 text-sm mb-2">
-                      {testimonial.role}
-                    </p>
-                    <div class="text-xs text-neutral-500">
-                      {testimonial.event}
-                    </div>
+                    <h3 class="text-lg font-semibold text-neutral-900">{t.name}</h3>
+                    <p class="text-neutral-600 text-sm">{t.role}</p>
+                    <p class="text-neutral-500 text-xs mt-1">{t.event}</p>
                   </div>
 
                   <!-- Content -->
                   <div class="flex-1">
-                    <!-- Star Rating -->
-                    <div class="flex items-center justify-center lg:justify-start mb-6">
+                    <!-- Stars -->
+                    <div class="star-rating flex items-center justify-center lg:justify-start mb-4">
                       {Array.from({ length: 5 }, (_, i) => (
-                        <svg 
-                          class={`w-5 h-5 ${i < testimonial.rating ? 'text-yellow-400' : 'text-neutral-300'}`}
-                          fill="currentColor" 
-                          viewBox="0 0 24 24"
+                        <svg
+                          class={`w-5 h-5 ${i < t.rating ? 'text-yellow-400' : 'text-neutral-300'}`}
+                          viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
                         >
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
                         </svg>
                       ))}
-                      <span class="ml-2 text-sm font-medium text-neutral-600">
-                        {testimonial.rating}.0
-                      </span>
+                      <span class="ml-2 text-sm font-medium text-neutral-600">{t.rating}.0</span>
                     </div>
 
                     <!-- Quote -->
-                    <blockquote class="text-lg lg:text-xl text-neutral-700 leading-relaxed italic text-center lg:text-left">
-                      "{testimonial.content}"
+                    <blockquote class="relative text-lg lg:text-xl text-neutral-800 leading-relaxed italic">
+                      <span class="sr-only">“</span>
+                      {t.content}
                     </blockquote>
 
-                    <!-- Date -->
-                    <div class="mt-6 text-center lg:text-left">
-                      <span class="text-sm text-neutral-500">
-                        {new Date(testimonial.date).toLocaleDateString('en-GB', { 
-                          year: 'numeric', 
-                          month: 'long', 
-                          day: 'numeric' 
-                        })}
-                      </span>
+                    <div class="mt-5 text-neutral-500 text-sm">
+                      {new Date(t.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })}
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>
 
-      <!-- Navigation Buttons -->
-      <button 
-        id="prev-btn"
-        class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white shadow-lg rounded-full flex items-center justify-center text-neutral-600 hover:text-primary-600 hover:shadow-xl transition-all duration-200 z-10"
+      <!-- Nav -->
+      <button
+        id="t-prev"
+        class="nav-btn abs-center-y left-2 md:left-4 z-20"
         aria-label="Previous testimonial"
-      >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
-        </svg>
-      </button>
-
-      <button 
-        id="next-btn"
-        class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 bg-white shadow-lg rounded-full flex items-center justify-center text-neutral-600 hover:text-primary-600 hover:shadow-xl transition-all duration-200 z-10"
+      >‹</button>
+      <button
+        id="t-next"
+        class="nav-btn abs-center-y right-2 md:right-4 z-20"
         aria-label="Next testimonial"
-      >
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-        </svg>
-      </button>
+      >›</button>
 
-      <!-- Dots Indicator -->
-      <div class="flex justify-center mt-8 space-x-2">
-        {testimonials.map((_, index) => (
-          <button 
-            class="dot w-3 h-3 rounded-full transition-all duration-200"
-            class:list={[
-              index === 0 ? 'bg-primary-600' : 'bg-neutral-300 hover:bg-neutral-400'
-            ]}
-            data-index={index}
-            aria-label={`Go to testimonial ${index + 1}`}
+      <!-- Dots -->
+      <div class="flex justify-center mt-6 space-x-2">
+        {testimonials.map((_, i) => (
+          <button
+            class={`t-dot w-2.5 h-2.5 rounded-full transition-all ${i === 0 ? 'bg-brand-gold scale-110' : 'bg-neutral-300 hover:bg-neutral-400'}`}
+            data-index={i}
+            aria-label={`Go to testimonial ${i + 1}`}
+            aria-current={i === 0 ? 'true' : 'false'}
           />
         ))}
       </div>
     </div>
 
-    <!-- Summary Stats -->
-    <div class="mt-20 animate-on-scroll" style="animation-delay: 400ms;">
-      <div class="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-2xl p-8 lg:p-12">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          <div>
-            <div class="text-3xl font-bold text-primary-600 mb-2">5.0/5</div>
-            <div class="text-neutral-700 font-medium">Average Rating</div>
-            <div class="text-sm text-neutral-600">Based on 50+ Google reviews</div>
-          </div>
-          <div>
-            <div class="text-3xl font-bold text-secondary-600 mb-2">100%</div>
-            <div class="text-neutral-700 font-medium">Would Recommend</div>
-            <div class="text-sm text-neutral-600">Customer satisfaction rate</div>
-          </div>
-          <div>
-            <div class="text-3xl font-bold text-accent-600 mb-2">200+</div>
-            <div class="text-neutral-700 font-medium">Happy Families</div>
-            <div class="text-sm text-neutral-600">Events successfully decorated</div>
-          </div>
-        </div>
+    <!-- Stats + CTA -->
+    <div class="mt-16 grid grid-cols-1 lg:grid-cols-3 gap-6 animate-on-scroll">
+      <div class="rounded-2xl p-8 text-center border border-brand-gold/20 bg-white shadow-soft">
+        <div class="text-3xl font-bold text-brand-gold">5.0/5</div>
+        <div class="mt-1 text-neutral-700 font-medium">Average Rating</div>
+        <div class="text-sm text-neutral-500">Based on 50+ Google reviews</div>
+      </div>
+      <div class="rounded-2xl p-8 text-center border border-brand-gold/20 bg-white shadow-soft">
+        <div class="text-3xl font-bold text-brand-gold">100%</div>
+        <div class="mt-1 text-neutral-700 font-medium">Would Recommend</div>
+        <div class="text-sm text-neutral-500">Customer satisfaction rate</div>
+      </div>
+      <div class="rounded-2xl p-8 text-center border border-brand-gold/20 bg-white shadow-soft">
+        <div class="text-3xl font-bold text-brand-gold">200+</div>
+        <div class="mt-1 text-neutral-700 font-medium">Happy Families</div>
+        <div class="text-sm text-neutral-500">Events successfully decorated</div>
       </div>
     </div>
 
-    <!-- Call to Action -->
-    <div class="text-center mt-16 animate-on-scroll" style="animation-delay: 600ms;">
-      <h3 class="text-2xl font-bold text-neutral-900 mb-4">
-        Ready to Create Your Perfect Display?
-      </h3>
-      <p class="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
+    <div class="text-center mt-14 animate-on-scroll">
+      <h3 class="text-2xl font-bold text-neutral-900 mb-3">Ready to Create Your Perfect Display?</h3>
+      <p class="text-lg text-neutral-700 mb-7 max-w-2xl mx-auto">
         Let us create stunning LED number displays and balloon decorations for your special celebration.
       </p>
-      <a 
+      <a
         href="/booking"
-        class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg hover:scale-105 inline-flex items-center"
+        class="inline-flex items-center justify-center gap-2 rounded-xl px-7 py-4 font-semibold text-brand-black bg-gold-gradient shadow-gold-strong transition-all duration-300 hover:shadow-gold-glow hover:-translate-y-0.5"
       >
-        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-        </svg>
         Start Your Event Hire
       </a>
     </div>
@@ -230,182 +211,116 @@
 </section>
 
 <style>
-  /* Animation classes */
-  .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease-out;
-  }
-  
-  .animate-on-scroll.animate-fade-in-up {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  
-  /* Carousel styles */
-  .dot.active {
-    background-color: theme('colors.primary.600');
-    transform: scale(1.2);
-  }
-  
-  /* Navigation button hover effects */
-  .nav-btn:hover {
-    transform: scale(1.1);
-  }
-  
-  /* Star rating animation */
-  .star-rating svg {
-    transition: color 0.2s ease;
-  }
-  
-  /* Quote styling */
-  blockquote::before {
-    content: '"';
-    font-size: 4rem;
-    color: theme('colors.primary.200');
-    position: absolute;
-    top: -1rem;
-    left: -1rem;
-    font-family: serif;
-  }
-  
-  blockquote {
-    position: relative;
-  }
-  
-  /* Responsive adjustments */
-  @media (max-width: 1024px) {
-    .nav-btn {
-      display: none;
-    }
-  }
-  
-  /* Smooth transitions */
-  .testimonial-card {
-    transition: all 0.3s ease;
-  }
-  
-  .testimonial-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  }
+/* On-scroll reveal */
+.animate-on-scroll { opacity: 0; transform: translateY(20px); transition: all .6s ease-out; }
+.animate-on-scroll.animate-fade-in-up { opacity: 1; transform: translateY(0); }
+
+/* Carousel utils */
+.abs-center-y { position: absolute; top: 50%; transform: translateY(-50%); }
+
+/* Nav buttons (merged style) */
+.nav-btn {
+  @apply text-white text-3xl leading-none transition hover:bg-brand-gold hover:text-brand-black;
+  display: flex; align-items: center; justify-content: center;
+  width: 2.75rem; height: 2.75rem; border-radius: 9999px;
+  background: rgba(0,0,0,0.4); backdrop-filter: blur(4px);
+  cursor: pointer; user-select: none;
+}
+.nav-btn:hover { box-shadow: 0 0 20px rgba(212,175,55,0.4); }
+
+/* Dots */
+.t-dot[aria-current="true"] { background: theme('colors.brand.gold'); transform: scale(1.1); }
+
+/* Quote decorative mark (subtle, gold) */
+blockquote::before {
+  content: '“'; position: absolute; left: -0.5rem; top: -1.2rem;
+  font-size: 4rem; line-height: 1; color: rgba(212,175,55,0.25);
+  font-family: Georgia, 'Times New Roman', serif; pointer-events: none;
+}
+
+/* Card hover */
+.testimonial-card { transition: transform .3s ease, box-shadow .3s ease; }
+.testimonial-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.06); }
+
+/* Motion-safe */
+@media (prefers-reduced-motion: reduce) {
+  #testimonials-track { transition: none !important; }
+  .animate-on-scroll { transition: none !important; transform: none !important; opacity: 1 !important; }
+}
+
+/* Hide nav on small screens if you want */
+@media (max-width: 1024px) {
+  .nav-btn { display: none; }
+}
 </style>
 
 <script>
-  // Testimonials carousel functionality
-  document.addEventListener('DOMContentLoaded', () => {
-    const track = document.getElementById('testimonials-track')
-    const prevBtn = document.getElementById('prev-btn')
-    const nextBtn = document.getElementById('next-btn')
-    const dots = document.querySelectorAll('.dot')
-    
-    if (!track || !prevBtn || !nextBtn) return
-    
-    let currentIndex = 0
-    const totalTestimonials = dots.length
-    
-    // Update carousel position
-    const updateCarousel = () => {
-      const translateX = -currentIndex * 100
-      track.style.transform = `translateX(${translateX}%)`
-      
-      // Update dots
-      dots.forEach((dot, index) => {
-        dot.classList.toggle('active', index === currentIndex)
-      })
-    }
-    
-    // Next testimonial
-    const nextTestimonial = () => {
-      currentIndex = (currentIndex + 1) % totalTestimonials
-      updateCarousel()
-    }
-    
-    // Previous testimonial
-    const prevTestimonial = () => {
-      currentIndex = (currentIndex - 1 + totalTestimonials) % totalTestimonials
-      updateCarousel()
-    }
-    
-    // Go to specific testimonial
-    const goToTestimonial = (index) => {
-      currentIndex = index
-      updateCarousel()
-    }
-    
-    // Event listeners
-    nextBtn.addEventListener('click', nextTestimonial)
-    prevBtn.addEventListener('click', prevTestimonial)
-    
-    dots.forEach((dot, index) => {
-      dot.addEventListener('click', () => goToTestimonial(index))
-    })
-    
-    // Auto-advance carousel
-    const autoAdvance = () => {
-      nextTestimonial()
-    }
-    
-    let autoAdvanceInterval = setInterval(autoAdvance, 5000)
-    
-    // Pause auto-advance on hover
-    track.addEventListener('mouseenter', () => {
-      clearInterval(autoAdvanceInterval)
-    })
-    
-    track.addEventListener('mouseleave', () => {
-      autoAdvanceInterval = setInterval(autoAdvance, 5000)
-    })
-    
-    // Keyboard navigation
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowLeft') {
-        prevTestimonial()
-      } else if (e.key === 'ArrowRight') {
-        nextTestimonial()
-      }
-    })
-    
-    // Touch/swipe support for mobile
-    let startX = 0
-    let endX = 0
-    
-    track.addEventListener('touchstart', (e) => {
-      startX = e.touches[0].clientX
-    })
-    
-    track.addEventListener('touchend', (e) => {
-      endX = e.changedTouches[0].clientX
-      const deltaX = startX - endX
-      
-      if (Math.abs(deltaX) > 50) { // Minimum swipe distance
-        if (deltaX > 0) {
-          nextTestimonial()
-        } else {
-          prevTestimonial()
-        }
-      }
-    })
-    
-    // Initialize
-    updateCarousel()
-    
-    // Intersection observer for animations
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in-up')
-          }
-        })
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      }
-    )
+document.addEventListener('DOMContentLoaded', () => {
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries)=>entries.forEach(e=>e.isIntersecting && e.target.classList.add('animate-fade-in-up')), {threshold:0.1, rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('#testimonials .animate-on-scroll').forEach(el=>io.observe(el));
 
-    const elements = document.querySelectorAll('.animate-on-scroll')
-    elements.forEach((el) => observer.observe(el))
-  })
+  const viewport = document.getElementById('testimonials-viewport');
+  const track    = document.getElementById('testimonials-track');
+  const prevBtn  = document.getElementById('t-prev');
+  const nextBtn  = document.getElementById('t-next');
+  const dots     = Array.from(document.querySelectorAll('.t-dot'));
+  if (!viewport || !track || !prevBtn || !nextBtn || dots.length === 0) return;
+
+  let index = 0;
+  const total = dots.length;
+  let auto = null;
+
+  function update() {
+    track.style.transform = `translateX(${-index * 100}%)`;
+    dots.forEach((d, i) => {
+      const active = (i === index);
+      d.setAttribute('aria-current', active ? 'true' : 'false');
+      d.classList.toggle('bg-neutral-300', !active);
+      d.classList.toggle('hover:bg-neutral-400', !active);
+      if (active) d.classList.add('bg-brand-gold', 'scale-110');
+      else d.classList.remove('bg-brand-gold', 'scale-110');
+    });
+  }
+
+  function next() { index = (index + 1) % total; update(); }
+  function prev() { index = (index - 1 + total) % total; update(); }
+  function goTo(i) { index = i; update(); }
+
+  nextBtn.addEventListener('click', (e)=>{ e.stopPropagation(); next(); });
+  prevBtn.addEventListener('click', (e)=>{ e.stopPropagation(); prev(); });
+  dots.forEach((d,i)=> d.addEventListener('click', ()=> goTo(i)));
+
+  // Auto-advance (pause on hover/focus)
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function startAuto(){ if (!prefersReduced) auto = setInterval(next, 6000); }
+  function stopAuto(){ if (auto) clearInterval(auto); auto = null; }
+  startAuto();
+
+  [viewport, prevBtn, nextBtn, ...dots].forEach(el=>{
+    el.addEventListener('mouseenter', stopAuto);
+    el.addEventListener('mouseleave', startAuto);
+    el.addEventListener('focusin', stopAuto);
+    el.addEventListener('focusout', startAuto);
+  });
+
+  // Keyboard
+  document.addEventListener('keydown', (e)=>{
+    if (e.key === 'ArrowLeft') prev();
+    if (e.key === 'ArrowRight') next();
+  });
+
+  // Touch swipe
+  let startX = 0;
+  track.addEventListener('touchstart', (e)=>{ startX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend', (e)=>{
+    const delta = (startX - e.changedTouches[0].clientX);
+    if (Math.abs(delta) > 50) { delta > 0 ? next() : prev(); }
+  }, {passive:true});
+
+  // Ensure correct size on resize (cards are 100% width so only transform needs updating)
+  window.addEventListener('resize', update);
+
+  update();
+});
 </script>

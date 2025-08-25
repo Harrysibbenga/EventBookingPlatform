@@ -1,81 +1,93 @@
 {
-    "name": "Elite Event Productions",
-    "short_name": "Elite Events",
-    "description": "Professional event planning and production services",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#ffffff",
-    "theme_color": "#f2800b",
-    "orientation": "portrait-primary",
-    "scope": "/",
-    "lang": "en-US",
-    "categories": ["business", "lifestyle", "events"],
-    "icons": [
-      {
-        "src": "/favicon-16x16.png",
-        "sizes": "16x16",
-        "type": "image/png"
-      },
-      {
-        "src": "/favicon-32x32.png",
-        "sizes": "32x32",
-        "type": "image/png"
-      },
-      {
-        "src": "/apple-touch-icon.png",
-        "sizes": "180x180",
-        "type": "image/png",
-        "purpose": "apple-touch-icon"
-      },
-      {
-        "src": "/android-chrome-192x192.png",
-        "sizes": "192x192",
-        "type": "image/png",
-        "purpose": "any maskable"
-      },
-      {
-        "src": "/android-chrome-512x512.png",
-        "sizes": "512x512",
-        "type": "image/png",
-        "purpose": "any maskable"
-      }
-    ],
-    "shortcuts": [
-      {
-        "name": "Book Event",
-        "short_name": "Book",
-        "description": "Book a new event consultation",
-        "url": "/booking",
-        "icons": [
-          {
-            "src": "/favicon-32x32.png",
-            "sizes": "32x32"
-          }
-        ]
-      },
-      {
-        "name": "View Gallery",
-        "short_name": "Gallery",
-        "description": "Browse our event portfolio",
-        "url": "/gallery",
-        "icons": [
-          {
-            "src": "/favicon-32x32.png",
-            "sizes": "32x32"
-          }
-        ]
-      },
-      {
-        "name": "Contact Us",
-        "short_name": "Contact",
-        "description": "Get in touch with our team",
-        "url": "/contact",
-        "icons": [
-          {
-            "src": "/favicon-32x32.png",
-            "sizes": "32x32"
-          }
-        ]
-      }
-    ]
-  }
+  "name": "Roman Events",
+  "short_name": "Roman",
+  "description": "Roman Events provides premium event hire and design services, delivering unforgettable experiences for weddings, parties, and corporate events.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#b8860b",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "lang": "en-GB",
+  "categories": ["business", "lifestyle", "events"],
+  "icons": [
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    { "src": "/maskable-icon-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable any" },
+    { "src": "/maskable-icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable any" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Book Event",
+      "short_name": "Book",
+      "description": "Book a new event consultation",
+      "url": "/booking",
+      "icons": [
+        {
+          "src": "/favicon-32x32.png",
+          "sizes": "32x32"
+        }
+      ]
+    },
+    {
+      "name": "View Gallery",
+      "short_name": "Gallery",
+      "description": "Browse our event portfolio",
+      "url": "/gallery",
+      "icons": [
+        {
+          "src": "/favicon-32x32.png",
+          "sizes": "32x32"
+        }
+      ]
+    },
+    {
+      "name": "Contact Us",
+      "short_name": "Contact",
+      "description": "Get in touch with our team",
+      "url": "/contact",
+      "icons": [
+        {
+          "src": "/favicon-32x32.png",
+          "sizes": "32x32"
+        }
+      ]
+    }
+  ]
+}

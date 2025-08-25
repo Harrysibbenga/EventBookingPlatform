@@ -1,0 +1,111 @@
+---
+/**
+ * Balloon.astro
+ * A single floating SVG balloon with full control over position, size, colour, and motion.
+ *
+ * Props:
+ *  - top/left/right/bottom: string | undefined (e.g. '12%', '8rem', '40px')
+ *  - width: number = 96                // px width; height auto (1.5x)
+ *  - opacity: number = 0.6
+ *  - duration: number = 10             // seconds
+ *  - delay: number = 0                 // seconds
+ *  - blur: boolean = false             // adds subtle blur for depth
+ *  - zIndex: string = '-z-10'
+ *  - stops?: [string,string,string]    // gradient color stops (hex or css color)
+ *  - preset?: 'gold' | 'red' | 'blue' | 'teal' | 'purple' | 'pink'
+ *  - stringColor?: string              // overrides string stroke color
+ *  - rotate?: number = 0               // initial rotation in degrees
+ *  - class?: string                    // extra classes (e.g., responsive width classes)
+ */
+
+ export interface Props {
+  top?: string; left?: string; right?: string; bottom?: string;
+  width?: number; opacity?: number; duration?: number; delay?: number;
+  blur?: boolean; zIndex?: string; rotate?: number; class?: string;
+  stops?: [string, string, string]; preset?: 'gold' | 'red' | 'blue' | 'teal' | 'purple' | 'pink';
+  stringColor?: string;
+}
+
+const {
+  top, left, right, bottom,
+  width = 96,
+  opacity = 0.6,
+  duration = 10,
+  delay = 0,
+  blur = false,
+  zIndex = '-z-10',
+  rotate = 0,
+  class: className = '',
+  stops,
+  preset = 'gold',
+  stringColor,
+} = Astro.props;
+
+// Tailwind palette-aligned presets
+const PRESETS: Record<string, [string,string,string]> = {
+  gold:   ['#B8860B', '#D4AF37', '#F5D879'],
+  red:    ['#ef4444', '#f97316', '#f4c354'],
+  blue:   ['#1E40AF', '#93c5fd', '#f5d879'],
+  teal:   ['#0F766E', '#22c55e', '#f4c354'],
+  purple: ['#6D28D9', '#c084fc', '#f5d879'],
+  pink:   ['#ec4899', '#f472b6', '#f4c354'],
+};
+
+const gradStops = stops ?? PRESETS[preset] ?? PRESETS.gold;
+const stroke = stringColor ?? (preset === 'gold' ? 'rgba(212,175,55,.75)' : 'rgba(0,0,0,.2)');
+
+const height = Math.round(width * 1.5);
+const posStyle = [
+  top    !== undefined ? `top:${top};`       : '',
+  left   !== undefined ? `left:${left};`     : '',
+  right  !== undefined ? `right:${right};`   : '',
+  bottom !== undefined ? `bottom:${bottom};` : '',
+].join('');
+
+const filterStyle = blur
+  ? 'filter: blur(0.5px) drop-shadow(0 8px 22px rgba(212,175,55,.22));'
+  : 'filter: drop-shadow(0 8px 22px rgba(0,0,0,.12));';
+
+const anim = `animation-duration:${duration}s; animation-delay:${delay}s;`;
+const rot = `transform: rotate(${rotate}deg);`;
+const id = `balloon-grad-${preset}-${Math.random().toString(36).slice(2,8)}`;
+---
+
+<div aria-hidden="true" class={`pointer-events-none absolute inset-0 ${zIndex}`}>
+  <svg
+    viewBox="0 0 120 180"
+    width={width}
+    height={height}
+    class={`absolute motion-safe:animate-balloon-float ${className}`}
+    style={`${posStyle} opacity:${opacity}; ${anim} ${rot} ${filterStyle} will-change:transform;`}
+  >
+    <defs>
+      <linearGradient id={id} x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%"  stop-color={gradStops[0]} />
+        <stop offset="55%" stop-color={gradStops[1]} />
+        <stop offset="100%" stop-color={gradStops[2]} />
+      </linearGradient>
+    </defs>
+
+    <!-- body -->
+    <ellipse cx="60" cy="60" rx="50" ry="60" fill={`url(#${id})`} />
+    <!-- knot -->
+    <polygon points="55,115 65,115 60,125" fill={gradStops[0]} />
+    <!-- string -->
+    <path d="M60 125 C 60 145, 48 155, 60 170" stroke={stroke} stroke-width="2" fill="none" />
+  </svg>
+</div>
+
+<style>
+@keyframes balloonFloat {
+  0%, 100% { transform: translateY(0) rotate(var(--rot, 0deg)); }
+  25% { transform: translateY(-8px) translateX(-2px) rotate(calc(var(--rot, 0deg) + 1deg)); }
+  50% { transform: translateY(-16px) translateX(0px) rotate(var(--rot, 0deg)); }
+  75% { transform: translateY(-8px) translateX(2px) rotate(calc(var(--rot, 0deg) - 1deg)); }
+}
+.motion-safe\:animate-balloon-float {
+  animation-name: balloonFloat;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+</style>

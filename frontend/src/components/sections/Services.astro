@@ -1,72 +1,95 @@
 ---
 /**
  * Services section showcasing key event hire services.
- * Features animated cards with icons, descriptions, and call-to-actions.
+ * Light theme to contrast the dark hero. Uses brand gold accents.
  */
-
 import { SERVICES } from '../../utils/constants'
 import ServiceCard from '../ui/ServiceCard.astro'
+import Balloon from '../decor/Balloon.astro'
 ---
 
-<section class="py-20 bg-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="services" class="relative py-24 bg-cream-50">
+  <!-- soft gold wash -->
+  <div aria-hidden="true" class="pointer-events-none absolute -top-24 right-1/4 h-72 w-72 rounded-full bg-brand-gold/10 blur-3xl"></div>
+
+  <!-- Vibrant balloon background (subtle, behind content but above bg) -->
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 overflow-hidden">
+    <Balloon preset="gold"   top="10%" left="6%"   width={96}  opacity={0.45} blur />
+    <Balloon preset="gold"   top="24%" right="10%" width={112} opacity={0.4}  delay={0.6} blur />
+    <Balloon preset="gold"   top="56%" right="2%"  width={80}  opacity={0.35} delay={0.9} />
+    <Balloon preset="gold" bottom="10%" left="22%" width={128} opacity={0.35} delay={0.3} blur />
+    <Balloon preset="gold" bottom="10%" right="22%" width={128} opacity={0.35} delay={0.3} blur />
+    <Balloon preset="gold"    bottom="24%" left="2%" width={72}  opacity={0.35} delay={1.1} />
+  </div>
+
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section Header -->
     <div class="text-center mb-16 animate-on-scroll">
-      <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-full mb-6">
-        <svg class="w-8 h-8 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+      <span class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-white border border-brand-gold/30 shadow-sm mb-6">
+        <svg class="w-7 h-7 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
         </svg>
-      </div>
-      
+      </span>
+
       <h2 class="text-4xl font-bold text-neutral-900 mb-4">
         Our Event Hire Services
       </h2>
-      
-      <p class="text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
-        From stunning 4FT LED number displays to balloon decorations and complete party packages, 
+
+      <p class="text-lg sm:text-xl text-neutral-600 max-w-3xl mx-auto leading-relaxed">
+        From stunning 4FT LED number displays to balloon decorations and complete party packages,
         we provide everything you need to make your celebration spectacular.
       </p>
     </div>
 
     <!-- Services Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mb-16">
       {SERVICES.map((service, index) => (
-        <ServiceCard 
-          service={service} 
+        <ServiceCard
+          service={service}
           index={index}
           class="animate-on-scroll"
           style={`animation-delay: ${index * 100}ms`}
+          cardClass="bg-white border border-neutral-200 rounded-2xl p-6 shadow-sm hover:shadow-gold-glow hover:-translate-y-0.5 transition-all duration-300"
+          titleClass="text-xl font-semibold text-neutral-900"
+          descClass="text-neutral-600"
+          ctaPrimaryClass="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 font-semibold text-brand-black bg-gold-gradient shadow-gold-strong transition-all duration-300 hover:shadow-gold-glow"
+          ctaSecondaryClass="inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 font-medium text-neutral-800 bg-white border border-brand-gold/30 transition-all duration-200 hover:bg-cream-50"
         />
       ))}
     </div>
 
     <!-- Call to Action -->
     <div class="text-center animate-on-scroll" style="animation-delay: 600ms;">
-      <div class="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-2xl p-8 lg:p-12">
+      <div class="rounded-2xl border border-brand-gold/20 bg-gradient-to-r from-white to-cream-50 p-8 lg:p-12">
         <h3 class="text-2xl lg:text-3xl font-bold text-neutral-900 mb-4">
           Ready to Book Your Event Hire?
         </h3>
-        
+
         <p class="text-lg text-neutral-600 mb-8 max-w-2xl mx-auto">
           Let's discuss your celebration and create the perfect LED number display or balloon package for your special day.
         </p>
-        
+
         <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <a 
+          <a
             href="/booking"
-            class="bg-primary-600 hover:bg-primary-700 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-lg hover:scale-105 inline-flex items-center"
+            class="inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3 font-semibold
+                   text-brand-black bg-gold-gradient shadow-gold-strong
+                   transition-all duration-200 hover:shadow-gold-glow hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-gold/30"
           >
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
             Book Consultation
           </a>
-          
-          <a 
+
+          <a
             href="/pricing"
-            class="bg-white hover:bg-neutral-50 text-neutral-700 border border-neutral-300 px-8 py-3 rounded-lg font-semibold transition-all duration-200 hover:shadow-md inline-flex items-center"
+            class="inline-flex items-center justify-center gap-2 rounded-xl px-7 py-3 font-semibold
+                   text-neutral-800 bg-white border border-brand-gold/30
+                   transition-all duration-200 hover:bg-cream-50 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-gold/20"
           >
-            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
             </svg>
             View Pricing
@@ -86,45 +109,48 @@ import ServiceCard from '../ui/ServiceCard.astro'
         </p>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-        <div class="text-center group">
-          <div class="w-16 h-16 bg-primary-100 group-hover:bg-primary-200 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors">
-            <span class="text-2xl font-bold text-primary-600">1</span>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+        <!-- step 1 -->
+        <div class="relative text-center group">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center
+                      bg-white border border-brand-gold/30 group-hover:border-brand-gold/50 transition-colors">
+            <span class="text-2xl font-bold text-brand-gold">1</span>
           </div>
           <h4 class="text-lg font-semibold text-neutral-900 mb-2">Contact & Enquiry</h4>
-          <p class="text-neutral-600 text-sm">
-            Get in touch with your date, event type, and requirements for an instant quote.
-          </p>
+          <p class="text-neutral-600 text-sm">Get in touch with your date, event type, and requirements for an instant quote.</p>
+          <span class="step-connector hidden md:block" />
         </div>
 
-        <div class="text-center group">
-          <div class="w-16 h-16 bg-secondary-100 group-hover:bg-secondary-200 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors">
-            <span class="text-2xl font-bold text-secondary-600">2</span>
+        <!-- step 2 -->
+        <div class="relative text-center group">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center
+                      bg-white border border-brand-gold/30 group-hover:border-brand-gold/50 transition-colors">
+            <span class="text-2xl font-bold text-brand-gold">2</span>
           </div>
           <h4 class="text-lg font-semibold text-neutral-900 mb-2">Booking Confirmation</h4>
-          <p class="text-neutral-600 text-sm">
-            Secure your date with booking confirmation and choose your colors and styling options.
-          </p>
+          <p class="text-neutral-600 text-sm">Secure your date and choose your colours and styling options.</p>
+          <span class="step-connector hidden md:block" />
         </div>
 
-        <div class="text-center group">
-          <div class="w-16 h-16 bg-accent-100 group-hover:bg-accent-200 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors">
-            <span class="text-2xl font-bold text-accent-600">3</span>
+        <!-- step 3 -->
+        <div class="relative text-center group">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center
+                      bg-white border border-brand-gold/30 group-hover:border-brand-gold/50 transition-colors">
+            <span class="text-2xl font-bold text-brand-gold">3</span>
           </div>
           <h4 class="text-lg font-semibold text-neutral-900 mb-2">Delivery & Setup</h4>
-          <p class="text-neutral-600 text-sm">
-            Professional delivery and installation on your event day - we handle everything.
-          </p>
+          <p class="text-neutral-600 text-sm">Professional delivery and installation on your event day.</p>
+          <span class="step-connector hidden md:block" />
         </div>
 
-        <div class="text-center group">
-          <div class="w-16 h-16 bg-primary-100 group-hover:bg-primary-200 rounded-full flex items-center justify-center mx-auto mb-4 transition-colors">
-            <span class="text-2xl font-bold text-primary-600">4</span>
+        <!-- step 4 -->
+        <div class="relative text-center group">
+          <div class="w-16 h-16 mx-auto mb-4 rounded-full flex items-center justify-center
+                      bg-white border border-brand-gold/30 group-hover:border-brand-gold/50 transition-colors">
+            <span class="text-2xl font-bold text-brand-gold">4</span>
           </div>
           <h4 class="text-lg font-semibold text-neutral-900 mb-2">Collection</h4>
-          <p class="text-neutral-600 text-sm">
-            Enjoy your celebration while we return to collect everything after your event.
-          </p>
+          <p class="text-neutral-600 text-sm">Enjoy your celebration while we collect everything afterwards.</p>
         </div>
       </div>
     </div>
@@ -132,56 +158,37 @@ import ServiceCard from '../ui/ServiceCard.astro'
 </section>
 
 <style>
-  /* Process steps connector lines */
-  @media (min-width: 768px) {
-    .grid-cols-md-4 > div:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      top: 2rem;
-      right: -2rem;
-      width: 4rem;
-      height: 2px;
-      background: linear-gradient(to right, #e5e7eb, #d1d5db);
-      z-index: -1;
-    }
-  }
-  
-  /* Hover animations for process steps */
-  .group:hover .w-16 {
-    transform: scale(1.1);
-  }
-  
-  /* Service card entrance animations */
-  .animate-on-scroll {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.6s ease-out;
-  }
-  
-  .animate-on-scroll.animate-fade-in-up {
-    opacity: 1;
-    transform: translateY(0);
-  }
+/* connector lines between steps on md+ */
+.step-connector {
+  position: absolute;
+  top: 2rem;             /* aligns with circle center */
+  right: -2rem;
+  width: 4rem;
+  height: 2px;
+  background: linear-gradient(to right, rgba(212,175,55,0.25), rgba(212,175,55,0.15));
+}
+
+/* Service card entrance animations (kept) */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.6s ease-out;
+}
+.animate-on-scroll.animate-fade-in-up {
+  opacity: 1;
+  transform: translateY(0);
+}
 </style>
 
 <script>
-  // Intersection Observer for animations
+  // Intersection Observer for animations (kept)
   document.addEventListener('DOMContentLoaded', () => {
     const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('animate-fade-in-up')
-          }
-        })
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      }
+      entries => entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('animate-fade-in-up')
+      }),
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
     )
-
-    const elements = document.querySelectorAll('.animate-on-scroll')
-    elements.forEach((el) => observer.observe(el))
+    document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el))
   })
 </script>

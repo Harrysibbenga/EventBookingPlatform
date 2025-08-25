@@ -33,6 +33,7 @@ class BookingBase(BaseModel):
     
     # Services and requirements
     services_needed: Optional[str] = Field(None, max_length=1000, description="Requested services")
+    service_package_id: Optional[str] = Field(None, description="Service package ID if applicable")
     special_requirements: Optional[str] = Field(None, max_length=1000, description="Special requirements or notes")
     dietary_restrictions: Optional[str] = Field(None, max_length=500)
     accessibility_needs: Optional[str] = Field(None, max_length=500)
