@@ -1,0 +1,362 @@
+---
+/**
+ * Terms of Service page
+ * Legal terms and conditions for Roman Events
+ */
+
+import Layout from '../layouts/Layout.astro'
+import Balloon from '../components/decor/Balloon.astro'
+import LegalHero from '../components/legal/LegalHero.vue'
+import TableOfContents from '../components/legal/TableOfContents.vue'
+import LegalSection from '../components/legal/LegalSection.vue'
+
+const pageTitle = 'Terms of Service'
+const pageDescription = 'Terms and conditions for Roman Events booking services, including payment terms, cancellation policy, and service agreements.'
+---
+
+<Layout 
+  title={pageTitle} 
+  description={pageDescription}
+  type="article"
+>
+  <!-- Decorative Balloons -->
+  <Balloon top="10%" right="5%" width={80} preset="gold" duration={12} delay={0} blur={true} />
+  <Balloon top="30%" left="3%" width={60} preset="red" duration={15} delay={2} blur={true} />
+  <Balloon bottom="20%" right="8%" width={70} preset="blue" duration={18} delay={4} blur={true} />
+
+  <!-- Hero Section -->
+  <LegalHero 
+    client:load
+    title="Terms of Service"
+    subtitle="Roman Events - Milton Keynes Based Event Hire & Design Services"
+    effectiveDate="August 28, 2025"
+    lastUpdated="August 28, 2025"
+  />
+
+  <!-- Main Content -->
+  <section class="relative py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="lg:grid lg:grid-cols-12 lg:gap-12">
+        
+        <!-- Table of Contents - Sticky Sidebar -->
+        <div class="lg:col-span-3">
+          <div class="lg:sticky lg:top-24">
+            <TableOfContents 
+              client:load
+              sections={[
+                { id: 'service-overview', title: 'Service Overview' },
+                { id: 'booking-terms', title: 'Booking Terms' },
+                { id: 'equipment-damage', title: 'Equipment & Damage Policy' },
+                { id: 'safety-supervision', title: 'Safety & Supervision' },
+                { id: 'photography-marketing', title: 'Photography & Marketing' },
+                { id: 'website-platform', title: 'Website & Platform Use' },
+                { id: 'liability-insurance', title: 'Liability & Insurance' },
+                { id: 'force-majeure', title: 'Force Majeure' },
+                { id: 'data-protection', title: 'Data Protection' },
+                { id: 'modifications', title: 'Modifications & Updates' },
+                { id: 'governing-law', title: 'Governing Law' },
+                { id: 'contact', title: 'Contact Information' }
+              ]}
+            />
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="lg:col-span-9 mt-12 lg:mt-0">
+          <div class="prose prose-lg prose-neutral max-w-none">
+            
+            <!-- Introduction -->
+            <div class="bg-white rounded-2xl shadow-sm border border-neutral-200 p-8 mb-8">
+              <div class="text-center mb-8">
+                <div class="inline-flex items-center px-4 py-2 bg-primary-100 text-primary-800 rounded-full text-sm font-medium mb-4">
+                  📋 Legal Agreement
+                </div>
+              </div>
+              
+              <p class="text-lg text-neutral-600 mb-6 leading-relaxed">
+                Welcome to Roman Events! These Terms of Service ("Terms") govern your use of our website, booking platform, and event hire services. By using our services, submitting booking inquiries, or making payments, you agree to be bound by these Terms.
+              </p>
+              
+              <p class="mb-4 leading-relaxed">
+                Roman Events ("we," "us," "our") operates from Milton Keynes, providing professional event hire and design services throughout Buckinghamshire and surrounding areas.
+              </p>
+            </div>
+
+            <!-- Section 1: Service Overview -->
+            <LegalSection 
+              client:load
+              id="service-overview"
+              title="1. Service Overview"
+              icon="🎉"
+            >
+              <h3>1.1 Services Provided</h3>
+              <p>We provide:</p>
+              <ul>
+                <li>4FT LED number hire and displays</li>
+                <li>Custom balloon displays and arches</li>
+                <li>Shimmer walls and backdrops</li>
+                <li>Floral arrangements and backdrops</li>
+                <li>Neon signs and lighting</li>
+                <li>Complete themed event packages</li>
+                <li>Event setup, styling, and collection services</li>
+              </ul>
+              
+              <h3>1.2 Service Areas</h3>
+              <p>We primarily serve Milton Keynes and surrounding areas including Buckinghamshire, Bedfordshire, Northamptonshire, Oxfordshire, and Hertfordshire. Additional travel charges may apply for locations outside our standard service area.</p>
+            </LegalSection>
+
+            <!-- Section 2: Booking Terms -->
+            <LegalSection 
+              client:load
+              id="booking-terms"
+              title="2. Booking Terms"
+              icon="📅"
+              highlight={true}
+            >
+              <h3>2.1 Booking Process</h3>
+              <ul>
+                <li><strong>Inquiry Submission:</strong> All bookings begin with an inquiry through our website or direct contact</li>
+                <li><strong>Quote Provision:</strong> We will provide a detailed quote within 48 hours of your inquiry</li>
+                <li><strong>Booking Confirmation:</strong> Bookings are confirmed only upon receipt of the required deposit</li>
+                <li><strong>Contract Agreement:</strong> A formal booking contract will be provided for signature</li>
+              </ul>
+
+              <h3>2.2 Deposit and Payment Terms</h3>
+              <div class="bg-amber-50 border border-amber-200 rounded-lg p-6 my-6">
+                <h4 class="text-amber-800 font-semibold mb-3">💰 Payment Schedule</h4>
+                <ul class="text-amber-700">
+                  <li><strong>Deposit:</strong> A 20% deposit is required to secure your event date. This deposit is non-refundable once paid</li>
+                  <li><strong>Balance Payment:</strong> The remaining 80% balance is due 7 days before your event date</li>
+                  <li><strong>Late Payment:</strong> Failure to pay the balance on time may result in booking cancellation</li>
+                  <li><strong>Payment Methods:</strong> We accept bank transfer, credit/debit cards, and PayPal</li>
+                </ul>
+              </div>
+
+              <h3>2.3 Cancellation Policy</h3>
+              <div class="bg-red-50 border border-red-200 rounded-lg p-6 my-6">
+                <h4 class="text-red-800 font-semibold mb-3">🚫 Cancellation Terms</h4>
+                <ul class="text-red-700">
+                  <li><strong>More than 14 days before event:</strong> No additional charges beyond the non-refundable deposit</li>
+                  <li><strong>Within 14 days of event:</strong> Up to 50% of the total booking value may be payable</li>
+                  <li><strong>Within 48 hours:</strong> Full payment may be required</li>
+                  <li><strong>Force Majeure:</strong> In cases of extreme weather, government restrictions, or other circumstances beyond our control, we will work with you to reschedule at no additional cost</li>
+                </ul>
+              </div>
+            </LegalSection>
+
+            <!-- Section 3: Equipment and Damage -->
+            <LegalSection 
+              client:load
+              id="equipment-damage"
+              title="3. Equipment and Damage Policy"
+              icon="🛡️"
+            >
+              <h3>3.1 Equipment Responsibility</h3>
+              <p>From the time of delivery until collection, you are responsible for the care and security of all hired equipment.</p>
+              
+              <h3>3.2 Damage and Loss</h3>
+              <ul>
+                <li>Any lost, stolen, or damaged hire items will be charged at full replacement value</li>
+                <li>Normal wear and tear is expected and will not be charged</li>
+                <li>Please report any damage immediately upon discovery</li>
+                <li>We recommend taking photos of items upon delivery for reference</li>
+              </ul>
+              
+              <h3>3.3 Setup and Collection</h3>
+              <ul>
+                <li>Setup and collection times will be arranged at convenient times for both parties</li>
+                <li>Standard setup/collection is during business hours (9 AM - 6 PM)</li>
+                <li>Late-night or out-of-hours collections may incur additional charges</li>
+                <li>Access to the venue must be provided for setup and collection</li>
+              </ul>
+            </LegalSection>
+
+            <!-- Section 4: Safety and Supervision -->
+            <LegalSection 
+              client:load
+              id="safety-supervision"
+              title="4. Safety and Supervision"
+              icon="👶"
+              highlight={true}
+            >
+              <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 my-6">
+                <h4 class="text-blue-800 font-semibold mb-3">👨‍👩‍👧‍👦 Child Safety</h4>
+                <p class="text-blue-700 mb-3">
+                  Children must be supervised at all times around our displays and hired equipment. We are not responsible for injuries resulting from unsupervised interaction with our equipment.
+                </p>
+                
+                <h4 class="text-blue-800 font-semibold mb-3">🏢 Venue Safety</h4>
+                <p class="text-blue-700">
+                  You are responsible for ensuring the venue is safe and suitable for our equipment installation. This includes adequate structural support and electrical safety.
+                </p>
+              </div>
+            </LegalSection>
+
+            <!-- Section 5: Photography and Marketing -->
+            <LegalSection 
+              client:load
+              id="photography-marketing"
+              title="5. Photography and Marketing"
+              icon="📸"
+            >
+              <h3>5.1 Event Photography</h3>
+              <p>
+                We love showcasing our work! We may photograph our setups and displays for marketing purposes. These photos may be used on our website, social media, and promotional materials unless you specifically request otherwise in writing.
+              </p>
+              
+              <h3>5.2 Testimonials</h3>
+              <p>
+                We may use feedback and testimonials you provide for marketing purposes. If you prefer your testimonial to remain private, please let us know.
+              </p>
+              
+              <h3>5.3 Opt-Out</h3>
+              <div class="bg-green-50 border border-green-200 rounded-lg p-4 my-4">
+                <p class="text-green-700">
+                  You may opt out of photography and testimonial usage at any time by emailing <strong>romaneventsmk@gmail.com</strong>.
+                </p>
+              </div>
+            </LegalSection>
+
+            <!-- Section 6: Website and Platform Use -->
+            <LegalSection 
+              client:load
+              id="website-platform"
+              title="6. Website and Platform Use"
+              icon="💻"
+            >
+              <h3>6.1 Account Creation</h3>
+              <p>
+                When submitting booking inquiries or using our contact forms, you agree to provide accurate and complete information. You are responsible for maintaining the confidentiality of any account credentials.
+              </p>
+              
+              <h3>6.2 Prohibited Uses</h3>
+              <p>You may not:</p>
+              <ul>
+                <li>Submit false or misleading information</li>
+                <li>Use our platform for any unlawful purposes</li>
+                <li>Attempt to gain unauthorized access to our systems</li>
+                <li>Interfere with the proper functioning of our website</li>
+                <li>Upload or transmit viruses, malware, or harmful content</li>
+              </ul>
+            </LegalSection>
+
+            <!-- Section 7: Liability and Insurance -->
+            <LegalSection 
+              client:load
+              id="liability-insurance"
+              title="7. Liability and Insurance"
+              icon="🛡️"
+            >
+              <h3>7.1 Our Liability</h3>
+              <p>
+                Roman Events carries full public liability insurance. Our liability is limited to the total value of your booking. We are not liable for consequential losses, lost profits, or indirect damages.
+              </p>
+              
+              <h3>7.2 Your Responsibilities</h3>
+              <p>
+                You are responsible for ensuring adequate insurance coverage for your event and for any damage caused by your guests to our equipment or the venue.
+              </p>
+            </LegalSection>
+
+            <!-- Section 8: Force Majeure -->
+            <LegalSection 
+              client:load
+              id="force-majeure"
+              title="8. Force Majeure"
+              icon="⛈️"
+            >
+              <p>
+                Neither party shall be liable for any failure to perform due to events beyond their reasonable control, including but not limited to: extreme weather, government restrictions, acts of terrorism, pandemics, or venue closures. In such cases, we will work together to reschedule your event.
+              </p>
+            </LegalSection>
+
+            <!-- Section 9: Data Protection -->
+            <LegalSection 
+              client:load
+              id="data-protection"
+              title="9. Data Protection"
+              icon="🔒"
+            >
+              <p>
+                Your personal data is processed in accordance with our <a href="/privacy" class="text-primary-600 hover:text-primary-700 underline">Privacy Policy</a> and UK GDPR requirements. By using our services, you consent to the collection and use of your information as described in our Privacy Policy.
+              </p>
+            </LegalSection>
+
+            <!-- Section 10: Modifications and Updates -->
+            <LegalSection 
+              client:load
+              id="modifications"
+              title="10. Modifications and Updates"
+              icon="📝"
+            >
+              <p>
+                We reserve the right to modify these Terms at any time. Changes will be posted on our website with an updated effective date. Continued use of our services constitutes acceptance of modified Terms.
+              </p>
+            </LegalSection>
+
+            <!-- Section 11: Governing Law -->
+            <LegalSection 
+              client:load
+              id="governing-law"
+              title="11. Governing Law"
+              icon="⚖️"
+            >
+              <p>
+                These Terms are governed by the laws of England and Wales. Any disputes will be subject to the exclusive jurisdiction of the courts of England and Wales.
+              </p>
+            </LegalSection>
+
+            <!-- Contact Information -->
+            <LegalSection 
+              client:load
+              id="contact"
+              title="Contact Information"
+              icon="📞"
+              highlight={true}
+            >
+              <div class="bg-gradient-to-r from-primary-50 to-orange-50 border border-primary-200 rounded-xl p-8">
+                <div class="text-center mb-6">
+                  <div class="w-16 h-16 mx-auto bg-primary-100 rounded-full flex items-center justify-center mb-4">
+                    <span class="text-2xl">🎊</span>
+                  </div>
+                  <h3 class="text-xl font-semibold text-primary-900 mb-2">Get in Touch</h3>
+                </div>
+                
+                <div class="grid sm:grid-cols-2 gap-6 text-center sm:text-left">
+                  <div>
+                    <p class="font-semibold text-primary-900 mb-2">Roman Events</p>
+                    <p class="text-primary-700">Milton Keynes, Buckinghamshire</p>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-primary-900 mb-2">Contact Details</p>
+                    <p class="text-primary-700">
+                      <a href="mailto:romaneventsmk@gmail.com" class="hover:underline">romaneventsmk@gmail.com</a><br>
+                      <a href="tel:+441908123456" class="hover:underline">+44 1908 123456</a>
+                    </p>
+                  </div>
+                </div>
+                
+                <div class="mt-6 pt-6 border-t border-primary-200 text-center">
+                  <p class="text-sm text-primary-600">
+                    For questions about these Terms or our services, please contact us using the information above.
+                  </p>
+                </div>
+              </div>
+            </LegalSection>
+
+            <!-- Acceptance Notice -->
+            <div class="bg-gradient-to-r from-primary-600 to-orange-600 text-white rounded-xl p-8 mt-12 text-center">
+              <div class="max-w-2xl mx-auto">
+                <h3 class="text-xl font-bold mb-4">Terms Acceptance</h3>
+                <p class="text-primary-100 leading-relaxed">
+                  By paying your deposit or using our services, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>
