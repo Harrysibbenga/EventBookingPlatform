@@ -17,7 +17,7 @@ class BookingBase(BaseModel):
     # Event details
     event_type: EventType
     event_date: date = Field(..., description="Event date")
-    event_time: Optional[str] = Field(None, regex=r"^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$", description="Event time in HH:MM AM/PM format")
+    event_time: Optional[str] = Field(None, pattern=r"^(0?[1-9]|1[0-2]):[0-5][0-9]\s?(AM|PM)$", description="Event time in HH:MM AM/PM format")
     duration_hours: Optional[int] = Field(4, ge=1, le=24, description="Event duration in hours")
     guest_count: int = Field(..., ge=1, le=10000, description="Number of expected guests")
     
@@ -41,7 +41,7 @@ class BookingBase(BaseModel):
     # Contact information
     contact_name: str = Field(..., min_length=2, max_length=100, description="Contact person's full name")
     contact_email: EmailStr = Field(..., description="Contact email address")
-    contact_phone: Optional[str] = Field(None, regex=r"^[\+]?[1-9][\d\s\-\(\)]{7,15}$", description="Contact phone number")
+    contact_phone: Optional[str] = Field(None, pattern=r"^[\+]?[1-9][\d\s\-\(\)]{7,15}$", description="Contact phone number")
     preferred_contact: ContactMethod = Field(ContactMethod.EMAIL, description="Preferred contact method")
     
     # Additional information

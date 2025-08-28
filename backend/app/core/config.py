@@ -5,8 +5,17 @@ Handles environment variables and configuration validation.
 
 from functools import lru_cache
 from typing import List, Optional
-from pydantic import BaseSettings, EmailStr, validator
+from pydantic_settings import BaseSettings
+from pydantic import EmailStr, validator
 import os
+from pathlib import Path
+
+# Load .env file explicitly
+from dotenv import load_dotenv
+backend_dir = Path(__file__).parent.parent.parent
+env_path = backend_dir / ".env"
+
+load_dotenv(dotenv_path=env_path)
 
 
 class Settings(BaseSettings):
