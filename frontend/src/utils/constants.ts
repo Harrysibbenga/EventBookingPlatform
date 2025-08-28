@@ -40,11 +40,11 @@ export const BUSINESS_INFO = {
 
   // Social media
   social: {
-    instagram: 'https://instagram.com/romaneventsmk',
-    facebook: 'https://facebook.com/romaneventsmk',
-    twitter: 'https://twitter.com/romaneventsmk',
-    linkedin: 'https://linkedin.com/company/romaneventsmk',
-    pinterest: 'https://pinterest.com/romaneventsmk'
+    instagram: 'https://www.instagram.com/romaneventsmk/',
+    facebook: 'https://www.facebook.com/people/Roman-Events-MK/',
+    // twitter: 'https://twitter.com/romaneventsmk',
+    // linkedin: 'https://linkedin.com/company/romaneventsmk',
+    // pinterest: 'https://pinterest.com/romaneventsmk'
   },
 
   // Founded year

@@ -1,0 +1,778 @@
+---
+/**
+ * Cookie Policy page
+ * Information about cookies and tracking technologies used by Roman Events
+ */
+
+ import Layout from '../layouts/Layout.astro'
+import Balloon from '../components/decor/Balloon.astro'
+import LegalHero from '../components/legal/LegalHero.vue'
+import TableOfContents from '../components/legal/TableOfContents.vue'
+import LegalSection from '../components/legal/LegalSection.vue'
+import CookieManager from '../components/legal/CookieManager.vue'
+
+const pageTitle = 'Cookie Policy'
+const pageDescription = 'Cookie policy for Roman Events - detailed information about cookies, tracking technologies, and how to manage your preferences.'
+---
+
+<Layout 
+  title={pageTitle} 
+  description={pageDescription}
+  type="article"
+>
+  <!-- Decorative Balloons -->
+  <Balloon top="8%" right="6%" width={75} preset="pink" duration={13} delay={0} blur={true} />
+  <Balloon top="35%" left="4%" width={65} preset="teal" duration={17} delay={2.5} blur={true} />
+  <Balloon bottom="15%" right="7%" width={80} preset="purple" duration={19} delay={4} blur={true} />
+
+  <!-- Hero Section -->
+  <LegalHero 
+    client:load
+    title="Cookie Policy"
+    subtitle="Roman Events - Understanding Our Use of Cookies"
+    effectiveDate="August 28, 2025"
+    lastUpdated="August 28, 2025"
+  />
+
+  <!-- Main Content -->
+  <section class="relative py-16 lg:py-24" id="main-content">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="lg:grid lg:grid-cols-12 lg:gap-12">
+        
+        <!-- Table of Contents - Sticky Sidebar -->
+        <div class="lg:col-span-3">
+          <div class="lg:sticky lg:top-24">
+            <TableOfContents 
+              client:load
+              sections={[
+                { id: 'what-are-cookies', title: 'What Are Cookies?' },
+                { id: 'why-we-use-cookies', title: 'Why We Use Cookies' },
+                { id: 'types-of-cookies', title: 'Types of Cookies We Use' },
+                { id: 'essential-cookies', title: 'Essential Cookies' },
+                { id: 'analytics-cookies', title: 'Analytics Cookies' },
+                { id: 'marketing-cookies', title: 'Marketing Cookies' },
+                { id: 'third-party-cookies', title: 'Third-Party Cookies' },
+                { id: 'cookie-consent', title: 'Cookie Consent Management' },
+                { id: 'managing-cookies', title: 'Managing Your Cookie Preferences' },
+                { id: 'browser-settings', title: 'Browser Settings' },
+                { id: 'cookie-retention', title: 'Cookie Retention Periods' },
+                { id: 'updates', title: 'Updates to Cookie Policy' },
+                { id: 'contact', title: 'Contact Information' }
+              ]}
+            />
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="lg:col-span-9 mt-12 lg:mt-0">
+          <div class="prose prose-lg prose-neutral max-w-none">
+            
+            <!-- Introduction -->
+            <div class="bg-white rounded-2xl shadow-sm border border-neutral-200 p-8 mb-8">
+              <div class="text-center mb-8">
+                <div class="inline-flex items-center px-4 py-2 bg-amber-100 text-amber-800 rounded-full text-sm font-medium mb-4">
+                  🍪 Cookie Information
+                </div>
+              </div>
+              
+              <p class="text-lg text-neutral-600 mb-6 leading-relaxed">
+                This Cookie Policy explains how Roman Events ("we," "us," "our") uses cookies and similar tracking technologies when you visit our website and use our booking services. This policy should be read alongside our <a href="/privacy" class="text-primary-600 hover:text-primary-700 underline">Privacy Policy</a>.
+              </p>
+              
+              <p class="mb-4 leading-relaxed">
+                By continuing to use our website, you consent to the use of cookies as described in this policy, except where your consent is required under applicable law.
+              </p>
+            </div>
+
+            <!-- Interactive Cookie Manager -->
+            <div class="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-8 mb-8">
+              <div class="text-center mb-6">
+                <h2 class="text-xl font-bold text-blue-900 mb-3">🛠️ Cookie Preference Center</h2>
+                <p class="text-blue-700">Manage your cookie preferences directly from this page</p>
+              </div>
+              <CookieManager client:load />
+            </div>
+
+            <!-- Section 1: What Are Cookies -->
+            <LegalSection 
+              client:load
+              id="what-are-cookies"
+              title="1. What Are Cookies?"
+              icon="🍪"
+              highlight={true}
+            >
+              <p>
+                Cookies are small text files that are placed on your computer or mobile device when you visit a website. They are widely used to make websites work more efficiently and provide information to website owners.
+              </p>
+              
+              <div class="bg-amber-50 border border-amber-200 rounded-lg p-6 my-6">
+                <h4 class="text-amber-800 font-semibold mb-3">📝 Cookie Basics</h4>
+                <ul class="text-amber-700 space-y-2">
+                  <li><strong>Size:</strong> Cookies are very small files, typically only a few bytes</li>
+                  <li><strong>Storage:</strong> They are stored in your browser's cookie folder</li>
+                  <li><strong>Function:</strong> They help websites remember information about your visit</li>
+                  <li><strong>Security:</strong> They cannot access other files on your computer or install viruses</li>
+                </ul>
+              </div>
+
+              <h3>Types of Cookie Technologies</h3>
+              <p>We may use various cookie technologies including:</p>
+              <ul>
+                <li><strong>HTTP Cookies:</strong> Standard cookies stored by your browser</li>
+                <li><strong>Local Storage:</strong> Browser storage for larger amounts of data</li>
+                <li><strong>Session Storage:</strong> Temporary storage that expires when you close your browser</li>
+                <li><strong>Web Beacons:</strong> Small images that help us track email opens and website usage</li>
+              </ul>
+            </LegalSection>
+
+            <!-- Section 2: Why We Use Cookies -->
+            <LegalSection 
+              client:load
+              id="why-we-use-cookies"
+              title="2. Why We Use Cookies"
+              icon="🎯"
+            >
+              <p>We use cookies for several important purposes:</p>
+              
+              <div class="grid sm:grid-cols-2 gap-4 my-6">
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-green-800 mb-2">⚡ Website Functionality</h4>
+                  <p class="text-green-700 text-sm">Ensure our booking forms and website features work properly</p>
+                </div>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-blue-800 mb-2">📊 Analytics & Insights</h4>
+                  <p class="text-blue-700 text-sm">Understand how visitors use our website to improve user experience</p>
+                </div>
+                <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-purple-800 mb-2">🎨 Personalization</h4>
+                  <p class="text-purple-700 text-sm">Remember your preferences and provide relevant content</p>
+                </div>
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-orange-800 mb-2">📢 Marketing</h4>
+                  <p class="text-orange-700 text-sm">Show you relevant advertisements and measure their effectiveness</p>
+                </div>
+              </div>
+            </LegalSection>
+
+            <!-- Section 3: Types of Cookies -->
+            <LegalSection 
+              client:load
+              id="types-of-cookies"
+              title="3. Types of Cookies We Use"
+              icon="📋"
+              highlight={true}
+            >
+              <p>We categorize cookies based on their function and whether you can control them:</p>
+
+              <div class="space-y-6 my-8">
+                <!-- Essential Cookies -->
+                <div class="bg-red-50 border-l-4 border-red-400 p-6 rounded-r-lg">
+                  <div class="flex items-center mb-3">
+                    <span class="text-red-500 text-xl mr-3">🔴</span>
+                    <h4 class="text-lg font-semibold text-red-800">Essential Cookies (Always Active)</h4>
+                  </div>
+                  <p class="text-red-700 mb-3">
+                    These cookies are necessary for our website to function and cannot be switched off. They are usually set in response to actions you take.
+                  </p>
+                  <div class="text-sm text-red-600">
+                    <strong>Legal Basis:</strong> Legitimate Interest (Website Functionality)
+                  </div>
+                </div>
+
+                <!-- Analytics Cookies -->
+                <div class="bg-blue-50 border-l-4 border-blue-400 p-6 rounded-r-lg">
+                  <div class="flex items-center mb-3">
+                    <span class="text-blue-500 text-xl mr-3">🔵</span>
+                    <h4 class="text-lg font-semibold text-blue-800">Analytics Cookies (Your Choice)</h4>
+                  </div>
+                  <p class="text-blue-700 mb-3">
+                    These cookies help us understand how visitors interact with our website by collecting and reporting information anonymously.
+                  </p>
+                  <div class="text-sm text-blue-600">
+                    <strong>Legal Basis:</strong> Consent Required
+                  </div>
+                </div>
+
+                <!-- Marketing Cookies -->
+                <div class="bg-purple-50 border-l-4 border-purple-400 p-6 rounded-r-lg">
+                  <div class="flex items-center mb-3">
+                    <span class="text-purple-500 text-xl mr-3">🟣</span>
+                    <h4 class="text-lg font-semibold text-purple-800">Marketing Cookies (Your Choice)</h4>
+                  </div>
+                  <p class="text-purple-700 mb-3">
+                    These cookies track visitors across websites to display relevant and engaging advertisements.
+                  </p>
+                  <div class="text-sm text-purple-600">
+                    <strong>Legal Basis:</strong> Consent Required
+                  </div>
+                </div>
+              </div>
+            </LegalSection>
+
+            <!-- Section 4: Essential Cookies -->
+            <LegalSection 
+              client:load
+              id="essential-cookies"
+              title="4. Essential Cookies (Always Active)"
+              icon="🔴"
+            >
+              <p>These cookies are critical for basic website functionality:</p>
+
+              <div class="overflow-x-auto mt-6">
+                <table class="min-w-full bg-white border border-neutral-200 rounded-lg">
+                  <thead class="bg-neutral-50">
+                    <tr>
+                      <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-900">Cookie Name</th>
+                      <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-900">Purpose</th>
+                      <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-900">Duration</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-neutral-200">
+                    <tr>
+                      <td class="px-4 py-3 text-sm font-medium text-neutral-900">session_id</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">Maintains your booking form session</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">Session</td>
+                    </tr>
+                    <tr class="bg-neutral-50">
+                      <td class="px-4 py-3 text-sm font-medium text-neutral-900">csrf_token</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">Security protection against cross-site request forgery</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">Session</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-3 text-sm font-medium text-neutral-900">cookie_consent</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">Remembers your cookie preferences</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">1 Year</td>
+                    </tr>
+                    <tr class="bg-neutral-50">
+                      <td class="px-4 py-3 text-sm font-medium text-neutral-900">form_progress</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">Saves your booking form progress</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">24 Hours</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </LegalSection>
+
+            <!-- Section 5: Analytics Cookies -->
+            <LegalSection 
+              client:load
+              id="analytics-cookies"
+              title="5. Analytics Cookies (With Your Consent)"
+              icon="📊"
+            >
+              <p>We use analytics cookies to improve our website and services:</p>
+
+              <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 my-6">
+                <h4 class="text-blue-800 font-semibold mb-3">🔍 Google Analytics 4</h4>
+                <p class="text-blue-700 mb-3">
+                  We use Google Analytics to understand how visitors use our website. This helps us improve our services and user experience.
+                </p>
+                
+                <h5 class="font-semibold text-blue-800 mb-2">Information Collected:</h5>
+                <ul class="text-blue-700 text-sm space-y-1">
+                  <li>• Pages visited and time spent on each page</li>
+                  <li>• How you arrived at our website (referral source)</li>
+                  <li>• Your approximate location (country/city level)</li>
+                  <li>• Device and browser information</li>
+                  <li>• Interactions with forms and buttons</li>
+                </ul>
+              </div>
+
+              <h3>Analytics Cookie Details</h3>
+              <div class="overflow-x-auto mt-4">
+                <table class="min-w-full bg-white border border-neutral-200 rounded-lg">
+                  <thead class="bg-neutral-50">
+                    <tr>
+                      <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-900">Cookie Name</th>
+                      <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-900">Purpose</th>
+                      <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-900">Duration</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-neutral-200">
+                    <tr>
+                      <td class="px-4 py-3 text-sm font-medium text-neutral-900">_ga</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">Distinguishes unique users</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">2 Years</td>
+                    </tr>
+                    <tr class="bg-neutral-50">
+                      <td class="px-4 py-3 text-sm font-medium text-neutral-900">_ga_*</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">Stores session state</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">2 Years</td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-3 text-sm font-medium text-neutral-900">_gid</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">Distinguishes unique users over 24hr period</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">24 Hours</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div class="bg-green-50 border border-green-200 rounded-lg p-4 mt-6">
+                <p class="text-green-700 text-sm">
+                  <strong>Data Protection:</strong> All Google Analytics data is anonymized and we've enabled IP anonymization to protect your privacy.
+                </p>
+              </div>
+            </LegalSection>
+
+            <!-- Section 6: Marketing Cookies -->
+            <LegalSection 
+              client:load
+              id="marketing-cookies"
+              title="6. Marketing Cookies (With Your Consent)"
+              icon="📢"
+            >
+              <p>Marketing cookies help us show you relevant advertisements and measure campaign effectiveness:</p>
+
+              <div class="space-y-4 my-6">
+                <div class="bg-pink-50 border border-pink-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-pink-800 mb-2">📘 Facebook Pixel</h4>
+                  <p class="text-pink-700 text-sm mb-2">
+                    Tracks conversions from Facebook ads and helps us create lookalike audiences for better targeting.
+                  </p>
+                  <p class="text-pink-600 text-xs"><strong>Duration:</strong> 3 Months</p>
+                </div>
+                
+                <div class="bg-red-50 border border-red-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-red-800 mb-2">📷 Instagram Integration</h4>
+                  <p class="text-red-700 text-sm mb-2">
+                    Enables Instagram feed integration and tracks engagement with our social content.
+                  </p>
+                  <p class="text-red-600 text-xs"><strong>Duration:</strong> 1 Year</p>
+                </div>
+                
+                <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-purple-800 mb-2">🔍 Google Ads</h4>
+                  <p class="text-purple-700 text-sm mb-2">
+                    Tracks conversions from Google Ads and helps with retargeting campaigns.
+                  </p>
+                  <p class="text-purple-600 text-xs"><strong>Duration:</strong> 90 Days</p>
+                </div>
+              </div>
+
+              <div class="bg-amber-50 border border-amber-200 rounded-lg p-6 mt-6">
+                <h4 class="text-amber-800 font-semibold mb-3">⚠️ Important Note</h4>
+                <p class="text-amber-700">
+                  Marketing cookies are only set with your explicit consent. You can withdraw your consent at any time using our cookie preference center above.
+                </p>
+              </div>
+            </LegalSection>
+
+            <!-- Section 7: Third-Party Cookies -->
+            <LegalSection 
+              client:load
+              id="third-party-cookies"
+              title="7. Third-Party Cookies"
+              icon="🔗"
+            >
+              <p>Some cookies are set by third-party services we use:</p>
+
+              <div class="overflow-x-auto mt-6">
+                <table class="min-w-full bg-white border border-neutral-200 rounded-lg">
+                  <thead class="bg-neutral-50">
+                    <tr>
+                      <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-900">Service</th>
+                      <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-900">Purpose</th>
+                      <th class="px-4 py-3 text-left text-sm font-semibold text-neutral-900">Privacy Policy</th>
+                    </tr>
+                  </thead>
+                  <tbody class="divide-y divide-neutral-200">
+                    <tr>
+                      <td class="px-4 py-3 text-sm font-medium text-neutral-900">Google Maps</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">Location services and directions</td>
+                      <td class="px-4 py-3 text-sm">
+                        <a href="https://policies.google.com/privacy" class="text-primary-600 hover:underline" target="_blank" rel="noopener">View Policy</a>
+                      </td>
+                    </tr>
+                    <tr class="bg-neutral-50">
+                      <td class="px-4 py-3 text-sm font-medium text-neutral-900">Stripe</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">Secure payment processing</td>
+                      <td class="px-4 py-3 text-sm">
+                        <a href="https://stripe.com/privacy" class="text-primary-600 hover:underline" target="_blank" rel="noopener">View Policy</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="px-4 py-3 text-sm font-medium text-neutral-900">PayPal</td>
+                      <td class="px-4 py-3 text-sm text-neutral-600">Alternative payment processing</td>
+                      <td class="px-4 py-3 text-sm">
+                        <a href="https://www.paypal.com/uk/webapps/mpp/ua/privacy-full" class="text-primary-600 hover:underline" target="_blank" rel="noopener">View Policy</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </LegalSection>
+
+            <!-- Section 8: Cookie Consent Management -->
+            <LegalSection 
+              client:load
+              id="cookie-consent"
+              title="8. Cookie Consent Management"
+              icon="✅"
+              highlight={true}
+            >
+              <h3>How We Obtain Your Consent</h3>
+              <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 my-6">
+                <h4 class="text-blue-800 font-semibold mb-3">🍪 Cookie Banner</h4>
+                <p class="text-blue-700 mb-3">
+                  When you first visit our website, we show you a cookie banner explaining our use of cookies and asking for your consent for non-essential cookies.
+                </p>
+                
+                <h5 class="font-semibold text-blue-800 mb-2">Your Choices:</h5>
+                <ul class="text-blue-700 text-sm space-y-1">
+                  <li>• <strong>Accept All:</strong> Consent to all cookie categories</li>
+                  <li>• <strong>Customize:</strong> Choose which cookie categories to allow</li>
+                  <li>• <strong>Reject Non-Essential:</strong> Only allow essential cookies</li>
+                </ul>
+              </div>
+
+              <h3>Granular Consent</h3>
+              <p>You have granular control over different types of cookies:</p>
+              <ul>
+                <li><strong>Essential Cookies:</strong> Cannot be disabled (required for website function)</li>
+                <li><strong>Analytics Cookies:</strong> Optional - improves our website</li>
+                <li><strong>Marketing Cookies:</strong> Optional - enables personalized advertising</li>
+              </ul>
+
+              <h3>Withdrawing Consent</h3>
+              <p>You can change your cookie preferences at any time by:</p>
+              <ul>
+                <li>Using the cookie preference center above</li>
+                <li>Clicking the cookie settings link in our footer</li>
+                <li>Clearing your browser cookies (will reset all preferences)</li>
+                <li>Contacting us directly at romaneventsmk@gmail.com</li>
+              </ul>
+            </LegalSection>
+
+            <!-- Section 9: Managing Cookie Preferences -->
+            <LegalSection 
+              client:load
+              id="managing-cookies"
+              title="9. Managing Your Cookie Preferences"
+              icon="⚙️"
+            >
+              <h3>Cookie Preference Center</h3>
+              <p>
+                Use our cookie preference center (available at the top of this page) to manage your cookie settings. Your choices will be remembered for future visits.
+              </p>
+
+              <h3>Impact of Disabling Cookies</h3>
+              <div class="grid sm:grid-cols-2 gap-4 my-6">
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-yellow-800 mb-2">⚠️ Essential Cookies Disabled</h4>
+                  <ul class="text-yellow-700 text-sm space-y-1">
+                    <li>• Booking forms may not work</li>
+                    <li>• Cannot save form progress</li>
+                    <li>• Security features compromised</li>
+                    <li>• Login functionality affected</li>
+                  </ul>
+                </div>
+                
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-blue-800 mb-2">📊 Analytics Cookies Disabled</h4>
+                  <ul class="text-blue-700 text-sm space-y-1">
+                    <li>• Cannot track website improvements</li>
+                    <li>• No user behavior insights</li>
+                    <li>• Performance monitoring limited</li>
+                    <li>• Less personalized experience</li>
+                  </ul>
+                </div>
+              </div>
+            </LegalSection>
+
+            <!-- Section 10: Browser Settings -->
+            <LegalSection 
+              client:load
+              id="browser-settings"
+              title="10. Browser Settings"
+              icon="🌐"
+            >
+              <p>You can also control cookies through your browser settings. Here's how for popular browsers:</p>
+
+              <div class="space-y-4 my-6">
+                <details class="bg-neutral-50 border border-neutral-200 rounded-lg">
+                  <summary class="px-4 py-3 font-semibold text-neutral-900 cursor-pointer hover:bg-neutral-100">
+                    🔵 Google Chrome
+                  </summary>
+                  <div class="px-4 pb-3 text-sm text-neutral-600">
+                    <ol class="list-decimal list-inside space-y-1 mt-2">
+                      <li>Click the three dots menu → <strong>Settings</strong></li>
+                      <li>Go to <strong>Privacy and security</strong> → <strong>Cookies and other site data</strong></li>
+                      <li>Choose your preferred cookie setting</li>
+                      <li>Add <strong>romaneventsmk.com</strong> to exceptions if needed</li>
+                    </ol>
+                  </div>
+                </details>
+
+                <details class="bg-neutral-50 border border-neutral-200 rounded-lg">
+                  <summary class="px-4 py-3 font-semibold text-neutral-900 cursor-pointer hover:bg-neutral-100">
+                    🦊 Mozilla Firefox
+                  </summary>
+                  <div class="px-4 pb-3 text-sm text-neutral-600">
+                    <ol class="list-decimal list-inside space-y-1 mt-2">
+                      <li>Click the menu button → <strong>Settings</strong></li>
+                      <li>Go to <strong>Privacy &amp; Security</strong></li>
+                      <li>Under <strong>Cookies and Site Data</strong>, click <strong>Manage Data</strong></li>
+                      <li>Search for <strong>romaneventsmk.com</strong> to manage our cookies</li>
+                    </ol>
+                  </div>
+                </details>
+
+                <details class="bg-neutral-50 border border-neutral-200 rounded-lg">
+                  <summary class="px-4 py-3 font-semibold text-neutral-900 cursor-pointer hover:bg-neutral-100">
+                    🧭 Safari
+                  </summary>
+                  <div class="px-4 pb-3 text-sm text-neutral-600">
+                    <ol class="list-decimal list-inside space-y-1 mt-2">
+                      <li>Go to <strong>Safari</strong> → <strong>Settings</strong> (or Preferences)</li>
+                      <li>Click the <strong>Privacy</strong> tab</li>
+                      <li>Choose your cookie and tracking preferences</li>
+                      <li>Click <strong>Manage Website Data</strong> to view specific sites</li>
+                    </ol>
+                  </div>
+                </details>
+
+                <details class="bg-neutral-50 border border-neutral-200 rounded-lg">
+                  <summary class="px-4 py-3 font-semibold text-neutral-900 cursor-pointer hover:bg-neutral-100">
+                    🔷 Microsoft Edge
+                  </summary>
+                  <div class="px-4 pb-3 text-sm text-neutral-600">
+                    <ol class="list-decimal list-inside space-y-1 mt-2">
+                      <li>Click the three dots menu → <strong>Settings</strong></li>
+                      <li>Go to <strong>Privacy, search, and services</strong></li>
+                      <li>Under <strong>Cookies and site permissions</strong>, select <strong>Manage and delete cookies and site data</strong></li>
+                      <li>Adjust your cookie preferences and add exceptions</li>
+                    </ol>
+                  </div>
+                </details>
+              </div>
+
+              <div class="bg-orange-50 border border-orange-200 rounded-lg p-4 mt-6">
+                <h4 class="text-orange-800 font-semibold mb-2">⚠️ Important Note</h4>
+                <p class="text-orange-700 text-sm">
+                  Disabling cookies through browser settings will affect all websites you visit, not just ours. Some websites may not function properly without cookies enabled.
+                </p>
+              </div>
+            </LegalSection>
+
+            <!-- Section 11: Cookie Retention Periods -->
+            <LegalSection 
+              client:load
+              id="cookie-retention"
+              title="11. Cookie Retention Periods"
+              icon="⏰"
+            >
+              <p>Different cookies have different lifespans:</p>
+
+              <div class="space-y-4 my-6">
+                <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-green-800 mb-2">🔄 Session Cookies</h4>
+                  <p class="text-green-700 text-sm mb-2">
+                    Temporary cookies that are deleted when you close your browser.
+                  </p>
+                  <p class="text-green-600 text-xs"><strong>Used for:</strong> Form sessions, security tokens, temporary preferences</p>
+                </div>
+                
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                  <h4 class="font-semibold text-blue-800 mb-2">💾 Persistent Cookies</h4>
+                  <p class="text-blue-700 text-sm mb-2">
+                    Cookies that remain on your device for a specified period or until manually deleted.
+                  </p>
+                  <p class="text-blue-600 text-xs"><strong>Duration:</strong> Ranges from 24 hours to 2 years depending on purpose</p>
+                </div>
+              </div>
+
+              <h3>Automatic Cookie Cleanup</h3>
+              <ul>
+                <li><strong>Expired Cookies:</strong> Automatically deleted by your browser when they expire</li>
+                <li><strong>Manual Cleanup:</strong> You can delete cookies manually through browser settings</li>
+                <li><strong>Our Cleanup:</strong> We periodically review and remove unnecessary cookies</li>
+              </ul>
+
+              <h3>Cookie Lifespan Overview</h3>
+              <div class="bg-neutral-50 border border-neutral-200 rounded-lg p-6 mt-6">
+                <div class="grid sm:grid-cols-3 gap-4 text-sm">
+                  <div>
+                    <h4 class="font-semibold text-neutral-800 mb-2">Short-term (Session)</h4>
+                    <ul class="text-neutral-600 space-y-1">
+                      <li>• Session management</li>
+                      <li>• Security tokens</li>
+                      <li>• Form data</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-neutral-800 mb-2">Medium-term (Days-Months)</h4>
+                    <ul class="text-neutral-600 space-y-1">
+                      <li>• User preferences</li>
+                      <li>• Marketing tracking</li>
+                      <li>• Analytics data</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-neutral-800 mb-2">Long-term (Years)</h4>
+                    <ul class="text-neutral-600 space-y-1">
+                      <li>• Cookie consent</li>
+                      <li>• User identification</li>
+                      <li>• Persistent preferences</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </LegalSection>
+
+            <!-- Section 12: Updates to Cookie Policy -->
+            <LegalSection 
+              client:load
+              id="updates"
+              title="12. Updates to This Cookie Policy"
+              icon="🔄"
+            >
+              <p>
+                We may update this Cookie Policy from time to time to reflect changes in our cookie usage, legal requirements, or business practices.
+              </p>
+
+              <h3>How We Notify You of Changes</h3>
+              <ul>
+                <li><strong>Website Notice:</strong> We'll post the updated policy on our website with a new "Last Updated" date</li>
+                <li><strong>Email Notification:</strong> For significant changes, we may send an email to registered users</li>
+                <li><strong>Cookie Banner:</strong> If new cookie types are added, we'll ask for fresh consent</li>
+                <li><strong>Version History:</strong> We maintain a record of policy changes for transparency</li>
+              </ul>
+
+              <h3>Your Action Required</h3>
+              <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 my-4">
+                <p class="text-yellow-700">
+                  <strong>🔔 Stay Informed:</strong> We encourage you to review this Cookie Policy periodically to stay informed about how we use cookies and protect your privacy.
+                </p>
+              </div>
+
+              <h3>Significant Changes</h3>
+              <p>We consider the following to be significant changes that require additional notification:</p>
+              <ul>
+                <li>Adding new types of cookies or tracking technologies</li>
+                <li>Sharing cookie data with new third parties</li>
+                <li>Extending cookie retention periods</li>
+                <li>Changes to consent mechanisms</li>
+                <li>Modifications affecting your privacy rights</li>
+              </ul>
+            </LegalSection>
+
+            <!-- Contact Information -->
+            <LegalSection 
+              client:load
+              id="contact"
+              title="Contact Information"
+              icon="📞"
+              highlight={true}
+            >
+              <div class="bg-gradient-to-r from-primary-50 to-orange-50 border border-primary-200 rounded-xl p-8">
+                <div class="text-center mb-6">
+                  <div class="w-16 h-16 mx-auto bg-primary-100 rounded-full flex items-center justify-center mb-4">
+                    <span class="text-2xl">🍪</span>
+                  </div>
+                  <h3 class="text-xl font-semibold text-primary-900 mb-2">Cookie Questions?</h3>
+                </div>
+                
+                <div class="grid sm:grid-cols-2 gap-6 text-center sm:text-left">
+                  <div>
+                    <p class="font-semibold text-primary-900 mb-2">Roman Events</p>
+                    <div class="text-primary-700 space-y-1">
+                      <p>Milton Keynes, Buckinghamshire</p>
+                      <p>United Kingdom</p>
+                    </div>
+                  </div>
+                  <div>
+                    <p class="font-semibold text-primary-900 mb-2">Get in Touch</p>
+                    <div class="text-primary-700 space-y-1">
+                      <p>
+                        <a href="mailto:romaneventsmk@gmail.com?subject=Cookie Policy Inquiry" class="hover:underline">romaneventsmk@gmail.com</a>
+                      </p>
+                      <p>
+                        <a href="tel:+441908123456" class="hover:underline">+44 1908 123456</a>
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="mt-6 pt-6 border-t border-primary-200 text-center">
+                  <p class="text-sm text-primary-600">
+                    <strong>Cookie-related inquiries:</strong> Please include "Cookie Policy" in your email subject line. We'll respond within 48 hours.
+                  </p>
+                </div>
+              </div>
+
+              <h3>Common Cookie Questions</h3>
+              <div class="mt-6 space-y-4">
+                <details class="bg-white border border-neutral-200 rounded-lg">
+                  <summary class="px-4 py-3 font-medium text-neutral-900 cursor-pointer hover:bg-neutral-50">
+                    How do I completely disable all cookies?
+                  </summary>
+                  <div class="px-4 pb-3 text-sm text-neutral-600">
+                    <p>You can disable all cookies through your browser settings, but this may break website functionality. We recommend using our cookie preference center to disable only non-essential cookies while keeping the website functional.</p>
+                  </div>
+                </details>
+
+                <details class="bg-white border border-neutral-200 rounded-lg">
+                  <summary class="px-4 py-3 font-medium text-neutral-900 cursor-pointer hover:bg-neutral-50">
+                    Will my booking work without cookies?
+                  </summary>
+                  <div class="px-4 pb-3 text-sm text-neutral-600">
+                    <p>Essential cookies are required for booking functionality. Without them, you won't be able to submit booking forms or maintain session data. You can disable analytics and marketing cookies without affecting the booking process.</p>
+                  </div>
+                </details>
+
+                <details class="bg-white border border-neutral-200 rounded-lg">
+                  <summary class="px-4 py-3 font-medium text-neutral-900 cursor-pointer hover:bg-neutral-50">
+                    Do you sell my cookie data to third parties?
+                  </summary>
+                  <div class="px-4 pb-3 text-sm text-neutral-600">
+                    <p>No, we never sell your personal data or cookie information to third parties. We only share data with service providers that help us operate our website and provide our services, such as analytics platforms and payment processors.</p>
+                  </div>
+                </details>
+              </div>
+            </LegalSection>
+
+            <!-- Cookie Policy Summary Card -->
+            <div class="bg-gradient-to-r from-amber-500 to-orange-500 text-white rounded-xl p-8 mt-12">
+              <div class="max-w-3xl mx-auto text-center">
+                <h3 class="text-2xl font-bold mb-6">🍪 Cookie Policy Summary</h3>
+                <div class="grid sm:grid-cols-3 gap-6 text-left">
+                  <div class="bg-white/20 rounded-lg p-4">
+                    <h4 class="font-semibold mb-2">🔴 Essential Cookies</h4>
+                    <p class="text-amber-100 text-sm">Always active - required for website functionality</p>
+                  </div>
+                  <div class="bg-white/20 rounded-lg p-4">
+                    <h4 class="font-semibold mb-2">🔵 Analytics Cookies</h4>
+                    <p class="text-amber-100 text-sm">Your choice - help us improve our website</p>
+                  </div>
+                  <div class="bg-white/20 rounded-lg p-4">
+                    <h4 class="font-semibold mb-2">🟣 Marketing Cookies</h4>
+                    <p class="text-amber-100 text-sm">Your choice - enable personalized ads</p>
+                  </div>
+                </div>
+                <div class="mt-6 pt-6 border-t border-amber-400">
+                  <p class="text-amber-100 text-lg">
+                    You have full control over your cookie preferences and can change them at any time.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Legal Compliance Notice -->
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-xl p-6 mt-8">
+              <div class="text-center">
+                <h3 class="text-lg font-bold mb-3">🇬🇧 UK GDPR Compliance</h3>
+                <p class="text-blue-100 text-sm">
+                  This Cookie Policy complies with the UK General Data Protection Regulation (GDPR), 
+                  the Data Protection Act 2018, and the Privacy and Electronic Communications Regulations (PECR).
+                  Your privacy rights are protected under UK law.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

@@ -21,7 +21,6 @@ import SixtyNavy from '../assets/images/60-navy.jpeg';
 import SeventyRedMetallic from '../assets/images/70-red-metallic.jpeg';
 
 // --- Other occasion ---
-import BrideToBePink from '../assets/images/bride-to-be-pink.jpeg';
 
 // --- Decorations (commented out until you have assets) ---
 // import shimmerWallGold from '../assets/images/shimmer-wall-gold.jpeg';
@@ -68,12 +67,6 @@ export const IMAGES: Record<string, ImageMeta> = {
     category: 'Weddings',
     src: (engagementPackage as any)?.src ?? (engagementPackage as string),
     alt: 'Engagement party balloon display with romantic tones',
-  },
-  brideToBePink: {
-    title: 'Bride To Be — Pink',
-    category: 'Weddings',
-    src: (BrideToBePink as any)?.src ?? (BrideToBePink as string),
-    alt: '“Bride To Be” pink sign with matching decor',
   },
 
   // --- Birthdays & Parties ---
