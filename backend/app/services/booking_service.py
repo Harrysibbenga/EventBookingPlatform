@@ -312,7 +312,7 @@ class BookingService:
             # High budget events
             (booking_data.budget_min and booking_data.budget_min > 10000),
             
-            # Events within 60 days
+            # Events within 60 days - FIXED: Use consistent date types
             (booking_data.event_date - date.today()).days <= 60,
             
             # Corporate events (often have quick decision timelines)

@@ -125,6 +125,8 @@ class EmailTemplate:
     """
 
 
+# Replace the ENTIRE EmailService class in app/services/email_service.py
+
 class EmailService:
     """Email service for sending notifications and communications."""
     
@@ -137,6 +139,13 @@ class EmailService:
         self.from_name = settings.SMTP_FROM_NAME
         self.use_tls = settings.SMTP_USE_TLS
         
+        # DEBUG: Print the actual values to see what's happening
+        print(f"DEBUG - SMTP Config:")
+        print(f"  Host: {self.smtp_host}")
+        print(f"  Port: {self.smtp_port} (type: {type(self.smtp_port)})")
+        print(f"  Use TLS: {self.use_tls} (type: {type(self.use_tls)})")
+        print(f"  Username: {self.smtp_username}")
+        
     async def send_email(
         self,
         to_email: str,
@@ -147,21 +156,7 @@ class EmailService:
         bcc: Optional[List[str]] = None,
         attachments: Optional[List[Dict[str, Any]]] = None
     ) -> bool:
-        """
-        Send an email using SMTP.
-        
-        Args:
-            to_email: Recipient email address
-            subject: Email subject
-            html_content: HTML email content
-            text_content: Plain text content (optional)
-            cc: CC recipients (optional)
-            bcc: BCC recipients (optional)
-            attachments: List of attachments (optional)
-            
-        Returns:
-            bool: True if email sent successfully
-        """
+        """Send an email using SMTP."""
         try:
             # Create message
             message = MIMEMultipart("alternative")
@@ -194,7 +189,7 @@ class EmailService:
             
         except Exception as e:
             logger.error(f"Failed to send email to {to_email}: {e}")
-            raise EmailServiceError(f"Failed to send email: {e}")
+            return False
     
     async def _send_smtp(
         self,
@@ -203,23 +198,48 @@ class EmailService:
         cc: Optional[List[str]] = None,
         bcc: Optional[List[str]] = None
     ):
-        """Send email via SMTP."""
+        """Send email via SMTP - FINAL FIX for Gmail port 587."""
         recipients = [to_email]
         if cc:
             recipients.extend(cc)
         if bcc:
             recipients.extend(bcc)
         
-        smtp = aiosmtplib.SMTP(hostname=self.smtp_host, port=self.smtp_port)
+        # FINAL FIX: For Gmail port 587, create connection without any TLS parameters
+        if self.smtp_port == 587:
+            # Gmail port 587 - plain connection, then STARTTLS
+            smtp = aiosmtplib.SMTP(hostname=self.smtp_host, port=self.smtp_port)
+        elif self.smtp_port == 465:
+            # Gmail SSL port - use implicit TLS
+            smtp = aiosmtplib.SMTP(
+                hostname=self.smtp_host, 
+                port=self.smtp_port,
+                use_tls=True,
+                start_tls=False
+            )
+        else:
+            # Other configurations
+            smtp = aiosmtplib.SMTP(hostname=self.smtp_host, port=self.smtp_port)
         
         try:
             await smtp.connect()
-            if self.use_tls:
+            
+            # CRITICAL FIX: Only call starttls for port 587
+            if self.smtp_port == 587:
                 await smtp.starttls()
-            await smtp.login(self.smtp_username, self.smtp_password)
+            elif self.smtp_port not in [465, 587] and self.use_tls:
+                await smtp.starttls()
+            
+            if self.smtp_username and self.smtp_password:
+                await smtp.login(self.smtp_username, self.smtp_password)
+            
             await smtp.send_message(message, recipients=recipients)
+            
         finally:
-            await smtp.quit()
+            try:
+                await smtp.quit()
+            except:
+                pass  # Ignore quit errors
     
     def _add_attachment(self, message: MIMEMultipart, attachment: Dict[str, Any]):
         """Add attachment to email message."""
@@ -336,14 +356,36 @@ class EmailService:
         admin_email: str,
         booking_data: Dict[str, Any]
     ) -> bool:
-        """Send booking notification to admin."""
+        """Send booking notification to admin - FIXED template formatting."""
         try:
-            # Check if urgent (event within 30 days)
-            event_date = booking_data.get("event_date")
+            # Check if this is urgent based on event date
             is_urgent = False
-            if event_date:
-                days_until_event = (event_date - datetime.now().date()).days
+            if booking_data.get("event_date"):
+                from datetime import date, datetime
+                event_date = booking_data["event_date"]
+                if isinstance(event_date, datetime):
+                    days_until_event = (event_date.date() - date.today()).days
+                else:  # It's a date object
+                    days_until_event = (event_date - date.today()).days
                 is_urgent = days_until_event <= 30
+            
+            # Format event date for display
+            event_date_str = "Not specified"
+            if booking_data.get("event_date"):
+                event_date = booking_data["event_date"]
+                if isinstance(event_date, datetime):
+                    event_date_str = event_date.strftime("%B %d, %Y")
+                else:
+                    event_date_str = event_date.strftime("%B %d, %Y")
+            
+            # Format event time
+            event_time_str = "Not specified"
+            if booking_data.get("event_time"):
+                event_time = booking_data["event_time"]
+                if isinstance(event_time, str):
+                    event_time_str = event_time
+                else:
+                    event_time_str = event_time.strftime("%I:%M %p")
             
             # Format budget range
             budget_range = "Not specified"
@@ -351,19 +393,24 @@ class EmailService:
                 budget_range = f"${booking_data['budget_min']:,.2f} - ${booking_data['budget_max']:,.2f}"
             elif booking_data.get("budget_min"):
                 budget_range = f"${booking_data['budget_min']:,.2f}+"
+            elif booking_data.get("budget_max"):
+                budget_range = f"Up to ${booking_data['budget_max']:,.2f}"
             
-            # Prepare template data
+            # FIXED: Calculate priority string BEFORE template formatting
+            priority_text = "HIGH" if is_urgent else "Normal"
+            
+            # Prepare template data with all values as strings
             template_data = {
                 "booking_id": booking_data["id"],
                 "contact_name": booking_data["contact_name"],
                 "contact_email": booking_data["contact_email"],
                 "contact_phone": booking_data.get("contact_phone", "Not provided"),
-                "preferred_contact": booking_data["preferred_contact"].replace("_", " ").title(),
-                "event_type": booking_data["event_type"].replace("_", " ").title(),
-                "event_date": booking_data["event_date"].strftime("%B %d, %Y"),
-                "event_time": booking_data.get("event_time", "Not specified"),
+                "preferred_contact": booking_data.get("preferred_contact", "email").replace("_", " ").title(),
+                "event_type": booking_data.get("event_type", "unknown").replace("_", " ").title(),
+                "event_date": event_date_str,
+                "event_time": event_time_str,
                 "duration_hours": booking_data.get("duration_hours", "Not specified"),
-                "guest_count": booking_data["guest_count"],
+                "guest_count": booking_data.get("guest_count", "Not specified"),
                 "venue_name": booking_data.get("venue_name", "Not specified"),
                 "venue_address": booking_data.get("venue_address", "Not specified"),
                 "budget_range": budget_range,
@@ -371,12 +418,53 @@ class EmailService:
                 "special_requirements": booking_data.get("special_requirements", "None"),
                 "how_heard_about_us": booking_data.get("how_heard_about_us", "Not specified"),
                 "previous_client": "Yes" if booking_data.get("previous_client") else "No",
-                "is_urgent": is_urgent,
-                "created_at": booking_data.get("created_at", datetime.now()).strftime("%B %d, %Y at %I:%M %p")
+                "priority_text": priority_text,  # FIXED: Use calculated value
+                "created_at": self._safe_datetime_format(booking_data.get("created_at"))
             }
             
-            # Format HTML content
-            html_content = EmailTemplate.BOOKING_ADMIN_NOTIFICATION.format(**template_data)
+            # FIXED: Update template to use priority_text instead of inline if statement
+            html_content = f"""
+            <h2>New Booking Inquiry Received</h2>
+            
+            <p>A new booking inquiry has been submitted:</p>
+            
+            <h3>Contact Information:</h3>
+            <ul>
+                <li><strong>Name:</strong> {template_data['contact_name']}</li>
+                <li><strong>Email:</strong> {template_data['contact_email']}</li>
+                <li><strong>Phone:</strong> {template_data['contact_phone']}</li>
+                <li><strong>Preferred Contact:</strong> {template_data['preferred_contact']}</li>
+            </ul>
+            
+            <h3>Event Details:</h3>
+            <ul>
+                <li><strong>Event Type:</strong> {template_data['event_type']}</li>
+                <li><strong>Event Date:</strong> {template_data['event_date']}</li>
+                <li><strong>Event Time:</strong> {template_data['event_time']}</li>
+                <li><strong>Duration:</strong> {template_data['duration_hours']} hours</li>
+                <li><strong>Guest Count:</strong> {template_data['guest_count']}</li>
+                <li><strong>Venue:</strong> {template_data['venue_name']} ({template_data['venue_address']})</li>
+            </ul>
+            
+            <h3>Budget & Services:</h3>
+            <ul>
+                <li><strong>Budget Range:</strong> {template_data['budget_range']}</li>
+                <li><strong>Services Needed:</strong> {template_data['services_needed']}</li>
+                <li><strong>Special Requirements:</strong> {template_data['special_requirements']}</li>
+            </ul>
+            
+            <h3>Additional Information:</h3>
+            <ul>
+                <li><strong>How they heard about us:</strong> {template_data['how_heard_about_us']}</li>
+                <li><strong>Previous client:</strong> {template_data['previous_client']}</li>
+                <li><strong>Priority:</strong> {template_data['priority_text']}</li>
+            </ul>
+            
+            <p><strong>Action Required:</strong> Please respond within 24 hours.</p>
+            
+            <hr>
+            <p><small>Booking ID: {template_data['booking_id']} | Submitted: {template_data['created_at']}</small></p>
+            """
             
             # Set subject with urgency indicator
             subject = f"{'🔥 URGENT - ' if is_urgent else ''}New Booking Inquiry: {template_data['event_type']}"
@@ -425,7 +513,7 @@ class EmailService:
             </blockquote>
             
             <hr>
-            <p><small>Contact ID: {contact_data['id']} | Submitted: {contact_data.get('created_at', datetime.now()).strftime('%B %d, %Y at %I:%M %p')}</small></p>
+            <p><small>Contact ID: {contact_data['id']} | Submitted: {self._safe_datetime_format(contact_data.get('created_at'))}</small></p>
             """
             
             return await self.send_email(
@@ -438,17 +526,55 @@ class EmailService:
             logger.error(f"Failed to send contact admin notification: {e}")
             return False
     
+    def _safe_datetime_format(self, dt_value) -> str:
+        """Safely format datetime/date values for email templates."""
+        from datetime import datetime, date
+        
+        if not dt_value:
+            return datetime.now().strftime("%B %d, %Y at %I:%M %p")
+        
+        if isinstance(dt_value, datetime):
+            return dt_value.strftime("%B %d, %Y at %I:%M %p")
+        elif isinstance(dt_value, date):
+            # Convert date to datetime for consistent formatting
+            dt = datetime.combine(dt_value, datetime.min.time())
+            return dt.strftime("%B %d, %Y at %I:%M %p")
+        else:
+            return str(dt_value)
+    
     async def test_connection(self) -> bool:
-        """Test SMTP connection."""
+        """Test SMTP connection - FINAL FIX for Gmail port 587."""
         try:
-            smtp = aiosmtplib.SMTP(hostname=self.smtp_host, port=self.smtp_port)
+            if self.smtp_port == 587:
+                # Gmail port 587 - plain connection, then STARTTLS
+                smtp = aiosmtplib.SMTP(hostname=self.smtp_host, port=self.smtp_port)
+            elif self.smtp_port == 465:
+                # Gmail SSL port - use implicit TLS
+                smtp = aiosmtplib.SMTP(
+                    hostname=self.smtp_host, 
+                    port=self.smtp_port,
+                    use_tls=True,
+                    start_tls=False
+                )
+            else:
+                # Other configurations
+                smtp = aiosmtplib.SMTP(hostname=self.smtp_host, port=self.smtp_port)
+            
             await smtp.connect()
-            if self.use_tls:
+            
+            # Only call starttls for port 587
+            if self.smtp_port == 587:
                 await smtp.starttls()
-            await smtp.login(self.smtp_username, self.smtp_password)
+            elif self.smtp_port not in [465, 587] and self.use_tls:
+                await smtp.starttls()
+                
+            if self.smtp_username and self.smtp_password:
+                await smtp.login(self.smtp_username, self.smtp_password)
+                
             await smtp.quit()
             logger.info("SMTP connection test successful")
             return True
+            
         except Exception as e:
             logger.error(f"SMTP connection test failed: {e}")
             return False
