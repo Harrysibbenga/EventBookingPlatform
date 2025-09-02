@@ -18,12 +18,12 @@ export const BUSINESS_INFO = {
 
   // Contact information
   email: 'romaneventsmk@gmail.com',
-  phone: '+44 1908 123456',
+  phone: '+447921510264',
   address: {
-    street: '123 Celebration Street',
+    street: 'Bancroft Park',
     city: 'Milton Keynes',
     county: 'Buckinghamshire',
-    postcode: 'MK1 2AB',
+    postcode: 'MK13, 0RA',
     country: 'United Kingdom'
   },
 

@@ -144,7 +144,9 @@ class Booking(Base):
         """Check if event date is approaching (within 30 days)."""
         if not self.event_date:
             return False
-        return (self.event_date - datetime.utcnow()).days <= 30
+        # FIXED: Convert event_date to datetime for proper comparison
+        event_datetime = datetime.combine(self.event_date, datetime.min.time())
+        return (event_datetime - datetime.utcnow()).days <= 30
     
     @property
     def estimated_budget(self) -> float:
