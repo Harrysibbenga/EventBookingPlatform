@@ -1,9 +1,12 @@
 /**
  * TypeScript types for API integration.
- * Updated for UK event hire business packages.
+ * Only includes types required by the API client.
  */
 
-// Enums matching backend models
+// ==============================================
+// ENUMS
+// ==============================================
+
 export enum EventType {
   WEDDING = 'wedding',
   BIRTHDAY = 'birthday',
@@ -11,7 +14,7 @@ export enum EventType {
   ANNIVERSARY = 'anniversary',
   GRADUATION = 'graduation',
   BABY_SHOWER = 'baby_shower',
-  GENDER_REVEAL = 'gender_reveal', // ✅ added
+  GENDER_REVEAL = 'gender_reveal',
   ENGAGEMENT = 'engagement',
   RETIREMENT = 'retirement',
   HOLIDAY = 'holiday',
@@ -39,7 +42,6 @@ export enum ContactType {
   PRICING = 'pricing',
   AVAILABILITY = 'availability',
   SERVICES = 'services',
-  PACKAGE_INQUIRY = 'package_inquiry', // ✅ new
   PARTNERSHIP = 'partnership',
   FEEDBACK = 'feedback',
   COMPLAINT = 'complaint',
@@ -61,11 +63,14 @@ export enum ContactPriority {
   URGENT = 'urgent'
 }
 
-// Booking interfaces
+// ==============================================
+// BOOKING INTERFACES
+// ==============================================
+
 export interface BookingCreate {
   // Event details
   event_type: EventType
-  event_date: string // ISO date string
+  event_date: string
   event_time?: string
   duration_hours?: number
   guest_count: number
@@ -82,7 +87,7 @@ export interface BookingCreate {
 
   // Services and requirements
   services_needed?: string
-  service_package_id?: string // ✅ allows selecting one of your packages
+  service_package_id?: string
   special_requirements?: string
   dietary_restrictions?: string
   accessibility_needs?: string
@@ -102,7 +107,7 @@ export interface BookingCreate {
   terms_accepted: boolean
 }
 
-export interface BookingResponse extends BookingCreate {
+export interface BookingResponse extends Omit<BookingCreate, 'terms_accepted' | 'marketing_consent'> {
   id: number
   status: BookingStatus
   is_priority: boolean
@@ -112,6 +117,9 @@ export interface BookingResponse extends BookingCreate {
   updated_at?: string
   contacted_at?: string
   quoted_at?: string
+  admin_notes?: string
+  estimated_quote?: number
+  follow_up_date?: string
 }
 
 export interface BookingConfirmation {
@@ -122,31 +130,128 @@ export interface BookingConfirmation {
   next_steps: string[]
 }
 
-// Pricing interfaces
-export interface PricingTier {
-  id: string
-  name: string
-  description: string
-  price: number
-  currency: 'GBP'
-  features: string[]
-  is_popular?: boolean
-  is_custom?: boolean
-}
-
-export interface ServicePackage {
-  id: string
-  name: string
-  description: string
-  base_price: number
-  currency: 'GBP' // ✅
-  included_services: string[]
-  optional_services: Array<{
-    name: string
-    price: number
+export interface BookingFormOptions {
+  event_types: Array<{
+    value: string
+    label: string
     description?: string
   }>
-  max_guests?: number
-  duration_hours?: number
-  category: string
+  services: Array<{
+    id: string
+    name: string
+    description?: string
+    base_price?: number
+    is_popular: boolean
+  }>
+  contact_methods: Array<{
+    value: string
+    label: string
+  }>
+  venue_types: string[]
+  time_slots: string[]
+  max_guest_count: number
+  min_advance_days: number
+}
+
+// ==============================================
+// CONTACT INTERFACES
+// ==============================================
+
+export interface ContactCreate {
+  contact_name: string
+  contact_email: string
+  contact_phone?: string
+  preferred_contact?: ContactMethod
+  contact_type: ContactType
+  subject: string
+  message: string
+  company_name?: string
+  website?: string
+  event_date?: string
+  estimated_guest_count?: number
+  estimated_budget?: number
+  preferred_response_time?: string
+  timezone?: string
+  source?: string
+  marketing_consent?: boolean
+  urgent?: boolean
+}
+
+export interface ContactResponse extends ContactCreate {
+  id: number
+  status: ContactStatus
+  priority: ContactPriority
+  is_spam: boolean
+  requires_follow_up: boolean
+  created_at: string
+  updated_at?: string
+  replied_at?: string
+  resolved_at?: string
+  admin_notes?: string
+  assigned_to?: string
+  tags?: string[]
+  follow_up_date?: string
+  response_time_hours?: number
+}
+
+export interface ContactConfirmation {
+  success: boolean
+  contact_id: number
+  message: string
+  reference_number: string
+  estimated_response_time: string
+}
+
+export interface ContactFormOptions {
+  contact_types: Array<{
+    value: string
+    label: string
+    description: string
+  }>
+  sources: string[]
+  timezones: Array<{
+    value: string
+    label: string
+  }>
+  preferred_times: string[]
+  max_message_length: number
+}
+
+// ==============================================
+// HEALTH CHECK INTERFACES
+// ==============================================
+
+export interface HealthCheck {
+  healthy: boolean
+  timestamp: string
+}
+
+export interface DetailedHealthCheck {
+  healthy: boolean
+  timestamp: string
+  database: boolean
+  email: boolean
+  version?: string
+  uptime?: number
+}
+
+// ==============================================
+// API RESPONSE INTERFACES
+// ==============================================
+
+export interface ApiResponse<T> {
+  data?: T
+  error?: string
+  message?: string
+}
+
+export interface ApiError {
+  error: string
+  message: string
+  details?: {
+    validation_errors?: Array<{
+      field: string
+      message: string
+    }>
+  }
 }
