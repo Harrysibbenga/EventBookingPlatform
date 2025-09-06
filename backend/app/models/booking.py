@@ -20,6 +20,7 @@ class EventType(PyEnum):
     GRADUATION = "graduation"
     BABY_SHOWER = "baby_shower"
     GENDER_REVEAL = "gender_reveal"
+    PROPOSAL="proposal"
     ENGAGEMENT = "engagement"
     RETIREMENT = "retirement"
     HOLIDAY = "holiday"

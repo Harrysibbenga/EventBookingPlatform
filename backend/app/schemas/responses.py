@@ -1,7 +1,8 @@
 # app/schemas/responses.py
 """
 Enhanced response models for booking and contact APIs.
-Provides structured error handling and user guidance.
+Extends your existing schemas with detailed error handling and user guidance.
+Fixed datetime serialization for production deployment.
 """
 
 from pydantic import BaseModel, Field
@@ -17,7 +18,7 @@ class ResponseStatus(str, Enum):
     """Standard response status codes."""
     SUCCESS = "success"
     ERROR = "error"
-    WARNING = "warning"
+    WARNING = "warning" 
     INFO = "info"
 
 
@@ -46,6 +47,58 @@ class Timeline(BaseModel):
     detailed_quote: str = "Within 2-3 business days"
     booking_confirmation: str = "Upon approval"
 
+
+# ==================== SUCCESS RESPONSE MODELS ====================
+
+class BookingSuccessResponse(BaseModel):
+    """Enhanced success response for booking creation."""
+    status: ResponseStatus = ResponseStatus.SUCCESS
+    message: str
+    booking_id: int
+    reference_number: str
+    confirmation_details: Dict[str, Any] = Field(
+        description="Detailed booking confirmation information"
+    )
+    next_steps: List[str] = Field(
+        description="Clear next steps for the user"
+    )
+    timeline: Timeline = Field(
+        description="Expected timeline for booking process"
+    )
+    contact_info: ContactInfo
+    timestamp: str = Field(default_factory=lambda: datetime.utcnow().isoformat())
+    
+    class Config:
+        schema_extra = {
+            "example": {
+                "status": "success",
+                "message": "Your wedding booking inquiry has been successfully submitted!",
+                "booking_id": 123,
+                "reference_number": "BK001123",
+                "confirmation_details": {
+                    "event_type": "Wedding",
+                    "event_date": "2025-06-15",
+                    "guest_count": 150,
+                    "venue": "Grand Ballroom"
+                },
+                "next_steps": [
+                    "Check your email for our detailed confirmation",
+                    "We'll contact you within 24 hours with a quote",
+                    "Our team will reach out via email as requested"
+                ],
+                "timeline": {
+                    "confirmation_email": "Within 5 minutes",
+                    "initial_contact": "Within 24 hours",
+                    "detailed_quote": "Within 2-3 business days"
+                },
+                "contact_info": {
+                    "email": "events@company.com",
+                    "phone": "(555) 123-4567"
+                }
+            }
+        }
+
+
 # ==================== ERROR RESPONSE MODELS ====================
 
 class DuplicateBookingError(BaseModel):
@@ -63,13 +116,13 @@ class DuplicateBookingError(BaseModel):
     recommendations: List[str] = Field(
         description="Specific recommendations based on booking status"
     )
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
+    timestamp: str = Field(default_factory=lambda: datetime.utcnow().isoformat())
     
     class Config:
         schema_extra = {
             "example": {
                 "status": "error",
-                "message": "We already have a booking inquiry from you for March 15, 2025. Your inquiry (Reference: BK001234) is currently being processed by our team.",
+                "message": "We already have a booking inquiry from you for March 15, 2025.",
                 "error_code": "DUPLICATE_BOOKING",
                 "existing_booking": {
                     "id": 1234,
@@ -85,12 +138,6 @@ class DuplicateBookingError(BaseModel):
                         "action_type": "email",
                         "email": "user@email.com",
                         "is_primary": True
-                    },
-                    {
-                        "text": "Call Us",
-                        "action_type": "phone",
-                        "phone": "(555) 123-4567",
-                        "is_primary": False
                     }
                 ],
                 "contact_info": {
@@ -98,9 +145,8 @@ class DuplicateBookingError(BaseModel):
                     "phone": "(555) 123-4567"
                 },
                 "recommendations": [
-                    "Check your email (including spam folder) for our updates",
-                    "We should have a detailed quote for you soon",
-                    "If you haven't heard from us in 48 hours, please give us a call"
+                    "Check your email for our updates",
+                    "We should have a detailed quote for you soon"
                 ]
             }
         }
@@ -116,36 +162,7 @@ class MinimumTimeframeError(BaseModel):
     rush_booking_available: bool = Field(description="Whether rush booking is possible")
     user_actions: List[UserAction] = Field(description="Available options for the user")
     contact_info: ContactInfo
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
-    
-    class Config:
-        schema_extra = {
-            "example": {
-                "status": "error",
-                "message": "For events with more than 50 guests, we typically need at least 7 days notice. Please call us directly to discuss rush booking options.",
-                "error_code": "MINIMUM_TIMEFRAME_ERROR",
-                "minimum_days": 7,
-                "days_until_event": 3,
-                "rush_booking_available": True,
-                "user_actions": [
-                    {
-                        "text": "Call for Rush Booking",
-                        "action_type": "phone",
-                        "phone": "(555) 123-4567",
-                        "is_primary": True
-                    },
-                    {
-                        "text": "Choose Different Date",
-                        "action_type": "retry",
-                        "is_primary": False
-                    }
-                ],
-                "contact_info": {
-                    "email": "events@company.com",
-                    "phone": "(555) 123-4567"
-                }
-            }
-        }
+    timestamp: str = Field(default_factory=lambda: datetime.utcnow().isoformat())
 
 
 class ValidationErrorResponse(BaseModel):
@@ -156,28 +173,7 @@ class ValidationErrorResponse(BaseModel):
     validation_errors: List[Dict[str, Any]] = Field(
         description="Detailed validation errors"
     )
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
-    
-    class Config:
-        schema_extra = {
-            "example": {
-                "status": "error",
-                "message": "Please correct the following errors and try again",
-                "error_code": "VALIDATION_ERROR",
-                "validation_errors": [
-                    {
-                        "field": "contact_email",
-                        "message": "Please enter a valid email address",
-                        "type": "format_error"
-                    },
-                    {
-                        "field": "guest_count",
-                        "message": "Guest count must be at least 1",
-                        "type": "min_value_error"
-                    }
-                ]
-            }
-        }
+    timestamp: str = Field(default_factory=lambda: datetime.utcnow().isoformat())
 
 
 class ServiceErrorResponse(BaseModel):
@@ -188,35 +184,19 @@ class ServiceErrorResponse(BaseModel):
     reference_id: str = Field(description="Reference ID for tracking this error")
     contact_info: ContactInfo
     retry_after: Optional[int] = Field(None, description="Suggested retry delay in seconds")
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
-
-
-# ==================== STANDARD RESPONSE MODELS ====================
-
-class BookingStandardResponse(BaseModel):
-    """Standard booking data response for listings."""
-    id: int
-    event_type: str
-    event_date: date
-    event_time: Optional[str]
-    guest_count: int
-    venue_name: Optional[str]
-    status: str
-    contact_name: str
-    contact_email: str
-    reference_number: str
-    created_at: datetime
-    is_priority: bool
-    
-    # Admin-only fields (conditionally included)
-    admin_notes: Optional[str] = None
-    estimated_quote: Optional[Decimal] = None
-    
-    class Config:
-        orm_mode = True
+    timestamp: str = Field(default_factory=lambda: datetime.utcnow().isoformat())
 
 
 # ==================== UTILITY FUNCTIONS ====================
+
+def safe_datetime_convert(obj):
+    """Safely convert datetime objects to ISO strings."""
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    elif isinstance(obj, date):
+        return obj.isoformat()
+    return obj
+
 
 def create_duplicate_booking_response(
     existing_booking: Any,
@@ -353,9 +333,9 @@ Looking forward to making your event amazing!""",
             "id": existing_booking.id,
             "reference_number": reference_number,
             "status": existing_booking.status.value,
-            "event_date": existing_booking.event_date.isoformat(),
+            "event_date": safe_datetime_convert(existing_booking.event_date),
             "event_type": existing_booking.event_type.value,
-            "created_at": existing_booking.created_at.isoformat(),
+            "created_at": safe_datetime_convert(existing_booking.created_at),
             "time_since_booking": time_text
         },
         user_actions=user_actions,
