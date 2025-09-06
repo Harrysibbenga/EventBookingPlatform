@@ -416,33 +416,6 @@
             ></textarea>
           </div>
 
-          <!-- Additional Details -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label class="block text-sm font-medium text-neutral-700 mb-2">
-                Dietary Restrictions
-              </label>
-              <input
-                v-model="formData.dietary_restrictions"
-                type="text"
-                placeholder="e.g., Vegetarian, Gluten-free, Allergies"
-                class="form-input"
-              />
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-neutral-700 mb-2">
-                Accessibility Needs
-              </label>
-              <input
-                v-model="formData.accessibility_needs"
-                type="text"
-                placeholder="e.g., Wheelchair access, Special accommodations"
-                class="form-input"
-              />
-            </div>
-          </div>
-
           <!-- How did you hear about us -->
           <div>
             <label class="block text-sm font-medium text-neutral-700 mb-2">
@@ -602,11 +575,43 @@
         </div>
       </div>
     </div>
+
+    <!-- Enhanced Error Modal -->
+    <div v-if="showErrorModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
+        <h3 class="text-xl font-bold mb-4" :class="{
+          'text-red-600': errorModalOptions?.type === 'error',
+          'text-amber-600': errorModalOptions?.type === 'warning',
+          'text-blue-600': errorModalOptions?.type === 'info'
+        }">
+          {{ errorModalOptions?.title }}
+        </h3>
+        
+        <div class="mb-6 text-gray-700 whitespace-pre-line">
+          {{ errorModalOptions?.message }}
+        </div>
+        
+        <div class="space-y-2">
+          <button
+            v-for="action in errorModalOptions?.actions"
+            :key="action.text"
+            @click="action.action(); closeErrorModal()"
+            class="w-full px-4 py-2 rounded-lg font-medium transition-colors"
+            :class="{
+              'bg-brand-gold text-white hover:bg-brand-gold/90': action.is_primary,
+              'border border-gray-300 text-gray-700 hover:bg-gray-50': !action.is_primary
+            }"
+          >
+            {{ action.text }}
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed, onMounted, watch } from 'vue'
+import { ref, reactive, computed, onMounted, watch, onBeforeUnmount } from 'vue'
 import { 
   Check, 
   ChevronRight, 
@@ -621,6 +626,16 @@ import { submitBooking } from '../../utils/api'
 import type { BookingCreate, BookingConfirmation } from '../../types/api'
 import { EventType, ContactMethod } from '../../types/api'
 import { EVENT_TYPE_CONFIG, SERVICES, VALIDATION_RULES, BUSINESS_INFO } from '../../utils/constants'
+
+const showErrorModal = ref(false)
+const errorModalOptions = ref<any>(null)
+
+const closeErrorModal = () => {
+  showErrorModal.value = false
+  errorModalOptions.value = null
+  globalError.value = ''
+}
+
 
 // Form steps configuration
 const steps = [
@@ -676,32 +691,30 @@ const timeSlots = ref([
 ])
 
 const maxGuestCount = ref(VALIDATION_RULES.guestCount.max)
-const minAdvanceDays = ref(7)
+const minAdvanceDays = ref(0)
 
 // Selected services array
 const selectedServices = ref<string[]>([])
 
 // Form data with proper typing
 const formData = reactive<Partial<BookingCreate>>({
-  event_type: '',
+  event_type: '' as any, // Use empty string instead of undefined
   event_date: '',
   event_time: '',
   duration_hours: 6,
-  guest_count: undefined,
+  guest_count: null as any,
   venue_name: '',
   venue_address: '',
   venue_type: '',
-  budget_min: undefined,
-  budget_max: undefined,
+  budget_min: null as any,
+  budget_max: null as any,
   budget_flexible: true,
   services_needed: '',
   special_requirements: '',
-  dietary_restrictions: '',
-  accessibility_needs: '',
   contact_name: '',
   contact_email: '',
   contact_phone: '',
-  preferred_contact: 'email',
+  preferred_contact: ContactMethod.EMAIL,
   how_heard_about_us: '',
   previous_client: false,
   marketing_consent: false,
@@ -710,8 +723,11 @@ const formData = reactive<Partial<BookingCreate>>({
 
 // Computed property for event type suggestions
 const selectedEventConfig = computed(() => {
-  if (!formData.event_type) return null
-  return EVENT_TYPE_CONFIG[formData.event_type as EventType]
+  if (!formData.event_type || formData.event_type === '') return null
+  
+  // Make sure the event_type exists in the config
+  const eventType = formData.event_type as EventType
+  return EVENT_TYPE_CONFIG[eventType] || null
 })
 
 // Suggested services based on event type
@@ -727,6 +743,10 @@ const suggestedServices = computed(() => {
       return ['Wedding Package', 'Shimmer Wall', 'LED Neon Signs', 'Artificial Florals']
     case EventType.BABY_SHOWER:
       return ['Baby Shower Package', 'Balloon Arch', 'LED Neon Signs']
+    case EventType.GENDER_REVEAL:
+      return ['Gender Reveal Package', 'Balloon Arch', 'LED Neon Signs']
+    case EventType.PROPOSAL:
+      return ['Proposal Package', 'LED Neon Signs', 'Artificial Florals']
     case EventType.ENGAGEMENT:
       return ['Engagement Package', 'LED Neon Signs', 'Artificial Florals']
     case EventType.ANNIVERSARY:
@@ -922,7 +942,6 @@ const handleSubmit = async () => {
   isSubmitting.value = true
 
   try {
-    // Prepare form data
     const bookingData: BookingCreate = {
       event_type: formData.event_type as EventType,
       event_date: formData.event_date!,
@@ -937,8 +956,6 @@ const handleSubmit = async () => {
       budget_flexible: formData.budget_flexible ?? true,
       services_needed: formData.services_needed || undefined,
       special_requirements: formData.special_requirements || undefined,
-      dietary_restrictions: formData.dietary_restrictions || undefined,
-      accessibility_needs: formData.accessibility_needs || undefined,
       contact_name: formData.contact_name!.trim(),
       contact_email: formData.contact_email!.toLowerCase().trim(),
       contact_phone: formData.contact_phone?.trim() || undefined,
@@ -956,17 +973,94 @@ const handleSubmit = async () => {
     if (response.data) {
       confirmationData.value = response.data
       showSuccess.value = true
-    } else if (response.error) {
-      globalError.value = response.message || 'Failed to submit booking request. Please try again.'
+} else if (response.error) {
+  // Check for duplicate booking
+  const isDuplicate = 
+    response.status === 409 || 
+    response.errorDetails?.error_code === 'DUPLICATE_BOOKING' ||
+    (response.errorDetails?.error_code === 'VALIDATION_ERROR' && 
+      response.errorDetails?.message?.includes('booking inquiry from you for'))
+  
+  if (isDuplicate) {
+    console.log('Setting duplicate modal via general error modal...')
+    
+    // Use the general error modal for duplicate bookings
+    errorModalOptions.value = {
+      title: 'Booking Already Exists',
+      message: response.errorDetails['detail'].message,
+      type: 'info',
+      actions: [
+        {
+          text: 'Close',
+          action: () => {
+            // This will be handled by the modal's closeErrorModal()
+          },
+          is_primary: false
+        }
+      ]
     }
+    showErrorModal.value = true
+    
+  } else {
+    // Handle other errors with the general modal
+    errorModalOptions.value = {
+      title: 'Booking Error',
+      message: response.errorDetails?.message || response.message,
+      type: 'error',
+      actions: [
+        {
+          text: 'Try Again',
+          action: () => {
+            // Retry the submission
+            handleSubmit()
+          },
+          is_primary: true
+        },
+        {
+          text: 'Close',
+          action: () => {
+            // This will be handled by closeErrorModal()
+          },
+          is_primary: false
+        }
+      ]
+    }
+    showErrorModal.value = true
+  }
+} else {
+  globalError.value = response.message || 'An unknown error occurred. Please try again.'
+}
   } catch (error: any) {
     console.error('Submission error:', error)
-    globalError.value = error.message || 'An unexpected error occurred. Please try again.'
+    
+    // Handle network errors or unexpected errors
+    if (error.response) {
+      // This is an HTTP error response
+      const errorData = error.response.data
+      
+      if (error.response.status === 409 && errorData?.error_code === 'DUPLICATE_BOOKING') {
+        errorModalOptions.value.message = errorData.message
+        showDuplicateModal.value = true
+      } else {
+        globalError.value = errorData?.message || error.message || 'An error occurred'
+      }
+    } else {
+      // Network error or other unexpected error
+      globalError.value = error.message || 'An unexpected error occurred. Please try again.'
+    }
   } finally {
     isSubmitting.value = false
   }
 }
 
+// Add this listener for form reset events
+onMounted(() => {
+  document.addEventListener('booking-form-reset', resetForm)
+})
+
+onBeforeUnmount(() => {
+  document.removeEventListener('booking-form-reset', resetForm)
+})
 // Success handling
 const closeSuccess = () => {
   showSuccess.value = false
@@ -980,39 +1074,31 @@ const resetForm = () => {
   clearErrors()
   globalError.value = ''
   
-  // Reset form data
+  // Reset form data with proper types
   Object.assign(formData, {
     event_type: '',
     event_date: '',
     event_time: '',
     duration_hours: 6,
-    guest_count: undefined,
+    guest_count: null,
     venue_name: '',
     venue_address: '',
     venue_type: '',
-    budget_min: undefined,
-    budget_max: undefined,
+    budget_min: null,
+    budget_max: null,
     budget_flexible: true,
     services_needed: '',
     special_requirements: '',
-    dietary_restrictions: '',
-    accessibility_needs: '',
     contact_name: '',
     contact_email: '',
     contact_phone: '',
-    preferred_contact: 'email',
+    preferred_contact: ContactMethod.EMAIL,
     how_heard_about_us: '',
     previous_client: false,
     marketing_consent: false,
     terms_accepted: false
   })
 }
-
-// Remove the entire loadFormOptions function and lifecycle hook
-// Lifecycle - Remove the onMounted call since we don't need to load options
-// onMounted(() => {
-//   loadFormOptions()
-// })
 
 // Watch for form field changes to clear errors
 watch(() => formData.event_type, () => clearFieldError('event_type'))

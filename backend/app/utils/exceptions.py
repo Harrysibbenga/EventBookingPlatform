@@ -37,13 +37,12 @@ class EventBookingException(Exception):
 
 
 class ValidationError(EventBookingException):
-    """Raised when data validation fails."""
-    
     def __init__(
         self,
         message: str,
         field: Optional[str] = None,
         value: Optional[Any] = None,
+        error_code: Optional[str] = None,  # Make sure this parameter exists
         **kwargs
     ):
         details = kwargs.get("details", {})
@@ -54,7 +53,7 @@ class ValidationError(EventBookingException):
         
         super().__init__(
             message,
-            error_code="VALIDATION_ERROR",
+            error_code=error_code or "VALIDATION_ERROR",  # Default error_code
             details=details
         )
 

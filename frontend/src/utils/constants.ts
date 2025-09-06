@@ -130,7 +130,18 @@ export const EVENT_TYPE_CONFIG = {
     minGuests: 10,
     maxGuests: 100,
     avgDuration: 3,
-    basePrice: 600,
+    basePrice: 250,
+    popular: false
+  },
+  [EventType.GENDER_REVEAL]: {
+    label: 'Gender Reveal',
+    description: 'Baby showers and gender reveal parties',
+    icon: '👶',
+    color: 'accent',
+    minGuests: 10,
+    maxGuests: 100,
+    avgDuration: 3,
+    basePrice: 230,
     popular: false
   },
   [EventType.ENGAGEMENT]: {
@@ -153,6 +164,17 @@ export const EVENT_TYPE_CONFIG = {
     maxGuests: 250,
     avgDuration: 4,
     basePrice: 1200,
+    popular: false
+  },
+  [EventType.PROPOSAL]: {
+    label: 'Proposal',
+    description: 'Romantic proposals and engagement celebrations',
+    icon: '💍',
+    color: 'primary',
+    minGuests: 0,
+    maxGuests: 50,
+    avgDuration: 2,
+    basePrice: 300,
     popular: false
   },
   [EventType.HOLIDAY]: {
@@ -347,6 +369,22 @@ export const SERVICES = [
     ]
   },
   {
+    id: 'proposal-package',
+    name: 'Proposal Package',
+    description:
+      'Romantic proposal setup with balloons, floral decorations, and a neon sign.',
+    image: PACKAGES.proposalPackage.src,
+    alt: PACKAGES.proposalPackage.alt,
+    basePrice: 300,
+    category: 'packages',
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Neon Sign',
+      'Artificial Flowers',
+      'Balloon Arch'
+    ]
+  },
+  {
     id: 'custom-signs',
     name: 'Customised Wooden Signs',
     description:
@@ -508,6 +546,26 @@ export const PRICING_TIERS = [
       'Venue rental',
       'Catering',
       'Photography'
+    ]
+  },
+  {
+    id: 'proposal-package',
+    name: 'Proposal Package',
+    description: 'Romantic proposal setup with balloons, floral decorations, and a neon sign.',
+    price: 300,
+    maxGuests: 0,
+    duration: 1,
+    popular: false,
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Neon Sign',
+      'Artificial Flowers',
+      'Balloon Arch'
+    ],
+    notIncluded: [
+      'Catering',
+      'Photography',
+      'Venue rental'
     ]
   },
   {

@@ -15,6 +15,7 @@ export enum EventType {
   GRADUATION = 'graduation',
   BABY_SHOWER = 'baby_shower',
   GENDER_REVEAL = 'gender_reveal',
+  PROPOSAL = 'proposal',
   ENGAGEMENT = 'engagement',
   RETIREMENT = 'retirement',
   HOLIDAY = 'holiday',
@@ -89,8 +90,7 @@ export interface BookingCreate {
   services_needed?: string
   service_package_id?: string
   special_requirements?: string
-  dietary_restrictions?: string
-  accessibility_needs?: string
+
 
   // Contact information
   contact_name: string
@@ -240,9 +240,11 @@ export interface DetailedHealthCheck {
 // ==============================================
 
 export interface ApiResponse<T> {
-  data?: T
-  error?: string
-  message?: string
+  data: T | null
+  error: boolean
+  message: string
+  status?: number
+  errorDetails?: any // Add this to include full error details
 }
 
 export interface ApiError {

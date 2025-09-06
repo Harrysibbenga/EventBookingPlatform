@@ -1,6 +1,6 @@
 /**
  * API client utility for communicating with the FastAPI backend.
- * Provides type-safe methods for all API endpoints.
+ * Provides type-safe methods for all API endpoints with enhanced error handling.
  */
 
 import type {
@@ -54,7 +54,7 @@ class HttpClient {
   }
 
   /**
-   * Make HTTP request with error handling
+   * Make HTTP request with enhanced error handling
    */
   private async request<T>(
     endpoint: string,
@@ -78,17 +78,25 @@ class HttpClient {
 
       clearTimeout(timeoutId)
 
-      // Handle HTTP errors
+      // Handle HTTP errors - preserve detailed error information
       if (!response.ok) {
-        const errorData: ApiError = await response.json().catch(() => ({
-          error: 'Unknown Error',
-          message: `HTTP ${response.status}: ${response.statusText}`
-        }))
+        let errorData: any
         
+        try {
+          errorData = await response.json()
+        } catch {
+          errorData = {
+            error: 'Unknown Error',
+            message: `HTTP ${response.status}: ${response.statusText}`,
+            status: response.status
+          }
+        }
+        
+        // For our enhanced error responses, preserve the full structure
         throw new ApiClientError(
-          errorData.message || 'Request failed',
+          errorData.message || `Request failed with status ${response.status}`,
           response.status,
-          errorData
+          errorData // This now contains the full error response
         )
       }
 
@@ -166,13 +174,13 @@ class HttpClient {
 }
 
 /**
- * Custom error class for API client errors
+ * Custom error class for API client errors with enhanced error handling
  */
 export class ApiClientError extends Error {
   constructor(
     message: string,
     public status: number,
-    public data?: ApiError
+    public data?: any // Enhanced to handle any error response structure
   ) {
     super(message)
     this.name = 'ApiClientError'
@@ -196,6 +204,45 @@ export class ApiClientError extends Error {
 
   get isValidationError(): boolean {
     return this.status === 422
+  }
+
+  get isDuplicateBooking(): boolean {
+    return this.status === 409 && this.data?.error_code === 'DUPLICATE_BOOKING'
+  }
+
+  get isMinimumTimeframeError(): boolean {
+    return this.status === 422 && this.data?.error_code === 'MINIMUM_TIMEFRAME_ERROR'
+  }
+
+  /**
+   * Get user-friendly error message
+   */
+  get userMessage(): string {
+    if (this.isDuplicateBooking) {
+      return this.data?.message || 'A booking already exists for this date and email'
+    }
+    
+    if (this.isMinimumTimeframeError) {
+      return this.data?.message || 'This booking does not meet the minimum advance notice requirement'
+    }
+    
+    if (this.isValidationError) {
+      return this.data?.message || 'Please check your information and try again'
+    }
+    
+    if (this.isNetworkError) {
+      return 'Network error. Please check your internet connection and try again.'
+    }
+    
+    if (this.isTimeoutError) {
+      return 'Request timed out. Please try again.'
+    }
+    
+    if (this.isServerError) {
+      return 'Server error. Please try again later.'
+    }
+    
+    return this.message || 'An unexpected error occurred'
   }
 }
 
@@ -313,47 +360,59 @@ export class ApiClient {
 export const apiClient = new ApiClient()
 
 // ========================================
-// CONVENIENCE FUNCTIONS
+// ENHANCED CONVENIENCE FUNCTIONS
 // ========================================
 
 /**
- * Submit booking inquiry with error handling
+ * Submit booking inquiry with enhanced error handling
  */
 export async function submitBooking(booking: BookingCreate): Promise<ApiResponse<BookingConfirmation>> {
   try {
     const result = await apiClient.createBooking(booking)
-    return { data: result }
+    return { 
+      data: result,
+      message: 'Booking submitted successfully'
+    }
   } catch (error) {
     if (error instanceof ApiClientError) {
       return { 
         error: error.message,
-        message: error.data?.message || 'Failed to submit booking inquiry'
+        message: error.userMessage,
+        status: error.status,
+        errorDetails: error.data // Preserve all error details including error_code, existing_booking, etc.
       }
     }
     return { 
       error: 'Unknown error',
-      message: 'An unexpected error occurred. Please try again.'
+      message: 'An unexpected error occurred. Please try again.',
+      status: 0
     }
   }
 }
 
 /**
- * Submit contact inquiry with error handling
+ * Submit contact inquiry with enhanced error handling
  */
 export async function submitContact(contact: ContactCreate): Promise<ApiResponse<ContactConfirmation>> {
   try {
     const result = await apiClient.createContact(contact)
-    return { data: result }
+    return { 
+      data: result,
+      message: 'Contact submitted successfully'
+    }
   } catch (error) {
     if (error instanceof ApiClientError) {
       return { 
         error: error.message,
-        message: error.data?.message || 'Failed to submit contact inquiry'
+        message: error.userMessage,
+        status: error.status,
+        errorDetails: error.data
       }
     }
     return { 
       error: 'Unknown error',
-      message: 'An unexpected error occurred. Please try again.'
+      message: 'An unexpected error occurred. Please try again.',
+      status: 0
     }
   }
 }
@@ -442,7 +501,7 @@ export async function withRetry<T>(
     } catch (error) {
       lastError = error as Error
       
-      // Don't retry client errors (4xx)
+      // Don't retry client errors (4xx) - these are usually validation or duplicate errors
       if (error instanceof ApiClientError && error.isClientError) {
         throw error
       }
@@ -461,31 +520,11 @@ export async function withRetry<T>(
 }
 
 /**
- * Format API errors for user display
+ * Format API errors for user display with enhanced error handling
  */
 export function formatApiError(error: unknown): string {
   if (error instanceof ApiClientError) {
-    if (error.isValidationError && error.data?.details) {
-      // Format validation errors
-      const validationErrors = error.data.details.validation_errors
-      if (Array.isArray(validationErrors)) {
-        return validationErrors.map((err: any) => `${err.field}: ${err.message}`).join(', ')
-      }
-    }
-    
-    if (error.isNetworkError) {
-      return 'Network error. Please check your internet connection and try again.'
-    }
-    
-    if (error.isTimeoutError) {
-      return 'Request timed out. Please try again.'
-    }
-    
-    if (error.isServerError) {
-      return 'Server error. Please try again later.'
-    }
-    
-    return error.message
+    return error.userMessage
   }
   
   if (error instanceof Error) {
@@ -493,4 +532,34 @@ export function formatApiError(error: unknown): string {
   }
   
   return 'An unexpected error occurred. Please try again.'
+}
+
+/**
+ * Check if error is a duplicate booking error
+ */
+export function isDuplicateBookingError(error: unknown): boolean {
+  return error instanceof ApiClientError && error.isDuplicateBooking
+}
+
+/**
+ * Check if error is a validation error
+ */
+export function isValidationError(error: unknown): boolean {
+  return error instanceof ApiClientError && error.isValidationError
+}
+
+/**
+ * Extract duplicate booking details from error
+ */
+export function getDuplicateBookingDetails(error: unknown): any | null {
+  if (error instanceof ApiClientError && error.isDuplicateBookingError) {
+    return {
+      message: error.data?.message,
+      existingBooking: error.data?.existing_booking,
+      contactInfo: error.data?.contact_info,
+      recommendations: error.data?.recommendations,
+      userActions: error.data?.user_actions
+    }
+  }
+  return null
 }
