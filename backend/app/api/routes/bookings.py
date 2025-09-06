@@ -1,14 +1,15 @@
 # app/api/routes/bookings.py
 """
 Enhanced API routes for booking management with comprehensive error handling.
+Fixed datetime serialization for production deployment.
 """
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Path
 from sqlalchemy.orm import Session
 from typing import Optional, Union
-from datetime import datetime
 import math
 import uuid
+from datetime import datetime, date
 
 from app.core.config import get_settings
 from app.core.database import get_db
@@ -28,6 +29,20 @@ from app.utils.exceptions import BookingServiceError, ValidationError
 logger = get_logger(__name__)
 router = APIRouter(prefix="/bookings")
 settings = get_settings()
+
+
+def convert_datetime_to_string(obj):
+    """Recursively convert datetime objects to ISO strings for JSON serialization."""
+    if isinstance(obj, dict):
+        return {k: convert_datetime_to_string(v) for k, v in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_datetime_to_string(item) for item in obj]
+    elif isinstance(obj, datetime):
+        return obj.isoformat()
+    elif isinstance(obj, date):
+        return obj.isoformat()
+    else:
+        return obj
 
 
 @router.post("/", status_code=201)
@@ -69,23 +84,27 @@ async def create_booking(
         )
         
     except ValidationError as e:
-        # Handle different types of validation errors
+        # Handle different types of validation errors with proper datetime serialization
         if e.error_code == "DUPLICATE_BOOKING":
-            # Properly format duplicate booking error
+            # Extract the duplicate booking error details and ensure datetime serialization
             error_details = e.details.copy()
-            # Fix datetime serialization
-            if 'timestamp' in error_details:
-                error_details['timestamp'] = datetime.utcnow().isoformat()
-            
-            if 'message' not in error_details:
-                error_details['message'] = e.message
+            error_details = convert_datetime_to_string(error_details)
             
             raise HTTPException(
-                status_code=409,  # Use 409 for duplicate resource
+                status_code=409,
+                detail=error_details
+            )
+        elif e.error_code == "MINIMUM_TIMEFRAME_ERROR":
+            # Extract the minimum timeframe error details
+            error_details = e.details.copy()
+            error_details = convert_datetime_to_string(error_details)
+            
+            raise HTTPException(
+                status_code=422,
                 detail=error_details
             )
         else:
-            # Handle other validation errors
+            # Generic validation error
             raise HTTPException(
                 status_code=422,
                 detail={
@@ -491,8 +510,15 @@ def get_form_options():
                 is_popular=False
             ),
             ServiceOption(
+                id="proposal",
+                name="Proposal Package",
+                description="Create a memorable proposal setup with romantic decor, flowers, and lighting.",
+                base_price=300.00,
+                is_popular=False
+            ),
+            ServiceOption(
                 id="custom-signs",
-                name="Customised Wooden Signs",
+                name="Customis±±±±±±ed Wooden Signs",
                 description="Personalised wooden signs created with precision laser cutting technology.",
                 base_price=30.00,
                 is_popular=False
@@ -529,7 +555,7 @@ def get_form_options():
             venue_types=venue_types,
             time_slots=time_slots,
             max_guest_count=1000,
-            min_advance_days=0  # Set to 0 as requested (no minimum timeframe)
+            min_advance_days=0  # Set to 0 as you requested (no minimum timeframe)
         )
         
     except Exception as e:

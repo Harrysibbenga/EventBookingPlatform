@@ -974,6 +974,14 @@ const handleSubmit = async () => {
       confirmationData.value = response.data
       showSuccess.value = true
 } else if (response.error) {
+  let errorMessage = ''
+  if (response.errorDetails?.detail?.message) {
+    errorMessage = response.errorDetails.detail.message  // For duplicate bookings
+  } else if (response.errorDetails?.message) {
+    errorMessage = response.errorDetails.message         // For validation errors
+  } else {
+    errorMessage = response.message || 'An error occurred'
+  }
   // Check for duplicate booking
   const isDuplicate = 
     response.status === 409 || 
@@ -987,7 +995,7 @@ const handleSubmit = async () => {
     // Use the general error modal for duplicate bookings
     errorModalOptions.value = {
       title: 'Booking Already Exists',
-      message: response.errorDetails['detail'].message,
+      message: errorMessage,
       type: 'info',
       actions: [
         {
@@ -1005,7 +1013,7 @@ const handleSubmit = async () => {
     // Handle other errors with the general modal
     errorModalOptions.value = {
       title: 'Booking Error',
-      message: response.errorDetails?.message || response.message,
+      message: errorMessage,
       type: 'error',
       actions: [
         {
@@ -1040,7 +1048,7 @@ const handleSubmit = async () => {
       
       if (error.response.status === 409 && errorData?.error_code === 'DUPLICATE_BOOKING') {
         errorModalOptions.value.message = errorData.message
-        showDuplicateModal.value = true
+        showErrorModal.value = true
       } else {
         globalError.value = errorData?.message || error.message || 'An error occurred'
       }
