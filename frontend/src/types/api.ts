@@ -16,6 +16,7 @@ export enum EventType {
   BABY_SHOWER = 'baby_shower',
   GENDER_REVEAL = 'gender_reveal',
   PROPOSAL = 'proposal',
+  THEME = 'theme',
   ENGAGEMENT = 'engagement',
   RETIREMENT = 'retirement',
   HOLIDAY = 'holiday',

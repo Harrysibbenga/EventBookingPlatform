@@ -38,4 +38,7 @@ export const PACKAGES = {
   proposalPackage: {
     ...IMAGES.proposalPackage,
   },
+  themePackage: {
+    ...IMAGES.themePackage,
+  },
 } as const;

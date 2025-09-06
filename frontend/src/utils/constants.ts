@@ -177,6 +177,17 @@ export const EVENT_TYPE_CONFIG = {
     basePrice: 300,
     popular: false
   },
+  [EventType.THEME]: {
+    label: 'Themed Package',
+    description: 'Custom themed parties and special events',
+    icon: '🎭',
+    color: 'accent',
+    minGuests: 10,
+    maxGuests: 300,
+    avgDuration: 4,
+    basePrice: 300,
+    popular: false
+  },
   [EventType.HOLIDAY]: {
     label: 'Holiday Event',
     description: 'Holiday parties and seasonal celebrations',
@@ -382,6 +393,24 @@ export const SERVICES = [
       'LED Neon Sign',
       'Artificial Flowers',
       'Balloon Arch'
+    ]
+  },
+  {    
+    id: 'theme-package',
+    name: 'Theme Party Package',
+    description:
+      'Custom themed party setup with decorations, balloons, and lighting to match your vision.',
+    image: PACKAGES.themePackage.src,
+    alt: PACKAGES.themePackage.alt,
+    basePrice: 300,
+    category: 'packages',
+    features: [
+      'Kids themed displays',
+      'Shimmer wall',
+      'Neon light',
+      'Light up number',
+      'Balloon display',
+      'Props'
     ]
   },
   {

@@ -510,15 +510,22 @@ def get_form_options():
                 is_popular=False
             ),
             ServiceOption(
-                id="proposal",
+                id="proposal-package",
                 name="Proposal Package",
                 description="Create a memorable proposal setup with romantic decor, flowers, and lighting.",
                 base_price=300.00,
                 is_popular=False
             ),
             ServiceOption(
+                id="theme-package",
+                name="Theme Party Package",
+                description="Custom themed party setup with decorations, balloons, and lighting to match your vision.",
+                base_price=300.00,
+                is_popular=False
+            ),
+            ServiceOption(
                 id="custom-signs",
-                name="Customis±±±±±±ed Wooden Signs",
+                name="Customised Wooden Signs",
                 description="Personalised wooden signs created with precision laser cutting technology.",
                 base_price=30.00,
                 is_popular=False

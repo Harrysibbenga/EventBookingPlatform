@@ -24,6 +24,7 @@ class EventType(PyEnum):
     ENGAGEMENT = "engagement"
     RETIREMENT = "retirement"
     HOLIDAY = "holiday"
+    THEME = "theme"
     OTHER = "other"
 
 
