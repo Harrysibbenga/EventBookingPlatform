@@ -13,6 +13,7 @@ import numberPackage from '../assets/images/number-package.jpeg';
 import retirementPackage from '../assets/images/retirement-package.jpeg';
 import anniversaryPackage from '../assets/images/anniversary-package.jpeg';
 import proposalPackage from '../assets/images/proposal-package.jpeg';
+import themePackage from '../assets/images/theme-package-1.jpeg';
 
 // --- Numbers examples ---
 import NinePinkGreen from '../assets/images/9-pink-green.jpeg';
@@ -33,8 +34,6 @@ import CloudNine from '../assets/images/cloud-nine.jpeg';
 import TenOutOfTen from '../assets/images/ten-out-of-ten.jpeg';
 import TenPocalypse from '../assets/images/10-pocalypse.jpeg';
 
-
-
 // --- Wedding ---
 import JustMarriedGreenWhite from '../assets/images/just-married-green-white.jpeg';
 import WeddingMrandMrs from '../assets/images/wedding-mr-and-mrs.jpeg';
@@ -50,6 +49,13 @@ import PumpkinPatch from '../assets/images/pumpkin-patch.jpeg';
 import RestingWitchFace from '../assets/images/resting-witch-face.jpeg';
 import TheEndIsNear from '../assets/images/the-end-is-near.jpeg';
 import TrickOrTreat from '../assets/images/trick-or-treat-black-green.jpeg';
+
+// --- Themed ---
+import themePackage1 from '../assets/images/theme-package-1.jpeg';
+import themePackage2 from '../assets/images/theme-package-2.jpeg';
+import themePackage3 from '../assets/images/theme-package-3.jpeg';
+import themePackage4 from '../assets/images/theme-package-4.jpeg';
+import themePackage5 from '../assets/images/theme-package-5.jpeg';
 
 type Category =
   | 'Weddings'
@@ -67,6 +73,7 @@ type Category =
   | 'Proposals'
   | 'Halloween'
   | 'Numbers'
+  | 'Themed'
   | 'Custom';
 
 interface ImageMeta {
@@ -331,6 +338,38 @@ export const IMAGES: Record<string, ImageMeta> = {
     category: 'Numbers',
     src: (TenPocalypse as any)?.src ?? (TenPocalypse as string),
     alt: 'Number 10 balloon display with "10-Pocalypse" sign',
+  },
+
+  // --- Themed ---
+  themePackage: {
+    title: 'Theme Party Package - Sonic',
+    category: 'Themed',
+    src: (themePackage as any)?.src ?? (themePackage as string),
+    alt: 'Themed party setup with decorations and balloons',
+  },
+  themePackage2: {
+    title: 'Theme Party Package - Wicked',
+    category: 'Themed',
+    src: (themePackage2 as any)?.src ?? (themePackage2 as string),
+    alt: 'Themed party setup with decorations and balloons',
+  },
+  themePackage3: {
+    title: 'Theme Party Package - Football',
+    category: 'Themed',
+    src: (themePackage3 as any)?.src ?? (themePackage3 as string),
+    alt: 'Themed party setup with decorations and balloons',
+  },
+  themePackage4: {
+    title: 'Theme Party Package - Ninja Turtles',
+    category: 'Themed',
+    src: (themePackage4 as any)?.src ?? (themePackage4 as string),
+    alt: 'Themed party setup with decorations and balloons',
+  },
+  themePackage5: {
+    title: 'Theme Party Package - Barbie',
+    category: 'Themed',
+    src: (themePackage5 as any)?.src ?? (themePackage5 as string),
+    alt: 'Themed party setup with decorations and balloons',
   },
 
   // --- Custom ---
