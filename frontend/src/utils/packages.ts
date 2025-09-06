@@ -35,4 +35,7 @@ export const PACKAGES = {
   anniversaryPackage: {
     ...IMAGES.anniversaryPackage,
   },
+  proposalPackage: {
+    ...IMAGES.proposalPackage,
+  },
 } as const;

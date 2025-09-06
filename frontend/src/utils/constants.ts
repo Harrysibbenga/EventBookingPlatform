@@ -358,6 +358,22 @@ export const SERVICES = [
     ]
   },
   {
+    id: 'proposal-package',
+    name: 'Proposal Package',
+    description:
+      'Romantic proposal setup with balloons, floral decorations, and a neon sign.',
+    image: PACKAGES.proposalPackage.src,
+    alt: PACKAGES.proposalPackage.alt,
+    basePrice: 300,
+    category: 'packages',
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Neon Sign',
+      'Artificial Flowers',
+      'Balloon Arch'
+    ]
+  },
+  {
     id: 'custom-signs',
     name: 'Customised Wooden Signs',
     description:
@@ -519,6 +535,26 @@ export const PRICING_TIERS = [
       'Venue rental',
       'Catering',
       'Photography'
+    ]
+  },
+  {
+    id: 'proposal-package',
+    name: 'Proposal Package',
+    description: 'Romantic proposal setup with balloons, floral decorations, and a neon sign.',
+    price: 300,
+    maxGuests: 0,
+    duration: 1,
+    popular: false,
+    features: [
+      'Floral / Grass / Shimmer Wall or Balloon Hoop',
+      'LED Neon Sign',
+      'Artificial Flowers',
+      'Balloon Arch'
+    ],
+    notIncluded: [
+      'Catering',
+      'Photography',
+      'Venue rental'
     ]
   },
   {
