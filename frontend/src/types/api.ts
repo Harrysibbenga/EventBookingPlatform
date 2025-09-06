@@ -89,8 +89,7 @@ export interface BookingCreate {
   services_needed?: string
   service_package_id?: string
   special_requirements?: string
-  dietary_restrictions?: string
-  accessibility_needs?: string
+
 
   // Contact information
   contact_name: string

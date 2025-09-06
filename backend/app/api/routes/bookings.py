@@ -5,8 +5,11 @@ Handles HTTP requests for booking inquiries and administration.
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Path
 from sqlalchemy.orm import Session
-from typing import List, Optional
+from typing import Optional
 import math
+
+from app.core.config import settings
+import uuid
 
 from app.core.database import get_db
 from app.schemas.booking import (
@@ -55,16 +58,45 @@ async def create_booking(
         )
         
     except ValidationError as e:
-        logger.warning(f"Booking validation error: {e}")
-        raise HTTPException(status_code=422, detail=str(e))
+        # Return user-friendly error with helpful information
+        raise HTTPException(
+            status_code=409 if e.error_code == "DUPLICATE_BOOKING" else 422,
+            detail={
+                "type": "validation_error",
+                "message": e.message,
+                "error_code": e.error_code,
+                **e.details
+            }
+        )
     
     except BookingServiceError as e:
-        logger.error(f"Booking service error: {e}")
-        raise HTTPException(status_code=500, detail="Failed to process booking inquiry")
+        # Handle service-specific errors
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "type": "service_error", 
+                "message": "We're experiencing technical difficulties. Please try again or contact us directly.",
+                "contact_info": {
+                    "email": getattr(settings, 'BUSINESS_EMAIL', None),
+                    "phone": getattr(settings, 'BUSINESS_PHONE', None)
+                },
+                "reference_id": str(uuid.uuid4())[:8]  # For tracking
+            }
+        )
     
     except Exception as e:
-        logger.error(f"Unexpected error creating booking: {e}")
-        raise HTTPException(status_code=500, detail="Internal server error")
+        logger.error(f"Unexpected error creating booking: {e}", exc_info=True)
+        raise HTTPException(
+            status_code=500,
+            detail={
+                "type": "system_error",
+                "message": "An unexpected error occurred. Our team has been notified. Please contact us directly or try again later.",
+                "contact_info": {
+                    "email": getattr(settings, 'BUSINESS_EMAIL', None),
+                    "phone": getattr(settings, 'BUSINESS_PHONE', None)
+                }
+            }
+        )
 
 
 @router.get("/", response_model=BookingList)

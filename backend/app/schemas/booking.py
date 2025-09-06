@@ -35,8 +35,6 @@ class BookingBase(BaseModel):
     services_needed: Optional[str] = Field(None, max_length=1000, description="Requested services")
     service_package_id: Optional[str] = Field(None, description="Service package ID if applicable")
     special_requirements: Optional[str] = Field(None, max_length=1000, description="Special requirements or notes")
-    dietary_restrictions: Optional[str] = Field(None, max_length=500)
-    accessibility_needs: Optional[str] = Field(None, max_length=500)
     
     # Contact information
     contact_name: str = Field(..., min_length=2, max_length=100, description="Contact person's full name")

@@ -60,8 +60,6 @@ class BookingService:
                 # Services and requirements
                 services_needed=booking_data.services_needed,
                 special_requirements=booking_data.special_requirements,
-                dietary_restrictions=booking_data.dietary_restrictions,
-                accessibility_needs=booking_data.accessibility_needs,
                 
                 # Contact information
                 contact_name=booking_data.contact_name,
@@ -414,3 +412,278 @@ class BookingService:
             )
         
         return query
+    
+# Enhanced booking service validation with user-friendly error messages
+
+from datetime import date, datetime, timedelta
+from typing import Dict, Any, Optional
+from app.utils.exceptions import ValidationError, BookingServiceError
+from app.models.booking import BookingStatus
+
+async def _validate_booking_creation(self, booking_data: BookingCreate):
+    """Enhanced validation with user-friendly error messages."""
+    
+    # Check for duplicate bookings (same email, same date)
+    existing_booking = self.db.query(Booking).filter(
+        and_(
+            Booking.contact_email == booking_data.contact_email.lower(),
+            Booking.event_date == booking_data.event_date,
+            Booking.status != BookingStatus.CANCELLED
+        )
+    ).first()
+    
+    if existing_booking:
+        # Create detailed error message based on existing booking status
+        error_details = self._create_duplicate_booking_error(existing_booking, booking_data)
+        raise ValidationError(
+            message=error_details["user_message"],
+            error_code="DUPLICATE_BOOKING",
+            details=error_details
+        )
+    
+    # Check event date is not too far in the future (2 years)
+    max_future_date = date.today() + timedelta(days=730)
+    if booking_data.event_date > max_future_date:
+        raise ValidationError(
+            message="We're currently accepting bookings up to 2 years in advance. Please contact us directly for events further in the future.",
+            error_code="DATE_TOO_FAR",
+            details={
+                "max_booking_date": max_future_date.isoformat(),
+                "contact_email": settings.BUSINESS_EMAIL,
+                "contact_phone": getattr(settings, 'BUSINESS_PHONE', None)
+            }
+        )
+    
+    # Check if event date is too soon (less than 7 days for large events)
+    days_until_event = (booking_data.event_date - date.today()).days
+    if days_until_event < 7 and booking_data.guest_count > 50:
+        raise ValidationError(
+            message="For events with more than 50 guests, we typically need at least 7 days notice. Please call us directly to discuss rush bookings.",
+            error_code="SHORT_NOTICE_LARGE_EVENT",
+            details={
+                "days_until_event": days_until_event,
+                "guest_count": booking_data.guest_count,
+                "contact_phone": getattr(settings, 'BUSINESS_PHONE', None),
+                "rush_booking_available": True
+            }
+        )
+    
+    # Validate guest count for event type
+    if booking_data.event_type == EventType.WEDDING and booking_data.guest_count < 10:
+        logger.warning(f"Small guest count ({booking_data.guest_count}) for wedding booking")
+        # This is just a warning, not an error
+
+def _create_duplicate_booking_error(self, existing_booking: Booking, new_booking_data: BookingCreate) -> Dict[str, Any]:
+    """Create detailed error information for duplicate bookings."""
+    
+    # Generate reference number for existing booking
+    reference_number = f"BK{existing_booking.id:06d}"
+    
+    # Determine user-friendly status
+    status_messages = {
+        BookingStatus.PENDING: "under review",
+        BookingStatus.CONTACTED: "being processed",
+        BookingStatus.QUOTED: "quoted and awaiting your response",
+        BookingStatus.CONFIRMED: "confirmed",
+        BookingStatus.COMPLETED: "completed"
+    }
+    
+    status_text = status_messages.get(existing_booking.status, "being processed")
+    
+    # Calculate time since booking
+    time_diff = datetime.utcnow() - existing_booking.created_at
+    if time_diff.days > 0:
+        time_text = f"{time_diff.days} day{'s' if time_diff.days != 1 else ''} ago"
+    else:
+        hours = int(time_diff.total_seconds() / 3600)
+        if hours > 0:
+            time_text = f"{hours} hour{'s' if hours != 1 else ''} ago"
+        else:
+            minutes = int(time_diff.total_seconds() / 60)
+            time_text = f"{minutes} minute{'s' if minutes != 1 else ''} ago"
+    
+    # Create appropriate user message based on status
+    if existing_booking.status == BookingStatus.PENDING:
+        user_message = f"""
+        We already have a booking inquiry from you for {existing_booking.event_date.strftime('%B %d, %Y')}.
+        
+        Your inquiry (Reference: {reference_number}) was submitted {time_text} and is currently under review.
+        
+        What to do next:
+        • Check your email for our confirmation message
+        • We typically respond within 24 hours
+        • If you need to make changes, please reply to our confirmation email
+        • For urgent matters, contact us at {getattr(settings, 'BUSINESS_EMAIL', 'our business email')}
+        
+        Need to modify your request? Contact us directly instead of submitting again.
+        """.strip()
+    
+    elif existing_booking.status == BookingStatus.CONTACTED:
+        user_message = f"""
+        Great news! We're already working on your booking inquiry for {existing_booking.event_date.strftime('%B %d, %Y')}.
+        
+        Your inquiry (Reference: {reference_number}) is currently being processed by our team.
+        
+        What to expect:
+        • We should have a detailed quote for you soon
+        • Check your email for updates from our team
+        • If you haven't heard from us in 48 hours, please give us a call
+        
+        Need to add or change something? Reply to our last email or call us directly.
+        """.strip()
+    
+    elif existing_booking.status == BookingStatus.QUOTED:
+        user_message = f"""
+        We've already sent you a quote for your event on {existing_booking.event_date.strftime('%B %d, %Y')}!
+        
+        Your inquiry (Reference: {reference_number}) has been quoted and is awaiting your response.
+        
+        Next steps:
+        • Check your email for our detailed quote
+        • Review the proposal and let us know if you'd like to proceed
+        • If you need modifications, reply to our quote email
+        • Ready to book? Follow the confirmation instructions in your quote
+        
+        Can't find our quote email? Contact us and we'll resend it immediately.
+        """.strip()
+    
+    elif existing_booking.status == BookingStatus.CONFIRMED:
+        user_message = f"""
+        Wonderful! Your event on {existing_booking.event_date.strftime('%B %d, %Y')} is already confirmed.
+        
+        Your booking (Reference: {reference_number}) is all set!
+        
+        What's next:
+        • You should have received a confirmation email with all details
+        • We'll be in touch closer to your event date with final details
+        • Need to make changes? Contact us directly
+        
+        Looking forward to making your event amazing!
+        """.strip()
+    
+    else:  # Default message
+        user_message = f"""
+        We already have a booking inquiry from you for {existing_booking.event_date.strftime('%B %d, %Y')}.
+        
+        Your inquiry (Reference: {reference_number}) is currently {status_text}.
+        
+        Please check your email for updates, or contact us directly if you need assistance.
+        """.strip()
+    
+    return {
+        "user_message": user_message,
+        "existing_booking_id": existing_booking.id,
+        "reference_number": reference_number,
+        "existing_status": existing_booking.status.value,
+        "existing_created_at": existing_booking.created_at.isoformat(),
+        "time_since_booking": time_text,
+        "contact_info": {
+            "email": getattr(settings, 'BUSINESS_EMAIL', None),
+            "phone": getattr(settings, 'BUSINESS_PHONE', None)
+        },
+        "recommendations": self._get_user_recommendations(existing_booking)
+    }
+
+def _get_user_recommendations(self, existing_booking: Booking) -> List[str]:
+    """Get specific recommendations based on booking status."""
+    
+    recommendations = []
+    
+    if existing_booking.status == BookingStatus.PENDING:
+        recommendations = [
+            "Check your email (including spam folder) for our confirmation",
+            "If urgent, call us directly rather than submitting again",
+            "We respond to all inquiries within 24 hours during business days"
+        ]
+    elif existing_booking.status == BookingStatus.CONTACTED:
+        recommendations = [
+            "Look for our follow-up email with next steps",
+            "If you have additional requirements, reply to our email",
+            "We'll send you a detailed quote within 2-3 business days"
+        ]
+    elif existing_booking.status == BookingStatus.QUOTED:
+        recommendations = [
+            "Review the quote we sent to your email",
+            "Contact us if you need any modifications",
+            "Confirm your booking by following the quote instructions",
+            "Quote is valid for 30 days from the send date"
+        ]
+    elif existing_booking.status == BookingStatus.CONFIRMED:
+        recommendations = [
+            "Your event is confirmed - no further action needed",
+            "We'll contact you 2 weeks before your event with final details",
+            "Any changes should be communicated directly to us",
+            "Thank you for choosing us for your special event!"
+        ]
+    
+    return recommendations
+
+
+# Frontend error handling helper (for your Vue component)
+"""
+// Enhanced frontend error handling
+const handleBookingError = (error: any) => {
+  if (error.response?.data?.error_code === 'DUPLICATE_BOOKING') {
+    // Show detailed duplicate booking information
+    const details = error.response.data
+    
+    showModal({
+      title: "Booking Already Exists",
+      message: details.message,
+      type: "info",
+      actions: [
+        {
+          text: "Check Email",
+          action: () => window.open('mailto:', '_blank')
+        },
+        {
+          text: "Contact Us", 
+          action: () => window.open(`tel:${details.contact_info.phone}`, '_blank')
+        }
+      ]
+    })
+    
+  } else if (error.response?.data?.error_code === 'SHORT_NOTICE_LARGE_EVENT') {
+    // Handle rush booking scenario
+    const details = error.response.data
+    
+    showModal({
+      title: "Rush Booking Available",
+      message: details.message,
+      type: "warning",
+      actions: [
+        {
+          text: "Call Now",
+          primary: true,
+          action: () => window.open(`tel:${details.contact_phone}`, '_blank')
+        },
+        {
+          text: "Modify Date",
+          action: () => {
+            // Allow user to change date
+            currentStep.value = 0
+          }
+        }
+      ]
+    })
+    
+  } else {
+    // Generic error handling
+    showModal({
+      title: "Booking Submission Error",
+      message: error.response?.data?.message || "Please try again or contact us directly.",
+      type: "error",
+      actions: [
+        {
+          text: "Try Again",
+          action: () => handleSubmit()
+        },
+        {
+          text: "Contact Us",
+          action: () => window.open(`mailto:${businessEmail}`, '_blank')
+        }
+      ]
+    })
+  }
+}
+"""

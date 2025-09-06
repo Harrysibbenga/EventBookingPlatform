@@ -416,33 +416,6 @@
             ></textarea>
           </div>
 
-          <!-- Additional Details -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div>
-              <label class="block text-sm font-medium text-neutral-700 mb-2">
-                Dietary Restrictions
-              </label>
-              <input
-                v-model="formData.dietary_restrictions"
-                type="text"
-                placeholder="e.g., Vegetarian, Gluten-free, Allergies"
-                class="form-input"
-              />
-            </div>
-
-            <div>
-              <label class="block text-sm font-medium text-neutral-700 mb-2">
-                Accessibility Needs
-              </label>
-              <input
-                v-model="formData.accessibility_needs"
-                type="text"
-                placeholder="e.g., Wheelchair access, Special accommodations"
-                class="form-input"
-              />
-            </div>
-          </div>
-
           <!-- How did you hear about us -->
           <div>
             <label class="block text-sm font-medium text-neutral-700 mb-2">
@@ -696,8 +669,6 @@ const formData = reactive<Partial<BookingCreate>>({
   budget_flexible: true,
   services_needed: '',
   special_requirements: '',
-  dietary_restrictions: '',
-  accessibility_needs: '',
   contact_name: '',
   contact_email: '',
   contact_phone: '',
@@ -727,6 +698,8 @@ const suggestedServices = computed(() => {
       return ['Wedding Package', 'Shimmer Wall', 'LED Neon Signs', 'Artificial Florals']
     case EventType.BABY_SHOWER:
       return ['Baby Shower Package', 'Balloon Arch', 'LED Neon Signs']
+      case EventType.GENDER_REVEAL:
+      return ['Gender Reveal Package', 'Balloon Arch', 'LED Neon Signs']
     case EventType.ENGAGEMENT:
       return ['Engagement Package', 'LED Neon Signs', 'Artificial Florals']
     case EventType.ANNIVERSARY:

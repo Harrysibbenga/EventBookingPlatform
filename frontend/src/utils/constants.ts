@@ -130,7 +130,18 @@ export const EVENT_TYPE_CONFIG = {
     minGuests: 10,
     maxGuests: 100,
     avgDuration: 3,
-    basePrice: 600,
+    basePrice: 250,
+    popular: false
+  },
+  [EventType.GENDER_REVEAL]: {
+    label: 'Gender Reveal',
+    description: 'Baby showers and gender reveal parties',
+    icon: '👶',
+    color: 'accent',
+    minGuests: 10,
+    maxGuests: 100,
+    avgDuration: 3,
+    basePrice: 230,
     popular: false
   },
   [EventType.ENGAGEMENT]: {
