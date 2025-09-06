@@ -237,11 +237,11 @@ class EmailService:
             # Format budget range
             budget_range = "Not specified"
             if booking_data.get("budget_min") and booking_data.get("budget_max"):
-                budget_range = f"${booking_data['budget_min']:,.2f} - ${booking_data['budget_max']:,.2f}"
+                budget_range = f"£{booking_data['budget_min']:,.2f} - £{booking_data['budget_max']:,.2f}"
             elif booking_data.get("budget_min"):
-                budget_range = f"${booking_data['budget_min']:,.2f}+"
+                budget_range = f"£{booking_data['budget_min']:,.2f}+"
             elif booking_data.get("budget_max"):
-                budget_range = f"Up to ${booking_data['budget_max']:,.2f}"
+                budget_range = f"Up to £{booking_data['budget_max']:,.2f}"
             
             # Generate reference number
             reference_number = f"BK{booking_data['id']:06d}"
@@ -594,11 +594,11 @@ class EmailService:
     def _format_budget_range(self, booking_data: Dict[str, Any]) -> str:
         """Format budget range for display."""
         if booking_data.get("budget_min") and booking_data.get("budget_max"):
-            return f"${booking_data['budget_min']:,.2f} - ${booking_data['budget_max']:,.2f}"
+            return f"£{booking_data['budget_min']:,.2f} - £{booking_data['budget_max']:,.2f}"
         elif booking_data.get("budget_min"):
-            return f"${booking_data['budget_min']:,.2f}+"
+            return f"£{booking_data['budget_min']:,.2f}+"
         elif booking_data.get("budget_max"):
-            return f"Up to ${booking_data['budget_max']:,.2f}"
+            return f"Up to £{booking_data['budget_max']:,.2f}"
         return "Not specified"
 
     def _safe_datetime_format(self, dt_value) -> str:

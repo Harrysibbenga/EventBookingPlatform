@@ -743,8 +743,10 @@ const suggestedServices = computed(() => {
       return ['Wedding Package', 'Shimmer Wall', 'LED Neon Signs', 'Artificial Florals']
     case EventType.BABY_SHOWER:
       return ['Baby Shower Package', 'Balloon Arch', 'LED Neon Signs']
-      case EventType.GENDER_REVEAL:
+    case EventType.GENDER_REVEAL:
       return ['Gender Reveal Package', 'Balloon Arch', 'LED Neon Signs']
+    case EventType.PROPOSAL:
+      return ['Proposal Package', 'LED Neon Signs', 'Artificial Florals']
     case EventType.ENGAGEMENT:
       return ['Engagement Package', 'LED Neon Signs', 'Artificial Florals']
     case EventType.ANNIVERSARY:

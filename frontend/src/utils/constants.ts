@@ -166,6 +166,17 @@ export const EVENT_TYPE_CONFIG = {
     basePrice: 1200,
     popular: false
   },
+  [EventType.PROPOSAL]: {
+    label: 'Proposal',
+    description: 'Romantic proposals and engagement celebrations',
+    icon: '💍',
+    color: 'primary',
+    minGuests: 0,
+    maxGuests: 50,
+    avgDuration: 2,
+    basePrice: 300,
+    popular: false
+  },
   [EventType.HOLIDAY]: {
     label: 'Holiday Event',
     description: 'Holiday parties and seasonal celebrations',
