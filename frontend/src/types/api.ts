@@ -239,9 +239,11 @@ export interface DetailedHealthCheck {
 // ==============================================
 
 export interface ApiResponse<T> {
-  data?: T
-  error?: string
-  message?: string
+  data: T | null
+  error: boolean
+  message: string
+  status?: number
+  errorDetails?: any // Add this to include full error details
 }
 
 export interface ApiError {

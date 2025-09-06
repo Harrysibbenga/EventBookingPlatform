@@ -1,21 +1,24 @@
+# app/api/routes/bookings.py
 """
-API routes for booking management.
-Handles HTTP requests for booking inquiries and administration.
+Enhanced API routes for booking management with comprehensive error handling.
 """
 
 from fastapi import APIRouter, Depends, HTTPException, Query, Path
 from sqlalchemy.orm import Session
-from typing import Optional
+from typing import Optional, Union
+from datetime import datetime
 import math
-
-from app.core.config import settings
 import uuid
 
+from app.core.config import get_settings
 from app.core.database import get_db
 from app.schemas.booking import (
     BookingCreate, BookingResponse, BookingUpdate, BookingList,
     BookingStats, BookingFilter, BookingConfirmation, BookingFormOptions,
     EventTypeOption, ServiceOption
+)
+from app.schemas.responses import ( DuplicateBookingError, MinimumTimeframeError,
+    ValidationErrorResponse, ServiceErrorResponse, ContactInfo
 )
 from app.services.booking_service import BookingService
 from app.models.booking import EventType, ContactMethod, BookingStatus
@@ -24,18 +27,26 @@ from app.utils.exceptions import BookingServiceError, ValidationError
 
 logger = get_logger(__name__)
 router = APIRouter(prefix="/bookings")
+settings = get_settings()
 
 
-@router.post("/", response_model=BookingConfirmation, status_code=201)
+@router.post("/", status_code=201)
 async def create_booking(
     booking_data: BookingCreate,
     db: Session = Depends(get_db)
-):
+) -> Union[BookingConfirmation, DuplicateBookingError, MinimumTimeframeError, ValidationErrorResponse, ServiceErrorResponse]:
     """
-    Create a new booking inquiry.
+    Create a new booking inquiry with enhanced error handling.
     
     This endpoint handles the submission of event booking inquiries from the frontend.
     It validates the data, creates the booking record, and sends confirmation emails.
+    
+    Returns different response models based on the outcome:
+    - BookingSuccessResponse: On successful creation
+    - DuplicateBookingError: When a booking already exists for the same email/date
+    - MinimumTimeframeError: When booking doesn't meet minimum advance notice
+    - ValidationErrorResponse: For field validation errors
+    - ServiceErrorResponse: For technical/service errors
     """
     try:
         service = BookingService(db)
@@ -58,44 +69,75 @@ async def create_booking(
         )
         
     except ValidationError as e:
-        # Return user-friendly error with helpful information
-        raise HTTPException(
-            status_code=409 if e.error_code == "DUPLICATE_BOOKING" else 422,
-            detail={
-                "type": "validation_error",
-                "message": e.message,
-                "error_code": e.error_code,
-                **e.details
-            }
-        )
+        # Handle different types of validation errors
+        if e.error_code == "DUPLICATE_BOOKING":
+            # Properly format duplicate booking error
+            error_details = e.details.copy()
+            # Fix datetime serialization
+            if 'timestamp' in error_details:
+                error_details['timestamp'] = datetime.utcnow().isoformat()
+            
+            if 'message' not in error_details:
+                error_details['message'] = e.message
+            
+            raise HTTPException(
+                status_code=409,  # Use 409 for duplicate resource
+                detail=error_details
+            )
+        else:
+            # Handle other validation errors
+            raise HTTPException(
+                status_code=422,
+                detail={
+                    "status": "error",
+                    "message": e.message,
+                    "error_code": e.error_code,
+                    "validation_errors": [
+                        {
+                            "field": e.details.get("field", "unknown"),
+                            "message": e.message,
+                            "type": e.error_code
+                        }
+                    ],
+                    "timestamp": datetime.utcnow().isoformat()
+                }
+            )
     
     except BookingServiceError as e:
         # Handle service-specific errors
+        reference_id = str(uuid.uuid4())[:8]
+        logger.error(f"Booking service error [{reference_id}]: {e}")
+        
         raise HTTPException(
             status_code=500,
-            detail={
-                "type": "service_error", 
-                "message": "We're experiencing technical difficulties. Please try again or contact us directly.",
-                "contact_info": {
-                    "email": getattr(settings, 'BUSINESS_EMAIL', None),
-                    "phone": getattr(settings, 'BUSINESS_PHONE', None)
-                },
-                "reference_id": str(uuid.uuid4())[:8]  # For tracking
-            }
+            detail=ServiceErrorResponse(
+                message="We're experiencing technical difficulties. Please try again or contact us directly.",
+                error_code="SERVICE_ERROR",
+                reference_id=reference_id,
+                contact_info=ContactInfo(
+                    email=getattr(settings, 'BUSINESS_EMAIL', 'info@business.com'),
+                    phone=getattr(settings, 'BUSINESS_PHONE', None)
+                ),
+                retry_after=30
+            ).dict()
         )
     
     except Exception as e:
-        logger.error(f"Unexpected error creating booking: {e}", exc_info=True)
+        # Handle unexpected errors
+        reference_id = str(uuid.uuid4())[:8]
+        logger.error(f"Unexpected booking error [{reference_id}]: {e}", exc_info=True)
+        
         raise HTTPException(
             status_code=500,
-            detail={
-                "type": "system_error",
-                "message": "An unexpected error occurred. Our team has been notified. Please contact us directly or try again later.",
-                "contact_info": {
-                    "email": getattr(settings, 'BUSINESS_EMAIL', None),
-                    "phone": getattr(settings, 'BUSINESS_PHONE', None)
-                }
-            }
+            detail=ServiceErrorResponse(
+                message="An unexpected error occurred. Our team has been notified. Please contact us directly or try again later.",
+                error_code="SYSTEM_ERROR",
+                reference_id=reference_id,
+                contact_info=ContactInfo(
+                    email=getattr(settings, 'BUSINESS_EMAIL', 'info@business.com'),
+                    phone=getattr(settings, 'BUSINESS_PHONE', None)
+                )
+            ).dict()
         )
 
 
@@ -354,7 +396,12 @@ def get_form_options():
             EventTypeOption(
                 value=EventType.BABY_SHOWER.value,
                 label="Baby Shower",
-                description="Baby showers and gender reveal parties"
+                description="Baby showers and welcoming celebrations"
+            ),
+            EventTypeOption(
+                value=EventType.GENDER_REVEAL.value,
+                label="Gender Reveal",
+                description="Gender reveal parties and announcements"
             ),
             EventTypeOption(
                 value=EventType.ENGAGEMENT.value,
@@ -378,72 +425,77 @@ def get_form_options():
             )
         ]
         
-        # Service options
+        # Service options (matching your existing services)
         services = [
             ServiceOption(
-                id="catering",
-                name="Catering",
-                description="Full-service catering and menu planning",
-                base_price=25.00,
+                id="led-numbers",
+                name="4FT LED Number Hire",
+                description="Illuminated LED numbers for birthdays, anniversaries, and celebrations.",
+                base_price=50.00,
                 is_popular=True
             ),
             ServiceOption(
-                id="photography",
-                name="Photography",
-                description="Professional event photography",
-                base_price=500.00,
+                id="birthday-package",
+                name="Birthday Package",
+                description="Complete birthday setup with LED numbers, balloon arch, shimmer wall, neon sign and more.",
+                base_price=230.00,
                 is_popular=True
             ),
             ServiceOption(
-                id="videography",
-                name="Videography",
-                description="Event videography and editing",
-                base_price=800.00
+                id="baby-shower-package",
+                name="Baby Shower Package",
+                description="Celebrate new arrivals with a magical themed display including BABY balloon boxes and teddy.",
+                base_price=250.00,
+                is_popular=False
             ),
             ServiceOption(
-                id="dj",
-                name="DJ Services",
-                description="Professional DJ and sound system",
-                base_price=400.00,
+                id="gender-reveal-package",
+                name="Gender Reveal Package",
+                description="Stylish setup for gender reveal parties with backdrop, neon sign and balloons.",
+                base_price=230.00,
+                is_popular=False
+            ),
+            ServiceOption(
+                id="christening-package",
+                name="Christening Package",
+                description="Elegant setup for christening celebrations with a soft, welcoming theme.",
+                base_price=180.00,
+                is_popular=False
+            ),
+            ServiceOption(
+                id="wedding-package",
+                name="Wedding Package",
+                description="Elegant wedding package with floral displays, shimmer walls, neon sign and balloon arch.",
+                base_price=250.00,
                 is_popular=True
             ),
             ServiceOption(
-                id="live_band",
-                name="Live Band",
-                description="Live music entertainment",
-                base_price=1200.00
+                id="engagement-package",
+                name="Engagement Package",
+                description="Celebrate engagements with a romantic backdrop, neon lighting, flowers and balloons.",
+                base_price=250.00,
+                is_popular=False
             ),
             ServiceOption(
-                id="decoration",
-                name="Decoration",
-                description="Event decoration and styling",
-                base_price=300.00,
-                is_popular=True
+                id="retirement-package",
+                name="Retirement Package",
+                description="Send off in style with a full event backdrop, neon lighting, flowers and balloons.",
+                base_price=250.00,
+                is_popular=False
             ),
             ServiceOption(
-                id="flowers",
-                name="Floral Arrangements",
-                description="Fresh flower arrangements and centerpieces",
-                base_price=200.00
+                id="anniversary-package",
+                name="Anniversary Package",
+                description="Celebrate anniversaries with LED numbers, balloons, flowers and a neon backdrop.",
+                base_price=250.00,
+                is_popular=False
             ),
             ServiceOption(
-                id="lighting",
-                name="Lighting",
-                description="Professional event lighting design",
-                base_price=350.00
-            ),
-            ServiceOption(
-                id="planning",
-                name="Event Planning",
-                description="Full event planning and coordination",
-                base_price=1000.00,
-                is_popular=True
-            ),
-            ServiceOption(
-                id="bartending",
-                name="Bartending",
-                description="Professional bartending services",
-                base_price=300.00
+                id="custom-signs",
+                name="Customised Wooden Signs",
+                description="Personalised wooden signs created with precision laser cutting technology.",
+                base_price=30.00,
+                is_popular=False
             )
         ]
         
@@ -456,20 +508,9 @@ def get_form_options():
         
         # Venue types
         venue_types = [
-            "Indoor",
-            "Outdoor",
-            "Garden",
-            "Beach",
-            "Church",
-            "Reception Hall",
-            "Restaurant",
-            "Hotel",
-            "Private Residence",
-            "Community Center",
-            "Country Club",
-            "Barn",
-            "Rooftop",
-            "Other"
+            "Indoor Venue", "Outdoor Venue", "Garden", "Marquee", "Church", "Village Hall", 
+            "Hotel", "Restaurant", "Private Residence", "Community Centre", 
+            "Barn", "Country House", "Registry Office", "Other"
         ]
         
         # Time slots
@@ -488,7 +529,7 @@ def get_form_options():
             venue_types=venue_types,
             time_slots=time_slots,
             max_guest_count=1000,
-            min_advance_days=7
+            min_advance_days=0  # Set to 0 as requested (no minimum timeframe)
         )
         
     except Exception as e:
