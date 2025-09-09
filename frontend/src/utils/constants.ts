@@ -14,7 +14,7 @@ export const BUSINESS_INFO = {
   name: 'Roman Events',
   tagline: 'Milton Keynes Based Event Hire & Design Services',
   description:
-    'Roman Events provides professional event hire and design services in Milton Keynes and surrounding areas. We specialise in 4FT LED number hire, custom balloon displays, shimmer walls, floral backdrops, neon signs, and complete themed packages for birthdays, weddings, baby showers, engagements, anniversaries, and more.',
+    'Roman Events provides professional event hire and design services in Milton Keynes and surrounding areas. We specialise in 4FT LED numbers & Letters hire, custom balloon displays, shimmer walls, floral backdrops, neon signs, and complete themed packages for birthdays, weddings, baby showers, engagements, anniversaries, and more.',
 
   // Contact information
   email: 'romaneventsmk@gmail.com',
@@ -42,9 +42,6 @@ export const BUSINESS_INFO = {
   social: {
     instagram: 'https://www.instagram.com/romaneventsmk/',
     facebook: 'https://www.facebook.com/people/Roman-Events-MK/',
-    // twitter: 'https://twitter.com/romaneventsmk',
-    // linkedin: 'https://linkedin.com/company/romaneventsmk',
-    // pinterest: 'https://pinterest.com/romaneventsmk'
   },
 
   // Founded year
@@ -234,26 +231,31 @@ export const CONTACT_TYPE_CONFIG = {
 export const SERVICES = [
   {
     id: 'led-numbers',
-    name: '4FT LED Number Hire',
+    name: '4FT LED Numbers & Letters Hire',
     description:
-      'Illuminated LED numbers for birthdays, anniversaries, and celebrations.',
+      'Illuminated LED Numbers & Letters for birthdays, anniversaries, and celebrations.',
     image: PACKAGES.numberPackage.src,
     alt: PACKAGES.numberPackage.alt,
     basePrice: 50,
-    priceUnit: 'per number (24 hrs)',
+    priceUnit: 'for 1 / £80 for 2',
     category: 'numbers',
     popular: true,
     options: [
-      '1 Number (24 hours) - £50',
-      '2 Numbers (24 hours) - £80',
+      '1 Number or Letter (24 hours) - £50',
+      '2 Numbers or Letters (24 hours) - £80',
       'With Balloon Display (any colour theme) - from £120'
+    ],
+    features: [
+      'Drop off, Set up & Pick up',
+      'Available in all numbers 0-9 and letters A-Z',
     ]
+    
   },
   {
     id: 'birthday-package',
     name: 'Birthday Package',
     description:
-      'Complete birthday setup with LED numbers, balloon arch, shimmer wall, neon sign and more.',
+      'Complete birthday setup with LED Numbers & Letters, balloon arch, shimmer wall, neon sign and more.',
     image: PACKAGES.birthdayPackage.src,
     alt: PACKAGES.birthdayPackage.alt,
     basePrice: 230,
@@ -261,7 +263,7 @@ export const SERVICES = [
     popular: true,
     features: [
       'Floral / Grass / Shimmer Wall or Balloon Hoop',
-      'LED Numbers',
+      'LED Numbers & Letters',
       'LED Neon Sign',
       'Balloon Arch'
     ]
@@ -366,7 +368,7 @@ export const SERVICES = [
     id: 'anniversary-package',
     name: 'Anniversary Package',
     description:
-      'Celebrate anniversaries with LED numbers, balloons, flowers and a neon backdrop.',
+      'Celebrate anniversaries with LED Numbers & Letters, balloons, flowers and a neon backdrop.',
     image: PACKAGES.anniversaryPackage.src,
     alt: PACKAGES.anniversaryPackage.alt,
     basePrice: 250,
@@ -374,7 +376,7 @@ export const SERVICES = [
     features: [
       'Floral / Grass / Shimmer Wall or Balloon Hoop',
       'LED Neon Sign',
-      'Numbers',
+      'Numbers & Letters',
       'Artificial Flowers',
       'Balloon Arch'
     ]
@@ -409,6 +411,7 @@ export const SERVICES = [
       'Shimmer wall',
       'Neon light',
       'Light up number',
+      'Light up letters',
       'Balloon display',
       'Props'
     ]
@@ -438,8 +441,8 @@ export const SERVICES = [
 export const PRICING_TIERS = [
   {
     id: 'led-numbers',
-    name: 'LED Number Hire',
-    description: '4FT LED illuminated numbers for birthdays, anniversaries, and celebrations.',
+    name: 'LED Numbers & Letters Hire',
+    description: '4FT LED illuminated numbers & letters for birthdays, anniversaries, and celebrations.',
     price: 50,
     maxGuests: 50,
     duration: 1, // 24 hours
@@ -458,14 +461,14 @@ export const PRICING_TIERS = [
   {
     id: 'birthday-package',
     name: 'Birthday Package',
-    description: 'Complete birthday setup including balloons, shimmer wall, LED numbers and neon sign.',
+    description: 'Complete birthday setup including balloons, shimmer wall, LED Numbers & Letters and neon sign.',
     price: 230,
     maxGuests: 100,
     duration: 1,
     popular: true,
     features: [
       'Floral / Grass / Shimmer Wall or Balloon Hoop',
-      'LED Numbers',
+      'LED Numbers & Letters',
       'LED Neon Sign',
       'Balloon Arch'
     ],
@@ -559,7 +562,7 @@ export const PRICING_TIERS = [
   {
     id: 'anniversary-package',
     name: 'Anniversary Package',
-    description: 'Mark special anniversaries with LED numbers, floral decor, balloons, and neon lights.',
+    description: 'Mark special anniversaries with LED Numbers & Letters, floral decor, balloons, and neon lights.',
     price: 250,
     maxGuests: 150,
     duration: 1,
@@ -676,7 +679,9 @@ export const SEO_CONFIG = {
   twitterHandle: '@romaneventsmk', // update if you set up social media
   facebookAppId: '123456789', // replace with real if available
   keywords: [
-    'LED number hire Milton Keynes',
+    'LED Numbers hire Milton Keynes',
+    'LED Letters hire Milton Keynes',
+    'LED Numbers and letters hire Milton Keynes',
     'balloon displays Milton Keynes',
     'shimmer wall hire Milton Keynes',
     'event hire Milton Keynes',
